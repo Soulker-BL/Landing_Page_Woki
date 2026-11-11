@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { valores } from '../data/content';
+---
+<Layout title="Nosotros | Woki" description="Conoce Woki, la plataforma local que acerca a pasajeros y conductores de taxi urbano en Cerro de Pasco.">
+  <Header solid />
+  <main>
+    <section class="subpage-hero"><div class="wrap"><p class="eyebrow">Quiénes somos</p><h1>La ciudad se mueve mejor cuando nos acercamos.</h1><p class="lead">Woki conecta pasajeros y conductores de taxi urbano en Cerro de Pasco con una experiencia sencilla, cercana y pensada para la vida local.</p><a class="btn solid" href="/#como-funciona">Descubre cómo funciona</a></div><figure class="company-image-shape" aria-label="Espacio reservado para una foto del equipo Woki"><div class="image-dropzone"><span class="image-icon" aria-hidden="true">W</span><span class="image-caption">Foto del equipo Woki<small>Reemplaza por public/images/woki-nosotros.jpg</small></span></div></figure></section>
+    <section class="about"><div class="wrap about-grid"><div><p class="eyebrow dark">Nuestra idea</p><h2>Tecnología útil, hecha para moverse por aquí</h2><p class="lead">Creemos que pedir un taxi puede ser claro desde el primer toque: saber quién viene, compartir los datos del viaje y llegar con más tranquilidad. Por eso construimos Woki para conectar a la comunidad con herramientas digitales prácticas.</p><p class="about-note">Woki Mobility S.A.C. · Cerro de Pasco, Perú</p></div><ul class="values">{valores.map((v) => <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={v.p} /></svg></span><h3>{v.t}</h3><p>{v.d}</p></li>)}</ul></div></section>
+    <section class="about-cta"><div class="wrap"><h2>¿Te mueves con Woki?</h2><p>Conoce el servicio para pasajeros y conductores.</p><a class="btn solid" href="/#descargar">Ver opciones de descarga</a></div></section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</Layout>

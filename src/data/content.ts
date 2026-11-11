@@ -2,7 +2,7 @@ export const beneficios = [
   { t: 'Viajes seguros', d: 'Conductores verificados con documentos y vehículo al día.', p: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
   { t: 'Rápido', d: 'Solicita tu taxi en segundos y mira cuánto tarda en llegar.', p: 'M13 2L4 14h7l-1 8 9-12h-7l1-8z' },
   { t: 'Confiable', d: 'Seguimiento del viaje en tiempo real, de principio a fin.', p: 'M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2 0a2 2 0 104 0 2 2 0 10-4 0' },
-  { t: 'Soporte 24/7', d: 'Un equipo disponible cuando lo necesites, siempre contigo.', p: 'M4 14v-2a8 8 0 0116 0v2M4 14h3v5H4zM17 14h3v5h-3zM20 19c0 2-3 2-6 2' },
+  { t: 'Acompañamiento', d: 'Información clara para ayudarte durante la experiencia de viaje.', p: 'M4 14v-2a8 8 0 0116 0v2M4 14h3v5H4zM17 14h3v5h-3zM20 19c0 2-3 2-6 2' },
 ];
 
 export const pasajero: [string, string][] = [
@@ -49,18 +49,14 @@ export function buildJsonLd(site?: URL) {
   const base = site ?? new URL('https://woki.com.pe');
   return [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'Woki', url: base.href, logo: new URL('/favicon.svg', base).href },
-    { '@context': 'https://schema.org', '@type': 'MobileApplication', name: 'Woki – Taxi Urbano', operatingSystem: 'ANDROID, IOS', applicationCategory: 'TravelApplication', offers: { '@type': 'Offer', price: '0', priceCurrency: 'PEN' }, areaServed: 'Cerro de Pasco, Perú' },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ];
 }
 
 // Datos de contacto (cámbialos por los reales)
 export const contacto = {
-  whatsapp: '51900000000',
-  whatsappLabel: '+51 900 000 000',
   email: 'hola@woki.com.pe',
   ubicacion: 'Cerro de Pasco, Pasco, Perú',
-  formAction: 'https://formspree.io/f/TU_ID', // crea un formulario gratis en formspree.io y pega tu ID
 };
 
 export const funciones = [

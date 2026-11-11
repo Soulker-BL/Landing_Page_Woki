@@ -6,8 +6,8 @@ const links = [
   ['/#como-funciona', 'Cómo funciona'],
   ['/#seguridad', 'Seguridad'],
   ['/#conductores', 'Conductores'],
-  ['/#nosotros', 'Nosotros'],
-  ['/#contacto', 'Contacto'],
+  ['/nosotros', 'Nosotros'],
+  ['/contacto', 'Contáctanos'],
 ] as const;
 ---
 <header class:list={['top', { scrolled: solid }]} id="inicio" data-solid={solid ? '' : undefined}>
@@ -23,3 +23,4 @@ const links = [
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </header>
+{!solid && <div class="scroll-progress" aria-hidden="true"><span></span></div>}

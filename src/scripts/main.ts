@@ -67,8 +67,16 @@ if (!('IntersectionObserver' in window)) {
 // Navbar: estilo al bajar y menú móvil
 const header = document.querySelector<HTMLElement>('.top');
 const burger = document.querySelector<HTMLButtonElement>('.burger');
+const scrollProgress = document.querySelector<HTMLElement>('.scroll-progress > span');
 if (header && burger) {
-  const onScroll = () => header.classList.toggle('scrolled', header.hasAttribute('data-solid') || window.scrollY > 10);
+  const onScroll = () => {
+    header.classList.toggle('scrolled', header.hasAttribute('data-solid') || window.scrollY > 10);
+    if (scrollProgress) {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+      scrollProgress.style.transform = `scaleX(${progress})`;
+    }
+  };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -78,4 +86,84 @@ if (header && burger) {
   };
   burger.addEventListener('click', () => setMenu(!header.classList.contains('open')));
   all<HTMLAnchorElement>('#menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+}
+
+// Las etapas cambian la escena ilustrada según el rol seleccionado.
+all<HTMLElement>('[data-journey]').forEach((journey) => {
+  const scene = journey.querySelector<HTMLElement>('[data-ride-scene]');
+  const title = journey.querySelector<HTMLElement>('[data-scene-title]');
+  const description = journey.querySelector<HTMLElement>('[data-scene-description]');
+  const frame = journey.querySelector<HTMLElement>('[data-stage-frame]');
+  const image = journey.querySelector<HTMLElement>('[data-stage-image]');
+  const placeholderTitle = journey.querySelector<HTMLElement>('[data-placeholder-title]');
+  const placeholderPath = journey.querySelector<HTMLElement>('[data-placeholder-path]');
+  const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
+  const showStage = (button: HTMLButtonElement, loadImage = true) => {
+    const titleText = button.dataset.title ?? '';
+    const imagePath = button.dataset.image ?? '';
+    if (scene) scene.dataset.step = button.dataset.step ?? '0';
+    if (title) title.textContent = titleText;
+    if (description) description.textContent = button.dataset.description ?? '';
+    if (placeholderTitle) placeholderTitle.textContent = titleText;
+    if (placeholderPath) placeholderPath.textContent = imagePath.replace(/^\//, '');
+    if (frame) frame.classList.remove('has-image');
+    if (image && imagePath && loadImage) {
+      image.setAttribute('aria-label', titleText);
+      const preload = new Image();
+      preload.onload = () => {
+        image.style.backgroundImage = `url("${imagePath}")`;
+        frame?.classList.add('has-image');
+      };
+      preload.onerror = () => frame?.classList.remove('has-image');
+      preload.src = imagePath;
+    }
+  };
+  const initial = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
+  if (initial) showStage(initial, false);
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      showStage(button);
+    });
+  });
+});
+
+// Formulario de contacto: usa el endpoint configurado o prepara un correo.
+const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
+if (contactForm) {
+  const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(contactForm);
+    if (data.get('website')) return;
+    const endpoint = contactForm.dataset.endpoint;
+    if (endpoint) {
+      if (status) status.textContent = 'Enviando tu mensaje…';
+      try {
+        const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('No se pudo enviar el mensaje.');
+        contactForm.reset();
+        if (status) status.textContent = '¡Gracias! Recibimos tu mensaje.';
+      } catch {
+        if (status) status.textContent = 'No pudimos enviarlo ahora. Intenta de nuevo o escríbenos por correo.';
+      }
+      return;
+    }
+
+    const email = contactForm.dataset.email;
+    if (!email) {
+      if (status) status.textContent = 'El correo de contacto aún no está configurado.';
+      return;
+    }
+    const subject = `Consulta Woki: ${String(data.get('motivo') ?? '')}`;
+    const body = [
+      `Nombre: ${data.get('nombre') ?? ''}`,
+      `Correo o teléfono: ${data.get('contacto') ?? ''}`,
+      `Motivo: ${data.get('motivo') ?? ''}`,
+      '',
+      String(data.get('mensaje') ?? ''),
+    ].join('\n');
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (status) status.textContent = 'Se abrirá tu correo con el mensaje listo para enviar.';
+  });
 }

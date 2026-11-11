@@ -5,8 +5,6 @@ import Cta from '../components/Cta.astro';
 import Footer from '../components/Footer.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 import Features from '../components/Features.astro';
-import About from '../components/About.astro';
-import Contact from '../components/Contact.astro';
 import { beneficios, pasajero, conductor, faqs, buildJsonLd } from '../data/content';
 
 const jsonLd = buildJsonLd(Astro.site);
@@ -42,8 +40,8 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="benefits" id="seguridad" aria-labelledby="h-ben">
       <div class="wrap">
-        <h2 id="h-ben">Tu taxi urbano, más cerca</h2>
-        <p class="lead">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
+        <h2 id="h-ben" data-reveal>Tu taxi urbano, más cerca</h2>
+        <p class="lead" data-reveal style="--i:1">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
         <div class="grid4">
           {beneficios.map((b) => (
             <article data-reveal class="benefit">
@@ -58,13 +56,37 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="how" id="como-funciona" aria-labelledby="h-how">
       <div class="wrap tabs">
-        <h2 id="h-how">Cómo funciona Woki</h2>
-        <p class="lead">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
+        <p class="lead" data-reveal style="--i:1">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
         <input type="radio" name="rol" id="t-pas" checked />
         <input type="radio" name="rol" id="t-con" />
         <div class="tablist"><label for="t-pas">Pasajero</label><label for="t-con">Conductor</label></div>
-        <ol class="steps panel p-pas">{pasajero.map(([t, d]) => <li data-reveal><h3>{t}</h3><p>{d}</p></li>)}</ol>
-        <ol class="steps panel p-con">{conductor.map(([t, d]) => <li data-reveal><h3>{t}</h3><p>{d}</p></li>)}</ol>
+        <div class="journey panel p-pas" data-journey data-role="pasajero" aria-label="Recorrido interactivo del pasajero">
+          <div class="journey-top"><span class="journey-live">Tu viaje, en cuatro momentos</span><span class="journey-caption">Selecciona una etapa para ver su imagen</span></div>
+          <div class="journey-layout">
+            <ol class="steps">{pasajero.map(([t, d], i) => <li><button class="journey-step" type="button" data-step-button data-step={i} data-title={t} data-description={d} data-image={`/images/pasos/pasajero-${i + 1}.jpg`} aria-pressed={i === 0 ? 'true' : 'false'}><span class="step-number">{String(i + 1).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {i + 1}</small><b>{t}</b><span>{d}</span></span></button></li>)}</ol>
+            <figure class="ride-scene" data-ride-scene data-step="0" aria-label="Imagen de la etapa del pasajero">
+              <div class="stage-image-frame" data-stage-frame>
+                <div class="stage-image-photo" data-stage-image role="img" aria-label=""></div>
+                <div class="image-placeholder" data-image-placeholder><span class="image-placeholder-icon" aria-hidden="true">＋</span><b data-placeholder-title>{pasajero[0][0]}</b><small>Adjunta tu imagen en <code data-placeholder-path>public/images/pasos/pasajero-1.jpg</code></small></div>
+              </div>
+              <figcaption><b data-scene-title>{pasajero[0][0]}</b><span data-scene-description>{pasajero[0][1]}</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="journey panel p-con" data-journey data-role="conductor" aria-label="Recorrido interactivo del conductor">
+          <div class="journey-top"><span class="journey-live">Tu jornada, en cuatro momentos</span><span class="journey-caption">Selecciona una etapa para ver su imagen</span></div>
+          <div class="journey-layout">
+            <ol class="steps">{conductor.map(([t, d], i) => <li><button class="journey-step" type="button" data-step-button data-step={i} data-title={t} data-description={d} data-image={`/images/pasos/conductor-${i + 1}.jpg`} aria-pressed={i === 0 ? 'true' : 'false'}><span class="step-number">{String(i + 1).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {i + 1}</small><b>{t}</b><span>{d}</span></span></button></li>)}</ol>
+            <figure class="ride-scene driver-scene" data-ride-scene data-step="0" aria-label="Imagen de la etapa del conductor">
+              <div class="stage-image-frame" data-stage-frame>
+                <div class="stage-image-photo" data-stage-image role="img" aria-label=""></div>
+                <div class="image-placeholder" data-image-placeholder><span class="image-placeholder-icon" aria-hidden="true">＋</span><b data-placeholder-title>{conductor[0][0]}</b><small>Adjunta tu imagen en <code data-placeholder-path>public/images/pasos/conductor-1.jpg</code></small></div>
+              </div>
+              <figcaption><b data-scene-title>{conductor[0][0]}</b><span data-scene-description>{conductor[0][1]}</span></figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -79,8 +101,8 @@ const jsonLd = buildJsonLd(Astro.site);
         </div>
         <div>
           <h2 id="h-drv" data-reveal>Maneja con Woki y gana más</h2>
-          <p class="lead">Recibe solicitudes cercanas y elige tu tarifa.</p>
-          <ul>
+          <p class="lead" data-reveal>Recibe solicitudes cercanas y elige tu tarifa.</p>
+          <ul data-reveal style="--i:1">
             <li>Ves recogida, destino y forma de pago antes de aceptar</li>
             <li>Ajusta la tarifa con +S/1, +S/2 o +S/3</li>
             <li>Controla tus ganancias del día en un solo lugar</li>
@@ -90,16 +112,12 @@ const jsonLd = buildJsonLd(Astro.site);
       </div>
     </section>
 
-    <About />
-
     <section class="faq" id="ayuda" aria-labelledby="h-faq">
       <div class="wrap">
-        <div class="faqhead"><h2 id="h-faq">Preguntas frecuentes</h2><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div></div>
+        <div class="faqhead" data-reveal><h2 id="h-faq">Preguntas frecuentes</h2><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div></div>
         {faqs.map(([q, a]) => <details data-reveal><summary>{q}</summary><p>{a}</p></details>)}
       </div>
     </section>
-
-    <Contact />
 
     <Cta />
   </main>
