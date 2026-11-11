@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Cta from '../components/Cta.astro';
+import Footer from '../components/Footer.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+import Features from '../components/Features.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import { beneficios, pasajero, conductor, faqs, buildJsonLd } from '../data/content';
+
+const jsonLd = buildJsonLd(Astro.site);
+---
+<Layout splash>
+  {jsonLd.map((j) => <script is:inline type="application/ld+json" set:html={JSON.stringify(j)} slot="head" />)}
+
+  <Header />
+
+  <main>
+    <section class="hero">
+      <div class="streets" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <h1>Muévete fácil y seguro con Woki</h1>
+          <p class="lead">Solicita tu taxi en segundos, viaja con conductores verificados y llega a tu destino con confianza en Cerro de Pasco.</p>
+          <div class="stores"><StoreButtons /></div>
+        </div>
+        <div class="phone-wrap" aria-hidden="true">
+          <span class="chip c1">✓ Conductor verificado</span><span class="chip c2">Llega en 1 min</span>
+          <div class="phone">
+            <div class="map"><svg viewBox="0 0 272 210" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"><path d="M44 190V130H200V70" fill="none" stroke="#218e97" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="ring" cx="200" cy="64" r="9"/><circle cx="200" cy="64" r="9" fill="#f5a524" stroke="#fff" stroke-width="3"/><circle r="8" fill="#fff" stroke="#218e97" stroke-width="4"><animateMotion dur="6s" repeatCount="indefinite" path="M44 190V130H200V72"/></circle></svg></div>
+            <div class="sheet">
+              <span class="tag">En camino</span> <small>Llega en 1 min</small>
+              <div class="drv"><span class="av">CM</span><div><b>Carlos M.</b> ★ 4.9<br><small>Toyota Yaris · PAS-482</small></div></div>
+              <div class="pin"><small>Dale este PIN al conductor</small><b>4827</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C240 70 480 0 720 25s480 40 720 5V60H0z"/></svg>
+    </section>
+
+    <section class="benefits" id="seguridad" aria-labelledby="h-ben">
+      <div class="wrap">
+        <h2 id="h-ben">Tu taxi urbano, más cerca</h2>
+        <p class="lead">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
+        <div class="grid4">
+          {beneficios.map((b) => (
+            <article data-reveal class="benefit">
+              <span class="sign"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={b.p} pathLength="1" /></svg></span>
+              <h3>{b.t}</h3>
+              <p>{b.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="como-funciona" aria-labelledby="h-how">
+      <div class="wrap tabs">
+        <h2 id="h-how">Cómo funciona Woki</h2>
+        <p class="lead">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        <input type="radio" name="rol" id="t-pas" checked />
+        <input type="radio" name="rol" id="t-con" />
+        <div class="tablist"><label for="t-pas">Pasajero</label><label for="t-con">Conductor</label></div>
+        <ol class="steps panel p-pas">{pasajero.map(([t, d]) => <li data-reveal><h3>{t}</h3><p>{d}</p></li>)}</ol>
+        <ol class="steps panel p-con">{conductor.map(([t, d]) => <li data-reveal><h3>{t}</h3><p>{d}</p></li>)}</ol>
+      </div>
+    </section>
+
+    <Features />
+
+    <section class="drivers" id="conductores" aria-labelledby="h-drv">
+      <div class="wrap">
+        <div data-reveal class="photo" role="img" aria-label="Conductor Woki sonriendo dentro de su taxi">
+          <div class="roof" aria-hidden="true">Woki<small>TAXI</small></div>
+          Reemplaza por una foto de un conductor Woki<br>(public/images/conductor.jpg)
+          <div class="meter" aria-hidden="true"><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
+        </div>
+        <div>
+          <h2 id="h-drv" data-reveal>Maneja con Woki y gana más</h2>
+          <p class="lead">Recibe solicitudes cercanas y elige tu tarifa.</p>
+          <ul>
+            <li>Ves recogida, destino y forma de pago antes de aceptar</li>
+            <li>Ajusta la tarifa con +S/1, +S/2 o +S/3</li>
+            <li>Controla tus ganancias del día en un solo lugar</li>
+          </ul>
+          <a class="btn solid" href="#descargar">Regístrate como conductor</a>
+        </div>
+      </div>
+    </section>
+
+    <About />
+
+    <section class="faq" id="ayuda" aria-labelledby="h-faq">
+      <div class="wrap">
+        <div class="faqhead"><h2 id="h-faq">Preguntas frecuentes</h2><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div></div>
+        {faqs.map(([q, a]) => <details data-reveal><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
+    </section>
+
+    <Contact />
+
+    <Cta />
+  </main>
+
+  <Footer />
+
+  <script>import '../scripts/main.ts';</script>
+</Layout>

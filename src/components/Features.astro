@@ -1,0 +1,34 @@
+---
+import { funciones, edificios, ventanas } from '../data/content';
+const [destacada, ...resto] = funciones;
+---
+<section class="features" aria-labelledby="h-feat">
+  <svg class="skyline" viewBox="0 0 800 140" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    {edificios.map(([x, w, h]) => <rect class="b" x={x} y={140 - h} width={w} height={h} />)}
+    {ventanas.map((v) => <rect class="w" x={v.x} y={v.y} width="5" height="7" style={`animation-delay:${v.d}s`} />)}
+  </svg>
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <div>
+        <p class="eyebrow">Funciones</p>
+        <h2 id="h-feat">Todo lo que necesitas para <em>viajar tranquilo</em></h2>
+      </div>
+      <p class="head-lead">Funciones pensadas para que pedir un taxi sea simple y seguro, desde que lo pides hasta que llegas.</p>
+    </div>
+    <div class="cards">
+      <article data-reveal class="card big">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={destacada.p} /></svg></span>
+        <h3>{destacada.t}</h3>
+        <p>{destacada.d}</p>
+        <div class="pin" aria-hidden="true"><small>Tu PIN de viaje</small><b data-slot="4827">4827</b></div>
+      </article>
+      {resto.map((f) => (
+        <article data-reveal class="card">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={f.p} /></svg></span>
+          <h3>{f.t}</h3>
+          <p>{f.d}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

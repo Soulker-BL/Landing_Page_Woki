@@ -1,0 +1,51 @@
+---
+import '@fontsource-variable/open-sans';
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Taxi from '../components/Taxi.astro';
+
+interface Props { title?: string; description?: string; image?: string; splash?: boolean }
+const {
+  title = 'Woki – Taxi urbano seguro y confiable en Cerro de Pasco',
+  description = 'Solicita tu taxi en segundos con Woki. Conductores verificados, seguimiento en tiempo real, PIN de seguridad y soporte 24/7 en Cerro de Pasco.',
+  image = '/og-woki.jpg',
+  splash = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+---
+<!doctype html>
+<html lang="es-PE" class:list={{ 'no-splash': !splash }}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#218e97" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:site_name" content="Woki" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    {splash && !import.meta.env.DEV && <script is:inline>try{if(sessionStorage.getItem('woki-splash')){document.documentElement.classList.add('no-splash')}else{sessionStorage.setItem('woki-splash','1')}}catch(e){}</script>}
+  </head>
+  <body>
+    {splash && (
+      <div class="splash" aria-hidden="true">
+        <div>
+          <Logo light />
+          <p class="splash-tag">Tu taxi urbano, <em>más cerca</em></p>
+          </div>
+        <div class="road" aria-hidden="true"><Taxi /></div>
+      </div>
+    )}
+    <slot />
+  </body>
+</html>

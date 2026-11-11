@@ -1,0 +1,45 @@
+---
+import { contacto } from '../data/content';
+const items = [
+  { t: 'WhatsApp', v: contacto.whatsappLabel, href: `https://wa.me/${contacto.whatsapp}`, p: 'M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2h-7l-5 4v-4H5a2 2 0 01-2-2V7a2 2 0 012-2z' },
+  { t: 'Correo', v: contacto.email, href: `mailto:${contacto.email}`, p: 'M3 6h18v12H3zM3 7l9 6 9-6' },
+  { t: 'Ubicación', v: contacto.ubicacion, p: 'M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2.5 0a2.5 2.5 0 105 0 2.5 2.5 0 10-5 0' },
+  { t: 'Soporte', v: '24/7 dentro de la app', p: 'M12 7v5l3 2M12 21a9 9 0 100-18 9 9 0 000 18z' },
+];
+---
+<section class="contact" id="contacto" aria-labelledby="h-contact">
+  <div class="wrap contact-grid">
+    <div data-reveal>
+      <p class="eyebrow dark">Contacto</p>
+      <h2 id="h-contact">Hablemos, estamos para ayudarte</h2>
+      <p class="lead">¿Tienes una duda, una sugerencia o quieres manejar con Woki? Escríbenos y te respondemos lo antes posible.</p>
+      <ul class="contact-list">
+        {items.map((i) => {
+          const inner = (
+            <>
+              <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={i.p} /></svg></span>
+              <span><b>{i.t}</b><span>{i.v}</span></span>
+            </>
+          );
+          return <li>{i.href ? <a href={i.href} rel="noopener">{inner}</a> : <div>{inner}</div>}</li>;
+        })}
+      </ul>
+    </div>
+    <form class="form" data-reveal action={contacto.formAction} method="post">
+      <label>Nombre<input name="nombre" type="text" autocomplete="name" required /></label>
+      <label>Teléfono o correo<input name="contacto" type="text" autocomplete="email" required /></label>
+      <label>Motivo
+        <select name="motivo">
+          <option>Soy pasajero</option>
+          <option>Quiero ser conductor</option>
+          <option>Alianzas o prensa</option>
+          <option>Otro</option>
+        </select>
+      </label>
+      <label>Mensaje<textarea name="mensaje" required></textarea></label>
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label class="check"><input type="checkbox" name="consentimiento" required /><span>Acepto la <a href="/privacidad">política de privacidad</a> y el uso de mis datos para responder mi mensaje.</span></label>
+      <button class="btn solid" type="submit">Enviar mensaje</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://woki.com.pe/sitemap-index.xml

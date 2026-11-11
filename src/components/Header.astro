@@ -1,0 +1,25 @@
+---
+import Logo from './Logo.astro';
+interface Props { solid?: boolean }
+const { solid = false } = Astro.props;
+const links = [
+  ['/#como-funciona', 'Cómo funciona'],
+  ['/#seguridad', 'Seguridad'],
+  ['/#conductores', 'Conductores'],
+  ['/#nosotros', 'Nosotros'],
+  ['/#contacto', 'Contacto'],
+] as const;
+---
+<header class:list={['top', { scrolled: solid }]} id="inicio" data-solid={solid ? '' : undefined}>
+  <div class="bar">
+    <a href="/" aria-label="Woki, inicio"><Logo /></a>
+    <nav id="menu" aria-label="Principal">
+      {links.map(([href, text]) => <a href={href}>{text}</a>)}
+    </nav>
+    <a class="pide" href="/#descargar">
+      Pide tu Woki
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg></span>
+    </a>
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>

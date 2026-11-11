@@ -1,0 +1,81 @@
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const all = <T extends Element>(selector: string) => Array.from(document.querySelectorAll<T>(selector));
+
+/** Ejecuta `fn` una sola vez cuando cada elemento entra en pantalla. */
+function onceVisible(els: Element[], fn: (el: HTMLElement) => void, options: IntersectionObserverInit) {
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      fn(e.target as HTMLElement);
+      io.unobserve(e.target);
+    }
+  }, options);
+  els.forEach((el) => io.observe(el));
+}
+
+const revealEls = all<HTMLElement>('[data-reveal]');
+
+if (!('IntersectionObserver' in window)) {
+  revealEls.forEach((el) => el.classList.add('in'));
+} else {
+  // Aparición al hacer scroll
+  onceVisible(revealEls, (el) => el.classList.add('in'), { threshold: 0.15 });
+
+  // Taxímetro (contador) y PIN tipo tragamonedas
+  const runCounter = (el: HTMLElement) => {
+    const to = Number(el.dataset.count);
+    const decimals = Number(el.dataset.dec ?? 0);
+    const t0 = performance.now();
+    const step = (t: number) => {
+      const k = Math.min((t - t0) / 1800, 1);
+      el.textContent = (to * (1 - Math.pow(1 - k, 3))).toFixed(decimals);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const runSlot = (el: HTMLElement) => {
+    const final = el.dataset.slot ?? '';
+    let n = 0;
+    const id = setInterval(() => {
+      n++;
+      el.textContent = [...final].map((c, i) => (n > 8 + i * 4 ? c : String(Math.floor(Math.random() * 10)))).join('');
+      if (n > 8 + final.length * 4) clearInterval(id);
+    }, 70);
+  };
+  if (!reduceMotion) {
+    onceVisible(all<HTMLElement>('[data-count]'), runCounter, { threshold: 0.6 });
+    onceVisible(all<HTMLElement>('[data-slot]'), runSlot, { threshold: 0.6 });
+  }
+
+  // Enlace activo del menú según la sección visible
+  const links = all<HTMLAnchorElement>('#menu a');
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        links.forEach((a) => a.classList.toggle('on', a.hash === `#${e.target.id}`));
+      }
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  links.forEach((a) => {
+    const target = a.hash && a.pathname === location.pathname ? document.querySelector(a.hash) : null;
+    if (target) spy.observe(target);
+  });
+}
+
+// Navbar: estilo al bajar y menú móvil
+const header = document.querySelector<HTMLElement>('.top');
+const burger = document.querySelector<HTMLButtonElement>('.burger');
+if (header && burger) {
+  const onScroll = () => header.classList.toggle('scrolled', header.hasAttribute('data-solid') || window.scrollY > 10);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setMenu = (open: boolean) => {
+    header.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  };
+  burger.addEventListener('click', () => setMenu(!header.classList.contains('open')));
+  all<HTMLAnchorElement>('#menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+}

@@ -1,0 +1,15 @@
+---
+import Taxi from './Taxi.astro';
+import StoreButtons from './StoreButtons.astro';
+---
+<section class="cta" id="descargar" aria-labelledby="h-cta">
+  <div class="wrap">
+    <div class="cta-box" data-reveal>
+      <div class="pinwrap" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 24 30"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 16 8 16s8-10 8-16a8 8 0 0 0-8-8zm0 11.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/></svg></div>
+      <h2 id="h-cta">Descarga Woki y pide tu primer taxi</h2>
+      <p class="lead">Disponible en Cerro de Pasco para Android e iOS. Tu próximo viaje está a un toque.</p>
+      <div class="stores"><StoreButtons /></div>
+      <div class="road" aria-hidden="true"><Taxi /></div>
+    </div>
+  </div>
+</section>
