@@ -5,7 +5,9 @@ import Cta from '../components/Cta.astro';
 import Footer from '../components/Footer.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 import Features from '../components/Features.astro';
-import { beneficios, pasajero, conductor, faqs, buildJsonLd } from '../data/content';
+import JourneyPanel from '../components/JourneyPanel.astro';
+import { benefits, passengerSteps, driverSteps, faqs, buildJsonLd } from '../data/content';
+import { assets, brand } from '../data/site';
 
 const jsonLd = buildJsonLd(Astro.site);
 ---
@@ -15,12 +17,12 @@ const jsonLd = buildJsonLd(Astro.site);
   <Header />
 
   <main>
-    <section class="hero">
+    <section class="hero" id="inicio">
       <div class="streets" aria-hidden="true"></div>
       <div class="wrap">
         <div class="hero-copy">
           <h1>Muévete fácil y seguro con Woki</h1>
-          <p class="lead">Solicita tu taxi en segundos, viaja con conductores verificados y llega a tu destino con confianza en Cerro de Pasco.</p>
+          <p class="lead">Solicita tu taxi en segundos, viaja con conductores verificados y llega a tu destino con confianza en {brand.city}.</p>
           <div class="stores"><StoreButtons /></div>
         </div>
         <div class="phone-wrap" aria-hidden="true">
@@ -30,7 +32,7 @@ const jsonLd = buildJsonLd(Astro.site);
             <div class="sheet">
               <span class="tag">En camino</span> <small>Llega en 1 min</small>
               <div class="drv"><span class="av">CM</span><div><b>Carlos M.</b> ★ 4.9<br><small>Toyota Yaris · PAS-482</small></div></div>
-              <div class="pin"><small>Dale este PIN al conductor</small><b>4827</b></div>
+              <div class="pin"><small>Dale este PIN al conductor</small><b>{brand.demoPin}</b></div>
             </div>
           </div>
         </div>
@@ -38,54 +40,35 @@ const jsonLd = buildJsonLd(Astro.site);
       <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C240 70 480 0 720 25s480 40 720 5V60H0z"/></svg>
     </section>
 
+    <div class="how-scroll-track" id="como-funciona" data-scroll-journey>
+      <section class="how" aria-labelledby="h-how">
+       <div class="wrap tabs">
+        <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
+        <p class="lead" data-reveal style="--i:1">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        <input type="radio" name="rol" id="t-pas" checked />
+        <input type="radio" name="rol" id="t-con" />
+        <div class="tablist">
+          <label for="t-pas"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5.5 20v-1.8a6.5 6.5 0 0113 0V20z"/></svg><span>Pasajero</span></label>
+          <label for="t-con"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg><span>Conductor</span></label>
+        </div>
+        <JourneyPanel role="pasajero" steps={passengerSteps} />
+        <JourneyPanel role="conductor" steps={driverSteps} />
+       </div>
+      </section>
+    </div>
+
     <section class="benefits" id="seguridad" aria-labelledby="h-ben">
       <div class="wrap">
         <h2 id="h-ben" data-reveal>Tu taxi urbano, más cerca</h2>
         <p class="lead" data-reveal style="--i:1">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
         <div class="grid4">
-          {beneficios.map((b) => (
+          {benefits.map((benefit) => (
             <article data-reveal class="benefit">
-              <span class="sign"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={b.p} pathLength="1" /></svg></span>
-              <h3>{b.t}</h3>
-              <p>{b.d}</p>
+              <span class="sign"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={benefit.iconPath} pathLength="1" /></svg></span>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.description}</p>
             </article>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="how" id="como-funciona" aria-labelledby="h-how">
-      <div class="wrap tabs">
-        <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
-        <p class="lead" data-reveal style="--i:1">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
-        <input type="radio" name="rol" id="t-pas" checked />
-        <input type="radio" name="rol" id="t-con" />
-        <div class="tablist"><label for="t-pas">Pasajero</label><label for="t-con">Conductor</label></div>
-        <div class="journey panel p-pas" data-journey data-role="pasajero" aria-label="Recorrido interactivo del pasajero">
-          <div class="journey-top"><span class="journey-live">Tu viaje, en cuatro momentos</span><span class="journey-caption">Selecciona una etapa para ver su imagen</span></div>
-          <div class="journey-layout">
-            <ol class="steps">{pasajero.map(([t, d], i) => <li><button class="journey-step" type="button" data-step-button data-step={i} data-title={t} data-description={d} data-image={`/images/pasos/pasajero-${i + 1}.jpg`} aria-pressed={i === 0 ? 'true' : 'false'}><span class="step-number">{String(i + 1).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {i + 1}</small><b>{t}</b><span>{d}</span></span></button></li>)}</ol>
-            <figure class="ride-scene" data-ride-scene data-step="0" aria-label="Imagen de la etapa del pasajero">
-              <div class="stage-image-frame" data-stage-frame>
-                <div class="stage-image-photo" data-stage-image role="img" aria-label=""></div>
-                <div class="image-placeholder" data-image-placeholder><span class="image-placeholder-icon" aria-hidden="true">＋</span><b data-placeholder-title>{pasajero[0][0]}</b><small>Adjunta tu imagen en <code data-placeholder-path>public/images/pasos/pasajero-1.jpg</code></small></div>
-              </div>
-              <figcaption><b data-scene-title>{pasajero[0][0]}</b><span data-scene-description>{pasajero[0][1]}</span></figcaption>
-            </figure>
-          </div>
-        </div>
-        <div class="journey panel p-con" data-journey data-role="conductor" aria-label="Recorrido interactivo del conductor">
-          <div class="journey-top"><span class="journey-live">Tu jornada, en cuatro momentos</span><span class="journey-caption">Selecciona una etapa para ver su imagen</span></div>
-          <div class="journey-layout">
-            <ol class="steps">{conductor.map(([t, d], i) => <li><button class="journey-step" type="button" data-step-button data-step={i} data-title={t} data-description={d} data-image={`/images/pasos/conductor-${i + 1}.jpg`} aria-pressed={i === 0 ? 'true' : 'false'}><span class="step-number">{String(i + 1).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {i + 1}</small><b>{t}</b><span>{d}</span></span></button></li>)}</ol>
-            <figure class="ride-scene driver-scene" data-ride-scene data-step="0" aria-label="Imagen de la etapa del conductor">
-              <div class="stage-image-frame" data-stage-frame>
-                <div class="stage-image-photo" data-stage-image role="img" aria-label=""></div>
-                <div class="image-placeholder" data-image-placeholder><span class="image-placeholder-icon" aria-hidden="true">＋</span><b data-placeholder-title>{conductor[0][0]}</b><small>Adjunta tu imagen en <code data-placeholder-path>public/images/pasos/conductor-1.jpg</code></small></div>
-              </div>
-              <figcaption><b data-scene-title>{conductor[0][0]}</b><span data-scene-description>{conductor[0][1]}</span></figcaption>
-            </figure>
-          </div>
         </div>
       </div>
     </section>
@@ -94,9 +77,8 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="drivers" id="conductores" aria-labelledby="h-drv">
       <div class="wrap">
-        <div data-reveal class="photo" role="img" aria-label="Conductor Woki sonriendo dentro de su taxi">
+        <div data-reveal class="photo" role="img" aria-label="Conductor Woki sonriendo dentro de su taxi" style={`--driver-photo: url('${assets.driverPhoto}')`}>
           <div class="roof" aria-hidden="true">Woki<small>TAXI</small></div>
-          Reemplaza por una foto de un conductor Woki<br>(public/images/conductor.jpg)
           <div class="meter" aria-hidden="true"><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
         </div>
         <div>
@@ -115,7 +97,7 @@ const jsonLd = buildJsonLd(Astro.site);
     <section class="faq" id="ayuda" aria-labelledby="h-faq">
       <div class="wrap">
         <div class="faqhead" data-reveal><h2 id="h-faq">Preguntas frecuentes</h2><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div></div>
-        {faqs.map(([q, a]) => <details data-reveal><summary>{q}</summary><p>{a}</p></details>)}
+        {faqs.map(({ question, answer }) => <details data-reveal><summary>{question}</summary><p>{answer}</p></details>)}
       </div>
     </section>
 

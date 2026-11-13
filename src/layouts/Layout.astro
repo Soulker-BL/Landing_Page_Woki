@@ -3,30 +3,31 @@ import '@fontsource-variable/open-sans';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import Taxi from '../components/Taxi.astro';
+import { assets, brand } from '../data/site';
 
 interface Props { title?: string; description?: string; image?: string; splash?: boolean }
 const {
-  title = 'Woki – Taxi urbano seguro y confiable en Cerro de Pasco',
-  description = 'Solicita tu taxi en segundos con Woki. Viajes con seguimiento y PIN de seguridad en Cerro de Pasco.',
-  image = '/images/conductor.jpg',
+  title = brand.defaultTitle,
+  description = brand.defaultDescription,
+  image = assets.socialImage,
   splash = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 ---
 <!doctype html>
-<html lang="es-PE" class:list={{ 'no-splash': !splash }}>
+<html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${assets.aboutBanner}'); --contact-banner: url('${assets.contactBanner}')`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#218e97" />
+    <meta name="theme-color" content={brand.themeColor} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_PE" />
-    <meta property="og:site_name" content="Woki" />
+    <meta property="og:site_name" content={brand.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -34,9 +35,10 @@ const ogImage = new URL(image, Astro.site).href;
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js')</script>
+    <script is:inline>try{if(localStorage.getItem('woki-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
     {splash && <script is:inline>try{if(sessionStorage.getItem('woki-splash')){document.documentElement.classList.add('no-splash')}else{sessionStorage.setItem('woki-splash','1')}}catch(e){}</script>}
   </head>
-  <body>
+  <body id="top">
     {splash && (
       <div class="splash" aria-hidden="true">
         <div>

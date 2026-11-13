@@ -3,11 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Contact from '../components/Contact.astro';
+import { brand } from '../data/site';
 ---
-<Layout title="Contáctanos | Woki" description="Escríbenos para consultas sobre Woki, el servicio de taxi urbano en Cerro de Pasco.">
+<Layout title={`Contáctanos | ${brand.name}`} description={`Escríbenos para consultas sobre ${brand.name}, el servicio de taxi urbano en ${brand.city}.`}>
   <Header solid />
   <main>
-    <section class="subpage-hero contact-hero"><div class="wrap"><p class="eyebrow">Contáctanos</p><h1>¿Tienes algo en mente? Hablemos.</h1><p class="lead">Estamos aquí para orientarte sobre tus viajes, el registro de conductores o cualquier consulta relacionada con Woki.</p></div><figure class="company-image-shape contact-image-shape" aria-label="Espacio reservado para una foto de Woki en la ciudad"><div class="image-dropzone"><span class="image-icon" aria-hidden="true">✉</span><span class="image-caption">Foto de Woki en la ciudad<small>Reemplaza por public/images/woki-contacto.jpg</small></span></div></figure></section>
+    <section class="subpage-hero contact-hero"><div class="wrap"><p class="eyebrow">Contáctanos</p><h1>¿Tienes algo en mente? Hablemos.</h1><p class="lead">Estamos aquí para orientarte sobre tus viajes, el registro de conductores o cualquier consulta relacionada con Woki.</p></div></section>
     <Contact />
   </main>
   <Footer />

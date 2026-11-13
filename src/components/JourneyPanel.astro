@@ -1,0 +1,34 @@
+---
+import { assets } from '../data/site';
+import type { JourneyStep } from '../data/content';
+
+interface Props {
+  role: 'pasajero' | 'conductor';
+  steps: JourneyStep[];
+}
+
+const { role, steps } = Astro.props;
+const isPassenger = role === 'pasajero';
+const imageForStep = isPassenger ? assets.passengerStep : assets.driverStep;
+const firstStepImage = imageForStep(1);
+const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada, en cuatro momentos';
+---
+<div class:list={['journey', 'panel', isPassenger ? 'p-pas' : 'p-con']} data-journey data-role={role} aria-label={`Recorrido interactivo del ${role}`}>
+  <div class="journey-top"><span class="journey-live">{journeyTitle}</span></div>
+  <div class:list={['journey-layout', isPassenger ? 'passenger-layout' : 'driver-layout']}>
+    <ol class="steps">
+      {steps.map(({ title, description }, index) => {
+        const number = index + 1;
+        const image = imageForStep(number);
+        return <li><button class="journey-step" type="button" data-step-button data-step={index} data-title={title} data-description={description} data-image={image} aria-pressed={index === 0 ? 'true' : 'false'}><span class="step-number">{String(number).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {number}</small><b>{title}</b><span>{description}</span></span></button></li>;
+      })}
+    </ol>
+    <figure class:list={['ride-scene', !isPassenger && 'driver-scene']} data-ride-scene data-step="0" aria-label={`Imagen de etapa para ${role}`}>
+      <div class="stage-image-frame" data-stage-frame>
+        <img class="stage-image-photo" data-stage-image src={firstStepImage} alt={steps[0].title} />
+        <div class="image-placeholder" data-image-placeholder><span class="image-placeholder-icon" aria-hidden="true">＋</span><b data-placeholder-title>{steps[0].title}</b><small>Añade la imagen en <code data-placeholder-path>{firstStepImage.replace(/^\//, '')}</code></small></div>
+      </div>
+      <figcaption><b data-scene-title>{steps[0].title}</b><span data-scene-description>{steps[0].description}</span></figcaption>
+    </figure>
+  </div>
+</div>

@@ -1,20 +1,21 @@
 ---
-import { valores } from '../data/content';
+import { values } from '../data/content';
+import { brand } from '../data/site';
 ---
 <section class="about" id="nosotros" aria-labelledby="h-about">
   <div class="wrap about-grid">
     <div data-reveal>
       <p class="eyebrow dark">Quiénes somos</p>
-      <h2 id="h-about">Somos Woki, el taxi urbano de tu ciudad</h2>
-      <p class="lead">Woki es una alternativa digital que conecta pasajeros y conductores de taxi urbano en Cerro de Pasco. Nacimos para que moverte sea más fácil, más cercano y más seguro.</p>
-      <p class="about-note">Woki Mobility S.A.C. · Cerro de Pasco, Perú</p>
+      <h2 id="h-about">Somos {brand.name}, el taxi urbano de tu ciudad</h2>
+      <p class="lead">{brand.name} es una alternativa digital que conecta pasajeros y conductores de taxi urbano en {brand.city}. Nacimos para que moverte sea más fácil, más cercano y más seguro.</p>
+      <p class="about-note">{brand.legalName} · {brand.city}, {brand.country}</p>
     </div>
     <ul class="values">
-      {valores.map((v) => (
+      {values.map((value) => (
         <li data-reveal>
-          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={v.p} /></svg></span>
-          <h3>{v.t}</h3>
-          <p>{v.d}</p>
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={value.iconPath} /></svg></span>
+          <h3>{value.title}</h3>
+          <p>{value.description}</p>
         </li>
       ))}
     </ul>

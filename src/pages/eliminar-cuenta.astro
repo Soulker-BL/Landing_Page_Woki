@@ -1,13 +1,14 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { contacto } from '../data/content';
+import { brand, routes } from '../data/site';
 ---
-<Legal title="Solicitud de eliminación de cuenta" description="Cómo solicitar la eliminación de tu cuenta y datos personales de Woki." updated="11 de noviembre de 2026">
-  <p>Si creaste una cuenta en Woki, puedes pedir que la eliminemos escribiendo a <a href={`mailto:${contacto.email}?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20cuenta`}>{contacto.email}</a> con el asunto <strong>Solicitud de eliminación de cuenta</strong>.</p>
+<Legal title="Solicitud de eliminación de cuenta" description={`Cómo solicitar la eliminación de tu cuenta y datos personales de ${brand.name}.`}>
+  <p>Si creaste una cuenta en {brand.name}, puedes pedir que la eliminemos escribiendo a <a href={`mailto:${contacto.email}?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20cuenta`}>{contacto.email}</a> con el asunto <strong>Solicitud de eliminación de cuenta</strong>.</p>
   <h2>Qué incluir en la solicitud</h2>
   <p>Indica el correo o número de teléfono asociado a tu cuenta y si eres pasajero o conductor. Usaremos esos datos para localizar la cuenta y verificar que la solicitud sea tuya; no envíes contraseñas ni documentos por correo.</p>
   <h2>Qué se elimina</h2>
-  <p>Al confirmar la solicitud, Woki eliminará o anonimizará los datos asociados a tu cuenta que ya no sean necesarios. Algunos registros podrían conservarse durante el plazo exigido por ley o para atender obligaciones y reclamos pendientes; te informaremos si aplica.</p>
+  <p>Al confirmar la solicitud, {brand.name} eliminará o anonimizará los datos asociados a tu cuenta que ya no sean necesarios. Algunos registros podrían conservarse durante el plazo exigido por ley o para atender obligaciones y reclamos pendientes; te informaremos si aplica.</p>
   <h2>Cuánto tarda</h2>
-  <p>Confirmaremos la recepción y te comunicaremos el resultado por el mismo canal. Para consultas sobre privacidad, revisa la <a href="/privacidad">política de privacidad</a> o escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+  <p>Confirmaremos la recepción y te comunicaremos el resultado por el mismo canal. Para consultas sobre privacidad, revisa la <a href={routes.privacy}>política de privacidad</a> o escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
 </Legal>

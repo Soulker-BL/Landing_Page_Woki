@@ -1,13 +1,13 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { contacto } from '../data/content';
-// NOTA: texto base de ejemplo. Hazlo revisar por un abogado antes de publicar.
+import { brand } from '../data/site';
 ---
-<Legal title="Términos y condiciones" description="Términos y condiciones de uso de Woki, la app de taxi urbano en Cerro de Pasco." updated="11 de noviembre de 2026">
+<Legal title="Términos y condiciones" description={`Términos y condiciones de uso de ${brand.name}, la app de taxi urbano en ${brand.city}.`}>
   <h2>1. Quiénes somos y aceptación</h2>
-  <p>Woki es una plataforma operada por Woki Mobility S.A.C. («Woki»). Al usar nuestra app o este sitio web aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.</p>
-  <h2>2. Qué es Woki</h2>
-  <p>Woki es una plataforma tecnológica que conecta a pasajeros con conductores de taxi urbano en Cerro de Pasco. El viaje se realiza entre el pasajero y el conductor.</p>
+  <p>{brand.name} es una plataforma operada por {brand.legalName} («{brand.name}»). Al usar nuestra app o este sitio web aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.</p>
+  <h2>2. Qué es {brand.name}</h2>
+  <p>{brand.name} es una plataforma tecnológica que conecta a pasajeros con conductores de taxi urbano en {brand.city}. El viaje se realiza entre el pasajero y el conductor.</p>
   <h2>3. Cuenta y requisitos</h2>
   <ul>
     <li>Debes ser mayor de 18 años para crear una cuenta.</li>
@@ -15,7 +15,7 @@ import { contacto } from '../data/content';
     <li>Eres responsable de la seguridad de tu cuenta y de tu teléfono.</li>
   </ul>
   <h2>4. Conductores</h2>
-  <p>Los conductores deben presentar y mantener vigentes su licencia, SOAT y los datos de su vehículo. Woki puede suspender cuentas que incumplan estos requisitos.</p>
+  <p>Los conductores deben presentar y mantener vigentes su licencia, SOAT y los datos de su vehículo. {brand.name} puede suspender cuentas que incumplan estos requisitos.</p>
   <h2>5. Viajes, tarifas y pagos</h2>
   <p>La tarifa se muestra o se acuerda en la app antes de iniciar el viaje. El pago se realiza en efectivo o con Yape directamente al conductor, según lo elegido.</p>
   <h2>6. PIN de seguridad</h2>
@@ -23,13 +23,13 @@ import { contacto } from '../data/content';
   <h2>7. Conducta</h2>
   <ul>
     <li>Trata con respeto a conductores y pasajeros.</li>
-    <li>No uses Woki para fines ilegales ni para suplantar a otras personas.</li>
+    <li>No uses {brand.name} para fines ilegales ni para suplantar a otras personas.</li>
     <li>Cancela con anticipación cuando no puedas realizar el viaje.</li>
   </ul>
   <h2>8. Disponibilidad y responsabilidad</h2>
-  <p>Trabajamos para que el servicio funcione siempre, pero no garantizamos que esté libre de interrupciones. Woki no se responsabiliza por hechos fuera de su control, dentro de lo permitido por la ley.</p>
+  <p>Trabajamos para que el servicio funcione siempre, pero no garantizamos que esté libre de interrupciones. {brand.name} no se responsabiliza por hechos fuera de su control, dentro de lo permitido por la ley.</p>
   <h2>9. Propiedad intelectual</h2>
-  <p>La marca Woki, su logo, diseño y contenido pertenecen a Woki Mobility S.A.C. No puedes copiarlos ni usarlos sin autorización.</p>
+  <p>La marca {brand.name}, su logo, diseño y contenido pertenecen a {brand.legalName}. No puedes copiarlos ni usarlos sin autorización.</p>
   <h2>10. Cambios en estos términos</h2>
   <p>Podemos actualizar estos términos. Publicaremos la nueva versión en esta página con su fecha de actualización.</p>
   <h2>11. Ley aplicable</h2>

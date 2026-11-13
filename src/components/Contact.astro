@@ -11,6 +11,7 @@ const contactFormEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
       <div class="contact-list">
         <a href={`mailto:${contacto.email}`}><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6" /></svg></span><span><b>Correo</b><span>{contacto.email}</span></span></a>
         <div><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 10m-2.5 0a2.5 2.5 0 105 0 2.5 2.5 0 10-5 0" /></svg></span><span><b>Ubicación</b><span>{contacto.ubicacion}</span></span></div>
+        <div><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.2 11.6a8.2 8.2 0 01-12.1 7.2L3 20l1.2-5a8.2 8.2 0 1116-3.4z" /><path d="M8.2 7.8c-.5.4-.8 1-.7 1.7.2 1.1 1 2.6 2.3 3.9 1.3 1.3 2.8 2.1 3.9 2.3.7.1 1.3-.2 1.7-.7l.5-.7-2.2-1.2-1 1c-.7-.3-1.4-.8-2-1.4-.6-.6-1.1-1.3-1.4-2l1-1-1.2-2.2-.9.3z" /></svg></span><span><b>WhatsApp</b><span>{contacto.whatsapp}{contacto.whatsappIsTemporary && ' · número temporal'}</span></span></div>
       </div>
     </div>
     <form class="form contact-form" data-contact-form data-endpoint={contactFormEndpoint ?? ''} data-email={contacto.email} data-reveal>

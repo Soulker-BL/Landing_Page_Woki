@@ -1,6 +1,26 @@
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const all = <T extends Element>(selector: string) => Array.from(document.querySelectorAll<T>(selector));
 
+// Preferencia de tema compartida entre las páginas del sitio.
+const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+const setTheme = (dark: boolean) => {
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  themeToggle?.setAttribute('aria-pressed', String(dark));
+  themeToggle?.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro');
+  const icon = themeToggle?.querySelector<HTMLElement>('[data-theme-icon]');
+  const label = themeToggle?.querySelector<HTMLElement>('[data-theme-label]');
+  if (icon) icon.textContent = dark ? '☀' : '☾';
+  if (label) label.textContent = dark ? 'Claro' : 'Oscuro';
+};
+if (themeToggle) {
+  setTheme(document.documentElement.dataset.theme === 'dark');
+  themeToggle.addEventListener('click', () => {
+    const dark = document.documentElement.dataset.theme !== 'dark';
+    setTheme(dark);
+    try { localStorage.setItem('woki-theme', dark ? 'dark' : 'light'); } catch { /* El tema también funciona sin almacenamiento. */ }
+  });
+}
+
 /** Ejecuta `fn` una sola vez cuando cada elemento entra en pantalla. */
 function onceVisible(els: Element[], fn: (el: HTMLElement) => void, options: IntersectionObserverInit) {
   const io = new IntersectionObserver((entries) => {
@@ -94,7 +114,7 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
   const title = journey.querySelector<HTMLElement>('[data-scene-title]');
   const description = journey.querySelector<HTMLElement>('[data-scene-description]');
   const frame = journey.querySelector<HTMLElement>('[data-stage-frame]');
-  const image = journey.querySelector<HTMLElement>('[data-stage-image]');
+  const image = journey.querySelector<HTMLImageElement>('[data-stage-image]');
   const placeholderTitle = journey.querySelector<HTMLElement>('[data-placeholder-title]');
   const placeholderPath = journey.querySelector<HTMLElement>('[data-placeholder-path]');
   const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
@@ -108,10 +128,10 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
     if (placeholderPath) placeholderPath.textContent = imagePath.replace(/^\//, '');
     if (frame) frame.classList.remove('has-image');
     if (image && imagePath && loadImage) {
-      image.setAttribute('aria-label', titleText);
       const preload = new Image();
       preload.onload = () => {
-        image.style.backgroundImage = `url("${imagePath}")`;
+        image.src = imagePath;
+        image.alt = titleText;
         frame?.classList.add('has-image');
       };
       preload.onerror = () => frame?.classList.remove('has-image');
@@ -119,7 +139,7 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
     }
   };
   const initial = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
-  if (initial) showStage(initial, false);
+  if (initial) showStage(initial);
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
       buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
@@ -127,6 +147,32 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
     });
   });
 });
+
+// En escritorio, cada tramo de scroll dentro de Cómo funciona avanza una etapa.
+const journeyTrack = document.querySelector<HTMLElement>('[data-scroll-journey]');
+const pinnedJourneyEnabled = window.matchMedia('(min-width: 801px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)');
+if (journeyTrack) {
+  let journeyFrame = 0;
+  const syncJourneyStage = () => {
+    if (!pinnedJourneyEnabled.matches || journeyFrame) return;
+    journeyFrame = requestAnimationFrame(() => {
+      journeyFrame = 0;
+      const travel = journeyTrack.offsetHeight - window.innerHeight;
+      if (travel <= 0) return;
+      const progress = Math.min(Math.max(-journeyTrack.getBoundingClientRect().top / travel, 0), 0.999999);
+      const step = Math.min(Math.floor(progress * 4), 3);
+      const activeJourney = all<HTMLElement>('[data-journey]').find((journey) => journey.getClientRects().length > 0);
+      const buttons = activeJourney ? all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === activeJourney) : [];
+      const current = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
+      const next = buttons[step];
+      if (next && current !== next) next.click();
+    });
+  };
+  window.addEventListener('scroll', syncJourneyStage, { passive: true });
+  window.addEventListener('resize', syncJourneyStage);
+  all<HTMLInputElement>('[name="rol"]').forEach((input) => input.addEventListener('change', syncJourneyStage));
+  syncJourneyStage();
+}
 
 // Formulario de contacto: usa el endpoint configurado o prepara un correo.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');

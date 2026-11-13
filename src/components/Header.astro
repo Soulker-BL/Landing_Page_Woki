@@ -1,26 +1,23 @@
 ---
 import Logo from './Logo.astro';
+import { navigation, routes } from '../data/site';
 interface Props { solid?: boolean }
 const { solid = false } = Astro.props;
-const links = [
-  ['/#como-funciona', 'Cómo funciona'],
-  ['/#seguridad', 'Seguridad'],
-  ['/#conductores', 'Conductores'],
-  ['/nosotros', 'Nosotros'],
-  ['/contacto', 'Contáctanos'],
-] as const;
 ---
-<header class:list={['top', { scrolled: solid }]} id="inicio" data-solid={solid ? '' : undefined}>
+<header class:list={['top', { scrolled: solid }]} data-solid={solid ? '' : undefined}>
   <div class="bar">
-    <a href="/" aria-label="Woki, inicio"><Logo /></a>
+    <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Principal">
-      {links.map(([href, text]) => <a href={href}>{text}</a>)}
+      {navigation.map(({ href, label }) => <a href={href}>{label}</a>)}
     </nav>
-    <a class="pide" href="/#descargar">
+    <a class="pide" href={routes.download}>
       Pide tu Woki
       <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg></span>
     </a>
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </header>
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Activar modo oscuro" aria-pressed="false">
+  <span aria-hidden="true" data-theme-icon>☾</span><span data-theme-label>Oscuro</span>
+</button>
 {!solid && <div class="scroll-progress" aria-hidden="true"><span></span></div>}

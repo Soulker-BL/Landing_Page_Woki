@@ -1,9 +1,10 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { contacto } from '../data/content';
+import { brand } from '../data/site';
 ---
-<Legal title="Política de privacidad" description="Conoce cómo Woki trata los datos personales en su sitio web y aplicación." updated="11 de noviembre de 2026">
-  <p>Esta política describe el tratamiento de datos personales relacionado con el sitio web y la aplicación Woki. Woki Mobility S.A.C. es el responsable indicado para este servicio. El tratamiento debe ajustarse a la Ley N.º 29733 y su Reglamento vigente. Si tienes una consulta o deseas ejercer tus derechos, escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+<Legal title="Política de privacidad" description={`Conoce cómo ${brand.name} trata los datos personales en su sitio web y aplicación.`}>
+  <p>Esta política describe el tratamiento de datos personales relacionado con el sitio web y la aplicación {brand.name}. {brand.legalName} es el responsable indicado para este servicio. El tratamiento debe ajustarse a la Ley N.º 29733 y su Reglamento vigente. Si tienes una consulta o deseas ejercer tus derechos, escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
   <h2>1. Datos que podemos tratar</h2>
   <ul>
     <li>Datos de cuenta y contacto: nombre, número de teléfono y correo electrónico.</li>
@@ -27,13 +28,13 @@ import { contacto } from '../data/content';
   <h2>5. Conservación y eliminación</h2>
   <p>Conservamos los datos durante el tiempo necesario para prestar el servicio, atender reclamos y cumplir obligaciones legales. Después, los eliminamos o anonimizamos de forma segura, salvo que una norma exija conservarlos por más tiempo. Puedes solicitar la eliminación de tu cuenta en la página <a href="/eliminar-cuenta">Eliminar cuenta</a>. Algunos registros pueden mantenerse por el plazo legal aplicable.</p>
   <h2>6. Seguridad y transferencias</h2>
-  <p>Aplicamos medidas de seguridad técnicas y organizativas acordes con la naturaleza de los datos. Si proveedores procesan información fuera del Perú, Woki debe informar esa transferencia y asegurar las garantías que exige la normativa aplicable. Para conocer los proveedores y destinos actualmente usados, consulta a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+  <p>Aplicamos medidas de seguridad técnicas y organizativas acordes con la naturaleza de los datos. Si proveedores procesan información fuera del Perú, {brand.name} debe informar esa transferencia y asegurar las garantías que exige la normativa aplicable. Para conocer los proveedores y destinos actualmente usados, consulta a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
   <h2>7. Tus derechos</h2>
   <p>Puedes solicitar acceso, información, actualización, rectificación, inclusión, supresión o cancelación y oposición de tus datos, según corresponda. Escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a> desde un canal de contacto e indica qué derecho deseas ejercer. También puedes acudir a la Autoridad Nacional de Protección de Datos Personales si consideras que no atendimos tu solicitud conforme a ley.</p>
   <h2>8. Cookies y almacenamiento del navegador</h2>
   <p>La landing no instala cookies publicitarias ni de analítica. La pantalla de bienvenida puede guardar temporalmente una marca en el almacenamiento de sesión del navegador para no repetirse durante la misma sesión; no es una cookie y se borra al cerrar la sesión del navegador. Si incorporamos herramientas de analítica, publicidad o cookies no esenciales, actualizaremos esta política y habilitaremos los controles o consentimientos que correspondan antes de activarlas.</p>
   <h2>9. Privacidad de menores</h2>
-  <p>Woki no está dirigido a menores de edad. Si detectamos que se creó una cuenta de un menor sin las autorizaciones que correspondan, podemos restringirla y eliminar sus datos conforme a la ley.</p>
+  <p>{brand.name} no está dirigido a menores de edad. Si detectamos que se creó una cuenta de un menor sin las autorizaciones que correspondan, podemos restringirla y eliminar sus datos conforme a la ley.</p>
   <h2>10. Cambios y contacto</h2>
   <p>Publicaremos los cambios de esta política en esta misma página e indicaremos la fecha de actualización. Punto de contacto de privacidad: <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
 </Legal>
