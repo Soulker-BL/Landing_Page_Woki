@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 import Features from '../components/Features.astro';
 import JourneyPanel from '../components/JourneyPanel.astro';
-import { benefits, passengerSteps, driverSteps, faqs, buildJsonLd } from '../data/content';
+import { benefits, passengerSteps, driverSteps, driverBenefits, driverReasons, faqs, buildJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 
 const jsonLd = buildJsonLd(Astro.site);
@@ -82,15 +82,30 @@ const jsonLd = buildJsonLd(Astro.site);
           <div class="meter" aria-hidden="true"><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
         </div>
         <div>
+          <p class="eyebrow dark" data-reveal>Tu trabajo, a tu manera</p>
           <h2 id="h-drv" data-reveal>Maneja con Woki y gana más</h2>
-          <p class="lead" data-reveal>Recibe solicitudes cercanas y elige tu tarifa.</p>
-          <ul data-reveal style="--i:1">
-            <li>Ves recogida, destino y forma de pago antes de aceptar</li>
-            <li>Ajusta la tarifa con +S/1, +S/2 o +S/3</li>
-            <li>Controla tus ganancias del día en un solo lugar</li>
-          </ul>
-          <a class="btn solid" href="#descargar">Regístrate como conductor</a>
+          <p class="lead" data-reveal>Elige tus viajes, conoce la tarifa antes de aceptar y lleva el control de tus ganancias desde la app.</p>
+          <p class="driver-benefits-label" data-reveal>Más control en cada recorrido</p>
+          <ol class="driver-benefits" data-reveal style="--i:1">
+            {driverBenefits.map((benefit, index) => <li><span class="driver-benefit-step" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><b>{benefit.title}</b><span>{benefit.description}</span></li>)}
+          </ol>
         </div>
+      <div class="driver-reasons" id="beneficios-conductores" aria-labelledby="h-driver-reasons">
+        <header class="driver-reasons-head" data-reveal>
+          <p class="eyebrow">PARA CONDUCTORES WOKI</p>
+          <h2 id="h-driver-reasons">¿Por qué elegir Woki para conducir?</h2>
+          <p>Una plataforma cercana a la movilidad de {brand.city}, creada para conectar conductores y pasajeros de la ciudad.</p>
+        </header>
+        <div class="driver-reasons-grid">
+          {driverReasons.map((reason, index) => (
+            <article class="driver-reason" data-reveal style={`--i:${index}`}>
+              <div class="driver-reason-top"><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span></div>
+              <h3>{reason.title}</h3>
+              <p>{reason.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
       </div>
     </section>
 

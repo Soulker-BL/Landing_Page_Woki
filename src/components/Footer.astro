@@ -31,7 +31,8 @@ import { brand, footerNavigation, legalNavigation } from '../data/site';
       </div>
       <nav aria-label="Pie de página" data-reveal style="--i:1"><h3>{brand.name}</h3><ul>{footerNavigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
       <div data-reveal style="--i:2"><h3>Contacto</h3><ul><li><a href={`mailto:${contacto.email}`}>{contacto.email}</a></li><li>{brand.city}, {brand.country}</li></ul></div>
-      <div data-reveal style="--i:3"><h3>Descarga la app</h3><div class="mini"><StoreButtons /></div></div>
+      <nav aria-label="Información legal" data-reveal style="--i:3"><h3>Aviso legal</h3><ul>{legalNavigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
+      <div data-reveal style="--i:4"><h3>Descarga la app</h3><div class="mini"><StoreButtons /></div></div>
     </div>
     <div class="checker foot-checker" aria-hidden="true"></div>
     <div class="wrap legal">

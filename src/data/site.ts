@@ -20,6 +20,7 @@ export const routes = {
   howItWorks: '/#como-funciona',
   safety: '/#seguridad',
   drivers: '/#conductores',
+  legalNotice: '/aviso-legal',
   download: '/#descargar',
   about: '/nosotros',
   contact: '/contacto',
@@ -47,11 +48,12 @@ export const navigation = [
 ] as const;
 
 export const footerNavigation = [
+  navigation[0],
   ...navigation.slice(1),
-  { href: routes.accountDeletion, label: 'Eliminar cuenta' },
 ] as const;
 
 export const legalNavigation = [
+  { href: routes.legalNotice, label: 'Información del sitio' },
   { href: routes.terms, label: 'Términos' },
   { href: routes.privacy, label: 'Privacidad' },
   { href: routes.accountDeletion, label: 'Eliminar cuenta' },

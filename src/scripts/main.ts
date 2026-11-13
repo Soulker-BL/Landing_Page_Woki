@@ -1,26 +1,6 @@
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const all = <T extends Element>(selector: string) => Array.from(document.querySelectorAll<T>(selector));
 
-// Preferencia de tema compartida entre las páginas del sitio.
-const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-const setTheme = (dark: boolean) => {
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  themeToggle?.setAttribute('aria-pressed', String(dark));
-  themeToggle?.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro');
-  const icon = themeToggle?.querySelector<HTMLElement>('[data-theme-icon]');
-  const label = themeToggle?.querySelector<HTMLElement>('[data-theme-label]');
-  if (icon) icon.textContent = dark ? '☀' : '☾';
-  if (label) label.textContent = dark ? 'Claro' : 'Oscuro';
-};
-if (themeToggle) {
-  setTheme(document.documentElement.dataset.theme === 'dark');
-  themeToggle.addEventListener('click', () => {
-    const dark = document.documentElement.dataset.theme !== 'dark';
-    setTheme(dark);
-    try { localStorage.setItem('woki-theme', dark ? 'dark' : 'light'); } catch { /* El tema también funciona sin almacenamiento. */ }
-  });
-}
-
 /** Ejecuta `fn` una sola vez cuando cada elemento entra en pantalla. */
 function onceVisible(els: Element[], fn: (el: HTMLElement) => void, options: IntersectionObserverInit) {
   const io = new IntersectionObserver((entries) => {

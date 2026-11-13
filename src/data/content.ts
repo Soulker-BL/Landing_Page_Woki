@@ -32,6 +32,19 @@ export const driverSteps: JourneyStep[] = [
   { title: 'Gana más', description: 'Controla lo ganado hoy y tu porcentaje de aceptación.' },
 ];
 
+export const driverBenefits: ContentItem[] = [
+  { title: 'Cada viaje, claro desde el inicio', description: 'Consulta recogida, destino, distancia, tiempo y forma de pago antes de aceptar la solicitud.' },
+  { title: 'Participa en tu tarifa', description: 'Acepta la propuesta o ajústala con +S/1, +S/2 o +S/3.' },
+  { title: 'Tus ganancias a la vista', description: 'Revisa cuánto llevas en el día y consulta tu porcentaje de aceptación.' },
+  { title: 'Conéctate a tu ritmo', description: 'Activa “En línea” cuando estés listo para recibir solicitudes cerca de ti.' },
+];
+
+export const driverReasons: IconItem[] = [
+  { title: 'Movilidad local, de verdad', description: `Woki nace en ${brand.city} para acercar a quienes conocen sus calles con las personas que necesitan moverse por la ciudad.`, iconPath: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M8 9h.01M12 9h.01M16 9h.01' },
+  { title: 'La confianza se construye entre ambos', description: 'El PIN de seguridad confirma el inicio del viaje correcto y ayuda a que pasajero y conductor compartan la misma referencia.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
+  { title: 'Una experiencia pensada para el taxi urbano', description: 'Las herramientas de Woki acompañan el servicio desde que te conectas hasta que completas cada recorrido.', iconPath: 'M4 12h16M13 5l7 7-7 7M4 5v14' },
+];
+
 export const faqs: { question: string; answer: string }[] = [
   { question: `¿Dónde funciona ${brand.name}?`, answer: `${brand.name} está disponible en ${brand.city} y alrededores. Pronto llegaremos a más ciudades.` },
   { question: '¿Cómo sé que mi conductor es de confianza?', answer: 'Todos los conductores son verificados: licencia, SOAT y datos del vehículo. Además, cada viaje usa un PIN de seguridad y puedes ver las reseñas de otros pasajeros.' },

@@ -11,13 +11,10 @@ const { solid = false } = Astro.props;
       {navigation.map(({ href, label }) => <a href={href}>{label}</a>)}
     </nav>
     <a class="pide" href={routes.download}>
-      Pide tu Woki
+      Viaja ya
       <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg></span>
     </a>
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </header>
-<button class="theme-toggle" type="button" data-theme-toggle aria-label="Activar modo oscuro" aria-pressed="false">
-  <span aria-hidden="true" data-theme-icon>☾</span><span data-theme-label>Oscuro</span>
-</button>
 {!solid && <div class="scroll-progress" aria-hidden="true"><span></span></div>}

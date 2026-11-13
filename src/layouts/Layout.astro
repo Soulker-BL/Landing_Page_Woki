@@ -35,7 +35,6 @@ const ogImage = new URL(image, Astro.site).href;
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js')</script>
-    <script is:inline>try{if(localStorage.getItem('woki-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
     {splash && <script is:inline>try{if(sessionStorage.getItem('woki-splash')){document.documentElement.classList.add('no-splash')}else{sessionStorage.setItem('woki-splash','1')}}catch(e){}</script>}
   </head>
   <body id="top">

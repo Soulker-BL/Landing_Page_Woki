@@ -1,0 +1,18 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { brand } from '../data/site';
+---
+<Legal title="Aviso legal" description={`Información legal del sitio web de ${brand.name}.`}>
+  <h2>Responsable del sitio</h2>
+  <p>Este sitio web es titularidad de {brand.legalName}, con domicilio en {brand.city}, región de {brand.region}, {brand.country}.</p>
+  <h2>Contacto</h2>
+  <p>Para consultas relacionadas con el sitio o sus contenidos, puedes escribir a <a href={`mailto:${brand.email}`}>{brand.email}</a>.</p>
+  <h2>Finalidad del sitio</h2>
+  <p>Este sitio presenta información sobre los servicios de movilidad de {brand.name}, sus funciones y los canales disponibles para pasajeros y conductores.</p>
+  <h2>Propiedad intelectual</h2>
+  <p>Los textos, elementos gráficos, logotipos y demás contenidos de este sitio pertenecen a {brand.legalName} o se utilizan con autorización. No está permitida su reproducción sin consentimiento, salvo los usos permitidos por la normativa aplicable.</p>
+  <h2>Enlaces externos</h2>
+  <p>Los enlaces a sitios de terceros se ofrecen como referencia. {brand.legalName} no controla sus contenidos ni sus políticas.</p>
+  <h2>Normativa y jurisdicción</h2>
+  <p>El acceso y uso de este sitio se rige por las leyes de la República del Perú, sin perjuicio de las normas de protección al consumidor y de datos personales que resulten aplicables.</p>
+</Legal>
