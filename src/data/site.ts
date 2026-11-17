@@ -16,7 +16,7 @@ export const brand = {
 } as const;
 
 export const analytics = {
-  gtmContainerId: 'GTM-WOPGKD63',
+  gtmContainerId: 'GTM-P487G36D',
 } as const;
 
 export const routes = {
