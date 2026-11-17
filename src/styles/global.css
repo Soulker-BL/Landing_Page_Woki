@@ -775,15 +775,15 @@ html.no-splash{--s:0s}
 
 .analytics-consent{position:fixed;inset:auto 0 0;z-index:90;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));pointer-events:none}
 .analytics-consent[hidden]{display:none}
-.analytics-consent-card{pointer-events:auto;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:1.25rem 2rem;width:min(100%,var(--max));margin-inline:auto;padding:1.15rem 1.35rem;border:1px solid #65d9dd88;border-top:4px solid var(--pin);border-radius:20px;background:var(--deep);color:#fff;box-shadow:0 18px 50px #002e3480}
+.analytics-consent-card{pointer-events:auto;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:1.25rem 2rem;width:min(100%,var(--max));margin-inline:auto;padding:1.15rem 1.35rem;border:1px solid var(--cian);border-top:4px solid var(--aqua);border-radius:20px;background:var(--deep);color:#fff;box-shadow:0 18px 50px #002e3480}
 .analytics-consent-copy h2{margin:0 0 .35rem;font-size:1.12rem;letter-spacing:0}
 .analytics-consent-copy p{max-width:68ch;font-size:.9rem;line-height:1.5;color:#e4f3f4}
 .analytics-consent-copy a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .analytics-consent-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.65rem}
 .analytics-consent-actions button{min-height:46px;padding:.65rem 1rem;border:1px solid #ffffff9c;border-radius:999px;background:transparent;color:#fff;font:inherit;font-size:.9rem;font-weight:750;cursor:pointer}
 .analytics-consent-actions button:hover{background:#ffffff18}
-.analytics-consent-actions [data-consent-accept]{border-color:var(--pin);background:var(--pin);color:#17383d}
-.analytics-consent-actions [data-consent-accept]:hover{background:#ffd06f}
+.analytics-consent-actions [data-consent-accept]{border-color:var(--aqua);background:var(--aqua);color:var(--ink)}
+.analytics-consent-actions [data-consent-accept]:hover{background:#87e5e8}
 .analytics-consent-actions button:focus-visible,.cookie-settings:focus-visible{outline:3px solid var(--pin);outline-offset:3px}
 @media(max-width:760px){.analytics-consent{padding:.65rem .65rem calc(.65rem + env(safe-area-inset-bottom))}.analytics-consent-card{grid-template-columns:1fr;gap:.9rem;padding:1rem;border-radius:18px}.analytics-consent-actions{justify-content:stretch}.analytics-consent-actions button{flex:1 1 0}}
 @media(max-width:420px){.analytics-consent-actions{flex-direction:column}.analytics-consent-actions button{width:100%}}
