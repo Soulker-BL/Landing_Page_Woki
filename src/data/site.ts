@@ -10,9 +10,13 @@ export const brand = {
   siteUrl: 'https://woki.com.pe',
   themeColor: '#218e97',
   demoPin: '4827',
-  legalUpdated: '11 de noviembre de 2026',
+  legalUpdated: '17 de noviembre de 2026',
   defaultTitle: 'Woki – Taxi urbano seguro y confiable en Cerro de Pasco',
   defaultDescription: 'Solicita tu taxi en segundos con Woki. Viajes con seguimiento y PIN de seguridad en Cerro de Pasco.',
+} as const;
+
+export const analytics = {
+  gtmContainerId: 'GTM-WOPGKD63',
 } as const;
 
 export const routes = {

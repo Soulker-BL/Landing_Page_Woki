@@ -38,6 +38,7 @@ import { brand, footerNavigation, legalNavigation } from '../data/site';
     <div class="wrap legal">
       <span>© {new Date().getFullYear()} {brand.legalName} Todos los derechos reservados.</span>
       <span>{legalNavigation.map(({ href, label }, index) => <>{index > 0 && ' · '}<a href={href}>{label}</a></>)}</span>
+      <button class="cookie-settings" type="button" data-open-analytics-consent aria-controls="analytics-consent" aria-expanded="false">Preferencias de analítica</button>
       <a class="up" href="#top">Volver arriba <svg viewBox="0 0 16 16"><path d="M3 10l5-5 5 5"/></svg></a>
     </div>
     <div class="mark" aria-hidden="true">Woki</div>

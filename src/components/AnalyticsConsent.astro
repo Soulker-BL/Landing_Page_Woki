@@ -1,0 +1,96 @@
+---
+import { analytics } from '../data/site';
+---
+
+<section class="analytics-consent" id="analytics-consent" data-analytics-consent aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-copy" hidden>
+  <div class="analytics-consent-card">
+    <div class="analytics-consent-copy">
+      <h2 id="analytics-consent-title" tabindex="-1">Elige tus preferencias de analítica</h2>
+      <p id="analytics-consent-copy">La analítica es opcional. Si aceptas, Google Analytics nos ayudará a entender cómo se usa esta web. Si rechazas, no cargaremos Google Tag Manager. Lee nuestra <a href="/privacidad">política de privacidad</a>. Puedes cambiar tu elección desde el pie de página.</p>
+    </div>
+    <div class="analytics-consent-actions" aria-label="Opciones de analítica">
+      <button type="button" data-consent-deny>Rechazar analítica</button>
+      <button type="button" data-consent-accept>Aceptar analítica</button>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ gtmContainerId: analytics.gtmContainerId }}>
+  (() => {
+    const preferenceKey = 'woki-analytics-consent';
+    const banner = document.querySelector('[data-analytics-consent]');
+    const title = document.getElementById('analytics-consent-title');
+    const preferenceButton = document.querySelector('[data-open-analytics-consent]');
+    const acceptButton = document.querySelector('[data-consent-accept]');
+    const rejectButton = document.querySelector('[data-consent-deny]');
+    if (!banner || !acceptButton || !rejectButton) return;
+
+    const loadTagManager = () => {
+      if (window.wokiGtmLoaded) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+      window.gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+      window.gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmContainerId}`;
+      document.head.appendChild(script);
+      window.wokiGtmLoaded = true;
+    };
+
+    const clearAnalyticsCookies = () => {
+      const names = document.cookie.split(';').map((entry) => entry.trim().split('=')[0]).filter((name) => /^_ga(?:_|$)|^_gid$|^_gat(?:_|$)/.test(name));
+      const rootDomain = location.hostname.split('.').slice(-2).join('.');
+      const domains = ['', `; domain=${location.hostname}`, `; domain=.${rootDomain}`];
+      for (const name of names) {
+        for (const domain of domains) document.cookie = `${name}=; Max-Age=0; path=/${domain}; SameSite=Lax`;
+      }
+    };
+
+    const setPreference = (choice) => {
+      let previousChoice = '';
+      try { previousChoice = localStorage.getItem(preferenceKey) ?? ''; } catch {}
+      try { localStorage.setItem(preferenceKey, choice); } catch {}
+      banner.hidden = true;
+      preferenceButton?.setAttribute('aria-expanded', 'false');
+
+      if (choice === 'granted') {
+        loadTagManager();
+      } else if (previousChoice === 'granted' && window.wokiGtmLoaded) {
+        window.gtag('consent', 'update', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+        });
+        clearAnalyticsCookies();
+        window.location.reload();
+      }
+    };
+
+    acceptButton.addEventListener('click', () => setPreference('granted'));
+    rejectButton.addEventListener('click', () => setPreference('denied'));
+
+    preferenceButton?.addEventListener('click', () => {
+      banner.hidden = false;
+      preferenceButton.setAttribute('aria-expanded', 'true');
+      title?.focus();
+    });
+
+    let savedChoice = '';
+    try { savedChoice = localStorage.getItem(preferenceKey) ?? ''; } catch {}
+    if (savedChoice === 'granted') loadTagManager();
+    else if (!savedChoice) banner.hidden = false;
+  })();
+</script>

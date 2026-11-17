@@ -3,6 +3,7 @@ import '@fontsource-variable/open-sans';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import Taxi from '../components/Taxi.astro';
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import { assets, brand } from '../data/site';
 
 interface Props { title?: string; description?: string; image?: string; splash?: boolean }
@@ -14,8 +15,6 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
-const gtmContainerId = import.meta.env.PUBLIC_GTM_CONTAINER_ID?.trim();
-const gtmEnabled = import.meta.env.PUBLIC_GTM_ENABLED === 'true' && /^GTM-[A-Z0-9]+$/.test(gtmContainerId ?? '');
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 ---
 <!doctype html>
@@ -43,32 +42,6 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={`${brand.name} — ${title}`} />
     <slot name="head" />
-    {gtmEnabled && <script is:inline define:vars={{ gtmContainerId }}>
-      (() => {
-        const consentKey = 'woki-analytics-consent';
-        const loadGoogleTagManager = () => {
-          if (window.wokiGtmLoaded) return;
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmContainerId}`;
-          document.head.appendChild(script);
-          window.wokiGtmLoaded = true;
-        };
-        window.addEventListener('woki:analytics-consent', (event) => {
-          if (event.detail === 'granted') {
-            try { localStorage.setItem(consentKey, 'granted'); } catch {}
-            loadGoogleTagManager();
-          } else if (event.detail === 'denied') {
-            try { localStorage.setItem(consentKey, 'denied'); } catch {}
-          }
-        });
-        try {
-          if (localStorage.getItem(consentKey) === 'granted') loadGoogleTagManager();
-        } catch {}
-      })();
-    </script>}
     <script is:inline>document.documentElement.classList.add('js')</script>
     {splash && <script is:inline>try{if(sessionStorage.getItem('woki-splash')){document.documentElement.classList.add('no-splash')}else{sessionStorage.setItem('woki-splash','1')}}catch(e){}</script>}
   </head>
@@ -83,5 +56,6 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.
       </div>
     )}
     <slot />
+    <AnalyticsConsent />
   </body>
 </html>
