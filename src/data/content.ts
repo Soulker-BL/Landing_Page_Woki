@@ -98,3 +98,18 @@ export const values: IconItem[] = [
   { title: 'Modernidad', description: 'Tecnología actual para pedir, seguir y pagar tu viaje sin complicaciones.', iconPath: 'M13 2L4 14h7l-1 8 9-12h-7l1-8z' },
   { title: 'Facilidad de uso', description: 'Una app simple: pides tu taxi en segundos, sin vueltas.', iconPath: 'M8 3h8a1 1 0 011 1v16a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1zM11 18h2' },
 ];
+
+export const aboutStatements = [
+  {
+    label: 'Nuestra misión',
+    title: 'Hacer que moverse por la ciudad sea más sencillo',
+    description: `Conectar a pasajeros y conductores de ${brand.city} mediante una experiencia digital clara, cercana y pensada para acompañar cada viaje.`,
+    mark: '01',
+  },
+  {
+    label: 'Nuestra visión',
+    title: 'Crecer junto a las ciudades que nos mueven',
+    description: 'Ser una alternativa de movilidad reconocida por su cercanía y por usar la tecnología para hacer más simples los viajes urbanos.',
+    mark: '02',
+  },
+];
