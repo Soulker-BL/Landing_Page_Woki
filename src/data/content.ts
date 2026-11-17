@@ -71,7 +71,8 @@ export const casas = Array.from({ length: 34 }, (_, i) => {
 export function buildJsonLd(site?: URL) {
   const base = site ?? new URL(brand.siteUrl);
   return [
-    { '@context': 'https://schema.org', '@type': 'Organization', name: brand.name, url: base.href, logo: new URL('/favicon.svg', base).href },
+    { '@context': 'https://schema.org', '@type': 'Organization', '@id': `${base.href}#organization`, name: brand.name, url: base.href, logo: new URL('/favicon.svg', base).href, areaServed: { '@type': 'City', name: brand.city } },
+    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${base.href}#website`, name: brand.name, url: base.href, inLanguage: 'es-PE', publisher: { '@id': `${base.href}#organization` } },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
   ];
 }
