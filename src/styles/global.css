@@ -401,21 +401,9 @@ html.no-splash{--s:0s}
 .about-location-copy h2{max-width:440px;margin:.5rem 0 1rem;font-size:clamp(2.2rem,5vw,3.6rem)}
 .about-location-copy>p:not(.eyebrow){max-width:440px;color:#e0f0f1;font-size:1.08rem;line-height:1.75}
 .about-location-tag{display:inline-flex;align-items:center;gap:.65rem;margin-top:1.5rem;padding:.65rem .9rem;border:1px solid #ffffff42;border-radius:999px;color:#fff;font-size:.9rem;font-weight:700}
-.about-location-tag i,.pasco-map-caption span{width:9px;height:9px;border-radius:50%;background:var(--pin);box-shadow:0 0 0 5px #f5a52424}
-.pasco-map-card{padding:1rem;border:1px solid #ffffff2c;border-radius:26px;background:#ffffff0b;box-shadow:0 24px 60px #002e3440;backdrop-filter:blur(8px)}
-.pasco-map-heading{display:flex;justify-content:space-between;align-items:center;padding:.45rem .55rem .9rem;color:#d9f4f4;font-size:.73rem;font-weight:800;letter-spacing:.12em}
-.pasco-map-heading b{color:var(--aqua)}
-.peru-map{width:100%;height:auto;border-radius:20px;overflow:hidden}
-.peru-map [data-map-art]{transform-box:view-box;transform-origin:31.79% 57%;transition:transform .32s cubic-bezier(.2,.75,.25,1)}
-.pasco-map-controls{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem .55rem .2rem;color:#d9f4f4;font-size:.8rem}
-.pasco-map-controls>div{display:flex;align-items:center;gap:.45rem}
-.pasco-map-controls button{min-width:38px;min-height:38px;padding:.35rem .65rem;border:1px solid #ffffff5c;border-radius:999px;background:#ffffff12;color:#fff;font:inherit;font-weight:800;cursor:pointer}
-.pasco-map-controls button:hover:not(:disabled){background:#ffffff28;border-color:var(--aqua)}
-.pasco-map-controls button:disabled{opacity:.38;cursor:not-allowed}
-.pasco-map-controls button:last-child{min-width:0;font-size:.76rem}
-.pasco-map-controls button:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
-.pasco-map-caption{display:flex;align-items:center;gap:.65rem;padding:.9rem .55rem .2rem;color:#d9f4f4;font-size:.8rem}
-.pasco-map-caption span{flex:none;width:8px;height:8px}
+.about-location-tag i{width:9px;height:9px;border-radius:50%;background:var(--pin);box-shadow:0 0 0 5px #f5a52424}
+.peru-map-wrap{display:grid;place-items:center;min-width:0;min-height:360px}
+.peru-map{display:block;width:min(100%,340px);height:auto;overflow:visible;filter:drop-shadow(0 18px 28px #002e3445)}
 .about-pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding:0;list-style:none}
 .about-pillars li{min-width:0;min-height:275px;padding:1.55rem 1.2rem;border:1.5px solid #c8e2e4;border-radius:var(--r-lg);background:var(--paper);display:grid;justify-items:center;align-content:start;text-align:center;box-shadow:0 14px 35px #00303710;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
 .about-pillars .ico{margin:0 auto .95rem;background:#d9eff0}
@@ -429,8 +417,7 @@ html.no-splash{--s:0s}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.values{grid-template-columns:1fr}}
 @media(max-width:900px){.about-location-grid{grid-template-columns:1fr}.about-location-copy>p:not(.eyebrow){max-width:620px}.about-pillars{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:1.2rem}}
-@media(max-width:600px){.about-centered-heading{margin-bottom:1.8rem}.about-centered-heading>p:last-child{font-size:1rem}.about-mission-grid{grid-template-columns:1fr}.about-mission-card{min-height:210px}.about-location-grid{gap:2rem}.pasco-map-card{padding:.55rem;border-radius:20px}.peru-map{border-radius:15px}.pasco-map-heading{padding:.5rem}.pasco-map-controls{gap:.55rem;padding:.7rem .5rem .1rem}.pasco-map-controls>div{gap:.3rem}.pasco-map-controls button{min-width:36px;min-height:36px}.pasco-map-controls button:last-child{padding-inline:.55rem}.about-pillars{grid-template-columns:1fr;gap:1rem}.about-pillars li{min-height:0;padding:1.4rem 1.2rem}}
-@media(prefers-reduced-motion:reduce){.peru-map [data-map-art]{transition:none}}
+@media(max-width:600px){.about-centered-heading{margin-bottom:1.8rem}.about-centered-heading>p:last-child{font-size:1rem}.about-mission-grid{grid-template-columns:1fr}.about-mission-card{min-height:210px}.about-location-grid{gap:1rem}.peru-map-wrap{min-height:300px}.peru-map{width:min(78vw,300px)}.about-pillars{grid-template-columns:1fr;gap:1rem}.about-pillars li{min-height:0;padding:1.4rem 1.2rem}}
 
 
 .faq{background:#fff}

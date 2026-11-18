@@ -154,36 +154,6 @@ if (journeyTrack) {
   syncJourneyStage();
 }
 
-const peruMap = document.querySelector<SVGSVGElement>('[data-peru-map]');
-const peruMapArt = peruMap?.querySelector<SVGGElement>('[data-map-art]');
-const mapZoomIn = document.querySelector<HTMLButtonElement>('[data-map-zoom-in]');
-const mapZoomOut = document.querySelector<HTMLButtonElement>('[data-map-zoom-out]');
-const mapZoomReset = document.querySelector<HTMLButtonElement>('[data-map-zoom-reset]');
-const mapZoomLabel = document.querySelector<HTMLElement>('[data-map-zoom-label]');
-if (peruMapArt && mapZoomIn && mapZoomOut && mapZoomReset) {
-  const levels = [1, 1.25, 1.5, 1.75];
-  let levelIndex = 0;
-  const updateMapZoom = () => {
-    const zoom = levels[levelIndex];
-    peruMapArt.style.transform = `scale(${zoom})`;
-    mapZoomLabel?.replaceChildren(`Acercamiento: ${Math.round(zoom * 100)} %`);
-    mapZoomOut.disabled = levelIndex === 0;
-    mapZoomIn.disabled = levelIndex === levels.length - 1;
-  };
-  mapZoomIn.addEventListener('click', () => {
-    levelIndex = Math.min(levelIndex + 1, levels.length - 1);
-    updateMapZoom();
-  });
-  mapZoomOut.addEventListener('click', () => {
-    levelIndex = Math.max(levelIndex - 1, 0);
-    updateMapZoom();
-  });
-  mapZoomReset.addEventListener('click', () => {
-    levelIndex = 0;
-    updateMapZoom();
-  });
-}
-
 // Formulario de contacto: usa el endpoint configurado o prepara un correo.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
