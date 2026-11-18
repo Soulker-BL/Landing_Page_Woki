@@ -1,0 +1,43 @@
+---
+interface Props {
+  class?: string;
+  city?: boolean;
+}
+
+const { class: className, city = false } = Astro.props;
+---
+<div class:list={['topographic-backdrop', className]} aria-hidden="true">
+  <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <g class="contours" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M-80 166C102 24 263 28 354 141s187 166 330 89S916 22 1278 145" />
+      <path d="M-98 211C96 68 250 74 339 183s192 166 346 89 239-202 602-83" />
+      <path d="M-118 260C82 119 233 123 322 229s201 169 365 90 262-201 624-81" />
+      <path d="M-120 309C76 171 215 172 304 276s211 167 384 91 276-197 614-81" />
+      <path d="M-100 360C75 226 201 221 289 326s222 168 404 93 287-190 590-80" />
+    </g>
+    <path class="mountain-back" d="M0 540 112 460l90 34 108-132 119 139 102-88 107 62 120-145 114 126 93-57 135 92v209H0z" />
+    <path class="mountain-front" d="m0 594 132-64 94 44 116-78 105 69 128-52 119 56 123-79 119 63 111-51 153 63v135H0z" />
+    <path class="road" d="M-20 662c159-93 247-74 341-36s154 24 235-23 186-61 272-13 192 78 392-14" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="2 13" stroke-linecap="round" />
+    {city && <g class="town" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M390 632v-48h36v48m18 0v-75h42v75m20 0v-42h32v42m20 0v-91h49v91m18 0v-57h38v57m20 0v-70h44v70" />
+      <path d="M402 598h7m8 0h7m-22 16h7m8 0h7m-6-44h7m-7 14h7m20-4h8m10 0h8m-26 16h8m10 0h8m-26 15h8m10 0h8m23-21h8m11 0h8m-27 16h8m11 0h8m14-48h8m11 0h8m-27 16h8m11 0h8m-27 16h8m11 0h8m-4 16h8m11 0h8" />
+    </g>}
+    <g class="route-pin" transform="translate(812 381)">
+      <circle r="19" fill="var(--pin)" fill-opacity=".16" />
+      <path d="M0-11a8 8 0 0 0-8 8c0 7 8 15 8 15S8 4 8-3a8 8 0 0 0-8-8z" fill="var(--pin)" stroke="var(--paper)" stroke-width="2" />
+      <circle cy="-3" r="2.2" fill="var(--deep)" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .topographic-backdrop{position:absolute;inset:0;z-index:0;overflow:hidden;color:var(--aqua);opacity:.22;pointer-events:none}
+  .topographic-backdrop svg{display:block;width:100%;height:100%;min-height:260px}
+  .contours{opacity:.4}
+  .mountain-back{fill:var(--mist);opacity:.12}
+  .mountain-front{fill:var(--ink);opacity:.2}
+  .road{opacity:.42}
+  .town{opacity:.48}
+  .route-pin{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--pin) 65%,transparent))}
+  @media(prefers-reduced-motion:reduce){.topographic-backdrop *{animation:none!important}}
+</style>

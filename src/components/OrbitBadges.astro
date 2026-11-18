@@ -1,0 +1,29 @@
+---
+import type { IconItem } from '../data/content';
+
+interface Props {
+  items: IconItem[];
+}
+
+const { items } = Astro.props;
+---
+<div class="orbit-badges" role="img" aria-label="Iconos ilustrativos de las herramientas de seguridad de Woki" tabindex="0">
+  <div class="orbit-center" aria-hidden="true"></div>
+  <div class="orbit-ring orbit-ring-outer" aria-hidden="true"></div>
+  <div class="orbit-ring orbit-ring-inner" aria-hidden="true"></div>
+  {items.map((item, index) => <span class="orbit-badge" style={`--orbit-start:${index * 72}deg;--orbit-end:${index * 72 + 360}deg;--orbit-counter-start:${-index * 72}deg;--orbit-counter-end:${-index * 72 - 360}deg`} aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span>)}
+</div>
+
+<style>
+  .orbit-badges{--orbit-size:clamp(250px,31vw,410px);position:relative;display:grid;place-items:center;width:var(--orbit-size);aspect-ratio:1;border-radius:50%;outline:none}
+  .orbit-badges:focus-visible{outline:3px solid var(--pin);outline-offset:7px}
+  .orbit-ring{position:absolute;inset:13%;border:1px solid color-mix(in srgb,var(--aqua) 28%,transparent);border-radius:50%}
+  .orbit-ring-inner{inset:27%;border-style:dashed;opacity:.7}
+  .orbit-center{width:34%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--cian) 52%,transparent),transparent 72%);box-shadow:0 0 0 22px color-mix(in srgb,var(--aqua) 7%,transparent)}
+  .orbit-badge{position:absolute;top:50%;left:50%;display:grid;place-items:center;width:48px;height:48px;margin:-24px;border:1px solid color-mix(in srgb,var(--aqua) 38%,transparent);border-radius:16px;background:color-mix(in srgb,var(--deep) 70%,transparent);color:var(--aqua);backdrop-filter:blur(10px);transform:rotate(var(--orbit-start)) translateX(calc(var(--orbit-size)*.39)) rotate(var(--orbit-counter-start));animation:orbit 28s linear infinite}
+  .orbit-badge svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .orbit-badges:focus .orbit-badge,.orbit-badges:focus-within .orbit-badge{animation-play-state:paused}
+  @keyframes orbit{to{transform:rotate(var(--orbit-end)) translateX(calc(var(--orbit-size)*.39)) rotate(var(--orbit-counter-end))}}
+  @media(max-width:720px){.orbit-badges{--orbit-size:min(80vw,340px)}}
+  @media(prefers-reduced-motion:reduce){.orbit-badge{animation:none}}
+</style>
