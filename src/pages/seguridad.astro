@@ -10,7 +10,7 @@ const title = `Seguridad en tus viajes | Woki ${brand.city}`;
 const description = `Conoce las herramientas de seguridad de Woki: conductores verificados, PIN por viaje, seguimiento del recorrido y comunicación desde la app.`;
 const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad en Woki', description);
 ---
-<Layout title={title} description={description} image={assets.socialImage} imageAlt="Herramientas para viajar con Woki" ogType="article">
+<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas para viajar con Woki" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">

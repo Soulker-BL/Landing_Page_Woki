@@ -8,11 +8,12 @@ import Taxi from '../components/Taxi.astro';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import { assets, brand } from '../data/site';
 
-interface Props { title?: string; description?: string; image?: string | ImageMetadata; imageAlt?: string; ogType?: string; splash?: boolean }
+interface Props { title?: string; description?: string; image?: string | ImageMetadata; bannerImage?: ImageMetadata; imageAlt?: string; ogType?: string; splash?: boolean }
 const {
   title = brand.defaultTitle,
   description = brand.defaultDescription,
   image = assets.socialImage,
+  bannerImage,
   imageAlt = 'Pasajero y conductor usando Woki para coordinar un taxi en Cerro de Pasco',
   ogType = 'website',
   splash = false,
@@ -25,11 +26,12 @@ const ogImage = typeof image === 'string'
   : new URL((await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 })).src, siteUrl).href;
 const aboutBannerUrl = (await getImage({ src: assets.aboutBanner, width: 1448, format: 'webp', quality: 82 })).src;
 const contactBannerUrl = (await getImage({ src: assets.contactBanner, width: 1448, format: 'webp', quality: 82 })).src;
+const pageBannerUrl = bannerImage ? (await getImage({ src: bannerImage, width: 1448, format: 'webp', quality: 82 })).src : '';
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VERCEL_ENV === 'preview';
 ---
 <!doctype html>
-<html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${aboutBannerUrl}'); --contact-banner: url('${contactBannerUrl}')`}>
+<html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${aboutBannerUrl}'); --contact-banner: url('${contactBannerUrl}'); --page-banner: url('${pageBannerUrl}')`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

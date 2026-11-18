@@ -10,7 +10,7 @@ const title = `Cómo funciona Woki | Taxi en ${brand.city}`;
 const description = `Conoce cómo pedir un taxi Woki en ${brand.city} o recibir viajes como conductor. Revisa las etapas, tarifas y herramientas disponibles en la app.`;
 const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo funciona Woki', description);
 ---
-<Layout title={title} description={description} image={assets.socialImage} imageAlt="Recorrido de un viaje en Woki" ogType="article">
+<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.aboutBanner} imageAlt="Recorrido de un viaje en Woki" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
