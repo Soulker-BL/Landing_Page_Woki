@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import JourneyPanel from '../components/JourneyPanel.astro';
+import { buildSectionJsonLd, driverBenefits, driverSteps, passengerSteps } from '../data/content';
+import { brand, assets } from '../data/site';
+
+const title = `Cómo funciona Woki | Taxi en ${brand.city}`;
+const description = `Conoce cómo pedir un taxi Woki en ${brand.city} o recibir viajes como conductor. Revisa las etapas, tarifas y herramientas disponibles en la app.`;
+const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo funciona Woki', description);
+---
+<Layout title={title} description={description} image={assets.socialImage} imageAlt="Recorrido de un viaje en Woki" ogType="article">
+  {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
+  <Header solid />
+  <main id="main-content">
+    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
+    <section class="detail-section detail-journey" aria-labelledby="journey-detail-title">
+      <div class="wrap tabs">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
+        <input type="radio" name="rol" id="t-pas" checked />
+        <input type="radio" name="rol" id="t-con" />
+        <div class="tablist">
+          <label for="t-pas"><span>Pasajero</span></label>
+          <label for="t-con"><span>Conductor</span></label>
+        </div>
+        <JourneyPanel role="pasajero" steps={passengerSteps} />
+        <JourneyPanel role="conductor" steps={driverSteps} />
+      </div>
+    </section>
+    <section class="detail-section detail-tariff" aria-labelledby="detail-tariff-title">
+      <div class="wrap detail-two-col">
+        <div><p class="eyebrow dark">Claridad antes de salir</p><h2 id="detail-tariff-title">Revisa los detalles antes de confirmar</h2><p class="lead">La app presenta la recogida, el destino, la distancia, el tiempo y la forma de pago. El conductor puede revisar la tarifa y aceptarla o ajustar su propuesta.</p></div>
+        <ul class="detail-checks">{driverBenefits.map((benefit) => <li><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</Layout>

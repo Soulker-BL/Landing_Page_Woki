@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Features from '../components/Features.astro';
+import { benefits, buildSectionJsonLd } from '../data/content';
+import { brand, assets } from '../data/site';
+
+const title = `Seguridad en tus viajes | Woki ${brand.city}`;
+const description = `Conoce las herramientas de seguridad de Woki: conductores verificados, PIN por viaje, seguimiento del recorrido y comunicación desde la app.`;
+const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad en Woki', description);
+---
+<Layout title={title} description={description} image={assets.socialImage} imageAlt="Herramientas para viajar con Woki" ogType="article">
+  {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
+  <Header solid />
+  <main id="main-content">
+    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p></div></section>
+    <section class="detail-section safety-overview" aria-labelledby="safety-overview-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Pensado para cada etapa</p><h2 id="safety-overview-title">Información clara para viajar</h2><p>Revisa los recursos que acompañan el viaje desde que solicitas el taxi hasta que llegas a destino.</p></header>
+        <div class="grid4 safety-grid">
+          {benefits.map((item) => <article class="benefit" data-reveal><span class="sign" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span><h3>{item.title}</h3><p>{item.description}</p></article>)}
+        </div>
+      </div>
+    </section>
+    <Features />
+    <section class="detail-section safety-flow" aria-labelledby="safety-flow-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Durante el viaje</p><h2 id="safety-flow-title">Qué puedes revisar en la app</h2></header>
+        <div class="detail-cards">
+          <article data-reveal><span>01</span><h3>Identifica el servicio</h3><p>Revisa la información del conductor, el vehículo y la placa antes de abordar.</p></article>
+          <article data-reveal><span>02</span><h3>Confirma el inicio</h3><p>Comparte el PIN del viaje con el conductor para confirmar que corresponde a tu solicitud.</p></article>
+          <article data-reveal><span>03</span><h3>Sigue y coordina</h3><p>Consulta el recorrido y utiliza las opciones de chat o llamada incluidas en la app.</p></article>
+          <article data-reveal><span>04</span><h3>Cuéntanos cómo fue</h3><p>Al terminar, puedes dejar una calificación de tu experiencia.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</Layout>

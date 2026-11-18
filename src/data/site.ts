@@ -24,9 +24,9 @@ export const analytics = {
 
 export const routes = {
   home: '/#inicio',
-  howItWorks: '/#como-funciona',
-  safety: '/#seguridad',
-  drivers: '/#conductores',
+  howItWorks: '/como-funciona',
+  safety: '/seguridad',
+  drivers: '/conductores',
   legalNotice: '/aviso-legal',
   download: '/#descargar',
   about: '/nosotros',

@@ -124,6 +124,18 @@ export function buildJsonLd(site?: URL, page: StructuredPage = 'home') {
   return structuredData;
 }
 
+export function buildSectionJsonLd(site: URL | undefined, path: string, name: string, description: string) {
+  const base = site ?? new URL(brand.siteUrl);
+  const url = new URL(path, base).href;
+  return [
+    { '@context': 'https://schema.org', '@type': 'WebPage', name, description, url, isPartOf: { '@id': `${base.href}#website` }, about: { '@id': `${base.href}#taxi-service` }, inLanguage: 'es-PE' },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: base.href },
+      { '@type': 'ListItem', position: 2, name, item: url },
+    ] },
+  ];
+}
+
 export const contacto = {
   email: brand.email,
   emailIsTemporary: brand.emailIsTemporary,

@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { buildSectionJsonLd, driverBenefits, driverReasons } from '../data/content';
+import { assets, brand } from '../data/site';
+
+const title = `Conduce con Woki | Oportunidades en ${brand.city}`;
+const description = `Descubre cómo funciona Woki para conductores en ${brand.city}: revisa cada solicitud, participa en la tarifa y consulta tus ganancias desde la app.`;
+const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce con Woki', description);
+---
+<Layout title={title} description={description} image={assets.driverPhoto} imageAlt="Conductor de taxi en Cerro de Pasco" ogType="article">
+  {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
+  <Header solid />
+  <main id="main-content">
+    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p></div></section>
+    <section class="detail-section driver-detail-intro" aria-labelledby="driver-detail-title">
+      <div class="wrap detail-driver-grid">
+        <div class="detail-driver-photo"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 920px) 48vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="lazy" decoding="async" /></div>
+        <div><p class="eyebrow dark">Tu trabajo, a tu manera</p><h2 id="driver-detail-title">Decide con información a la vista</h2><p class="lead">Antes de aceptar una solicitud, revisa los datos del recorrido y la forma de pago. Después puedes consultar tus ganancias y actividad desde la app.</p><a class="btn solid" href="/#descargar">Conoce Woki</a></div>
+      </div>
+    </section>
+    <section class="detail-section driver-detail-benefits" aria-labelledby="driver-detail-benefits-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Herramientas para cada jornada</p><h2 id="driver-detail-benefits-title">Lo que tienes a la vista</h2><p>Funciones para organizarte desde que te conectas hasta que completas un viaje.</p></header>
+        <ol class="driver-benefits detail-driver-benefits">{driverBenefits.map((benefit, index) => <li data-reveal><span class="driver-benefit-step">{String(index + 1).padStart(2, '0')}</span><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ol>
+      </div>
+    </section>
+    <section class="detail-section driver-onboarding" aria-labelledby="driver-onboarding-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Primeros pasos</p><h2 id="driver-onboarding-title">Cómo empezar a conducir con Woki</h2><p>El registro y la revisión se realizan desde la aplicación.</p></header>
+        <div class="detail-cards">
+          <article data-reveal><span>01</span><h3>Elige el perfil conductor</h3><p>En la app, selecciona la opción para registrarte como conductor.</p></article>
+          <article data-reveal><span>02</span><h3>Envía tus documentos</h3><p>Completa tu registro y carga la información solicitada para la revisión.</p></article>
+          <article data-reveal><span>03</span><h3>Espera la validación</h3><p>El equipo revisa tus documentos y te activa para que puedas conectarte.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="detail-section driver-detail-reasons" aria-labelledby="driver-detail-reasons-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Woki en Cerro de Pasco</p><h2 id="driver-detail-reasons-title">Una propuesta conectada con la ciudad</h2><p>Woki organiza sus funciones alrededor del servicio de taxi urbano y de la relación entre conductores y pasajeros locales.</p></header>
+        <div class="driver-reasons-grid">{driverReasons.map((reason) => <article class="driver-reason" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span><h3>{reason.title}</h3><p>{reason.description}</p></article>)}</div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</Layout>

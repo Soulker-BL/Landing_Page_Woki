@@ -8,7 +8,7 @@ const { solid = false } = Astro.props;
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Navegación principal">
-      {navigation.map(({ href, label }) => <a href={href}>{label}</a>)}
+      {navigation.map(({ href, label }) => <a href={href} aria-current={Astro.url.pathname !== '/' && Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
     </nav>
     <a class="pide" href={routes.download}>
       Viaja ya

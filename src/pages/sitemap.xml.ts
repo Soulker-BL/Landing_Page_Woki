@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const pages = ['', 'nosotros', 'contacto', 'aviso-legal', 'privacidad', 'terminos'];
+const pages = ['', 'como-funciona', 'seguridad', 'conductores', 'nosotros', 'contacto', 'aviso-legal', 'privacidad', 'terminos'];
 
 export const GET: APIRoute = ({ site }) => {
   const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VERCEL_ENV === 'preview';
