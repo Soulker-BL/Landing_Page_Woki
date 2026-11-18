@@ -98,3 +98,16 @@ export const values: IconItem[] = [
   { title: 'Modernidad', description: 'Tecnología actual para pedir, seguir y pagar tu viaje sin complicaciones.', iconPath: 'M13 2L4 14h7l-1 8 9-12h-7l1-8z' },
   { title: 'Facilidad de uso', description: 'Una app simple: pides tu taxi en segundos, sin vueltas.', iconPath: 'M8 3h8a1 1 0 011 1v16a1 1 0 01-1 1H8a1 1 0 01-1-1V4a1 1 0 011-1zM11 18h2' },
 ];
+
+export const companyPurpose = {
+  introduction: `${brand.name} es una propuesta de movilidad urbana nacida para acercar a pasajeros y conductores de ${brand.city}. Queremos que cada viaje se entienda mejor desde que se solicita hasta que termina.`,
+  mission: `Conectar a las personas que necesitan movilizarse con conductores locales a través de una experiencia digital clara, cercana y útil para la realidad de ${brand.city}.`,
+  vision: 'Impulsar una movilidad urbana más conectada y confiable, creciendo junto a las comunidades y poniendo la tecnología al servicio de las personas.',
+} as const;
+
+export const companyPillars: IconItem[] = [
+  { title: 'Escuchamos la ciudad', description: `Diseñamos Woki pensando en las necesidades cotidianas de pasajeros y conductores de ${brand.city}.`, iconPath: 'M4 5h16v11H8l-4 4V5zM8 9h8M8 12h5' },
+  { title: 'Conectamos a las personas', description: 'Acercamos a pasajeros y conductores para que coordinen su viaje desde una misma plataforma.', iconPath: 'M16 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M10 11a4 4 0 100-8 4 4 0 000 8zM20 8v6M23 11h-6' },
+  { title: 'Damos claridad al viaje', description: 'Mostramos información útil del recorrido y la tarifa antes de que el conductor acepte.', iconPath: 'M4 5h16v14H4zM8 9h8M8 13h5M16 16h.01' },
+  { title: 'Acompañamos el recorrido', description: 'Integramos herramientas como el PIN y el seguimiento para ayudar a coordinar cada trayecto.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
+];

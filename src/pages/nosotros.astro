@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { values } from '../data/content';
+import { companyPillars, companyPurpose, values } from '../data/content';
 import { brand, routes } from '../data/site';
 ---
 <Layout title={`Nosotros | ${brand.name}`} description={`Conoce ${brand.name}, la plataforma local que acerca a pasajeros y conductores de taxi urbano en ${brand.city}.`}>
@@ -10,6 +10,79 @@ import { brand, routes } from '../data/site';
   <main>
     <section class="subpage-hero about-hero"><div class="wrap"><p class="eyebrow">Quiénes somos</p><h1>La ciudad se mueve mejor cuando nos acercamos.</h1><p class="lead">{brand.name} conecta pasajeros y conductores de taxi urbano en {brand.city} con una experiencia sencilla, cercana y pensada para la vida local.</p></div></section>
     <section class="about"><div class="wrap about-grid"><div><p class="eyebrow dark">Nuestra idea</p><h2>Tecnología útil, hecha para moverse por aquí</h2><p class="lead">Creemos que pedir un taxi puede ser claro desde el primer toque: saber quién viene, compartir los datos del viaje y llegar con más tranquilidad. Por eso construimos {brand.name} para conectar a la comunidad con herramientas digitales prácticas.</p><p class="about-note">{brand.legalName} · {brand.city}, {brand.country}</p></div><ul class="values">{values.map((value) => <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={value.iconPath} /></svg></span><h3>{value.title}</h3><p>{value.description}</p></li>)}</ul></div></section>
+    <section class="about-who" aria-labelledby="about-who-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal>
+          <p class="eyebrow dark">Nuestra esencia</p>
+          <h2 id="about-who-title">¿Quiénes somos?</h2>
+          <p>{companyPurpose.introduction}</p>
+        </header>
+        <div class="about-mission-grid">
+          <article class="about-mission-card" data-reveal>
+            <span class="about-card-index" aria-hidden="true">01</span>
+            <p class="eyebrow dark">Misión</p>
+            <p>{companyPurpose.mission}</p>
+          </article>
+          <article class="about-mission-card" data-reveal>
+            <span class="about-card-index" aria-hidden="true">02</span>
+            <p class="eyebrow dark">Visión</p>
+            <p>{companyPurpose.vision}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="about-location" aria-labelledby="about-location-title">
+      <div class="wrap about-location-grid">
+        <div class="about-location-copy" data-reveal>
+          <p class="eyebrow">Nuestra zona</p>
+          <h2 id="about-location-title">¿Dónde operamos?</h2>
+          <p>Woki comienza en Cerro de Pasco, conectando a la comunidad con una nueva forma de pedir y coordinar sus viajes urbanos.</p>
+          <span class="about-location-tag"><i aria-hidden="true"></i>Cerro de Pasco · Pasco, Perú</span>
+        </div>
+        <div class="pasco-map-card" data-reveal>
+          <div class="pasco-map-heading"><span>WOKI <b>LOCAL</b></span><span>PERÚ · PASCO</span></div>
+          <svg class="pasco-map" viewBox="0 0 620 360" role="img" aria-labelledby="pasco-map-title pasco-map-description">
+            <title id="pasco-map-title">Ubicación de Cerro de Pasco</title>
+            <desc id="pasco-map-description">Gráfico esquemático de la región Pasco con Cerro de Pasco resaltado como zona de operación de Woki.</desc>
+            <defs>
+              <pattern id="map-grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#ffffff" stroke-opacity=".06" /></pattern>
+              <radialGradient id="map-glow"><stop stop-color="#65d9dd" stop-opacity=".36" /><stop offset="1" stop-color="#65d9dd" stop-opacity="0" /></radialGradient>
+            </defs>
+            <rect width="620" height="360" rx="24" fill="#06464e" />
+            <rect width="620" height="360" rx="24" fill="url(#map-grid)" />
+            <path d="M112 74 177 48l62 18 60-23 58 30 68-5 54 41-14 48 32 43-28 49-62 12-43 42-71-16-58 21-49-31-54-4-28-48-45-28 12-58-27-42z" fill="#218e97" fill-opacity=".22" stroke="#65d9dd" stroke-opacity=".72" stroke-width="2" stroke-dasharray="7 7" />
+            <path d="m96 230 94-58 71 21 91-62 81 23 80-52M142 110l79 51 9 76 86 28 80-34 86 17M248 66l-6 91 42 44-29 82M410 77l-22 77 45 53-14 65" fill="none" stroke="#c1eaeb" stroke-opacity=".42" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M139 270h58l29-19 36 17h45l27-18 37 20h54l29-17h57" fill="none" stroke="#f5a524" stroke-opacity=".9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 10" />
+            <circle cx="307" cy="177" r="72" fill="url(#map-glow)" />
+            <circle cx="307" cy="177" r="21" fill="#f5a524" stroke="#fff" stroke-width="5" />
+            <circle cx="307" cy="177" r="7" fill="#005b66" />
+            <path d="M327 164h106" stroke="#fff" stroke-opacity=".75" stroke-width="2" />
+            <rect x="430" y="138" width="150" height="54" rx="16" fill="#fff" />
+            <text x="448" y="160" fill="#218e97" font-size="11" font-family="Open Sans, sans-serif" font-weight="700" letter-spacing="1.5">ZONA WOKI</text>
+            <text x="448" y="180" fill="#0d2f34" font-size="14" font-family="Open Sans, sans-serif" font-weight="800">Cerro de Pasco</text>
+            <text x="125" y="103" fill="#d9f4f4" font-size="12" font-family="Open Sans, sans-serif" font-weight="700" letter-spacing="2">REGIÓN PASCO</text>
+          </svg>
+          <p class="pasco-map-caption"><span aria-hidden="true"></span>Esquema ilustrativo de nuestra zona de operación.</p>
+        </div>
+      </div>
+    </section>
+    <section class="about-how" aria-labelledby="about-how-title">
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal>
+          <p class="eyebrow dark">Nuestro compromiso</p>
+          <h2 id="about-how-title">¿Cómo trabajamos?</h2>
+          <p>Cuatro principios orientan la forma en que conectamos cada viaje.</p>
+        </header>
+        <ol class="about-pillars">
+          {companyPillars.map((pillar, index) => <li data-reveal>
+            <span class="about-pillar-number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={pillar.iconPath} /></svg></span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.description}</p>
+          </li>)}
+        </ol>
+      </div>
+    </section>
     <section class="about-cta"><div class="wrap"><h2>¿Te mueves con {brand.name}?</h2><p>Conoce el servicio para pasajeros y conductores.</p><a class="btn solid" href={routes.download}>Ver opciones de descarga</a></div></section>
   </main>
   <Footer />
