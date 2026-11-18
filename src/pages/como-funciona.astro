@@ -15,7 +15,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   <Header solid />
   <main id="main-content">
     <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
-    <section class="detail-section detail-journey" aria-labelledby="journey-detail-title">
+    <section class="detail-section detail-journey journey-experience" aria-labelledby="journey-detail-title">
       <div class="wrap tabs">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
         <input type="radio" name="rol" id="t-pas" checked />
@@ -28,7 +28,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
         <JourneyPanel role="conductor" steps={driverSteps} />
       </div>
     </section>
-    <section class="detail-section detail-tariff" aria-labelledby="detail-tariff-title">
+    <section class="detail-section detail-tariff tariff-receipt" aria-labelledby="detail-tariff-title">
       <div class="wrap detail-two-col">
         <div><p class="eyebrow dark">Claridad antes de salir</p><h2 id="detail-tariff-title">Revisa los detalles antes de confirmar</h2><p class="lead">La app presenta la recogida, el destino, la distancia, el tiempo y la forma de pago. El conductor puede revisar la tarifa y aceptarla o ajustar su propuesta.</p></div>
         <ul class="detail-checks">{driverBenefits.map((benefit) => <li><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ul>
@@ -48,3 +48,38 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   <Footer />
   <script>import '../scripts/main.ts';</script>
 </Layout>
+
+<style>
+  .journey-experience{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper),#fff 76%)}
+  .journey-experience::before{content:"";position:absolute;inset:15% auto 5% 50%;width:1px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--cian) 25%,transparent),transparent);pointer-events:none}
+  .journey-experience>.wrap{position:relative;z-index:1}
+  .journey-experience :global(.about-centered-heading){max-width:700px;margin-inline:auto}
+  .journey-experience :global(.tablist){min-height:56px;box-shadow:0 12px 32px color-mix(in srgb,var(--deep) 12%,transparent)}
+  .journey-experience :global(.journey){position:relative;margin-top:1.75rem;padding:clamp(1.1rem,3vw,2rem);border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-lg);background:rgba(255,255,255,.92);box-shadow:0 24px 64px color-mix(in srgb,var(--deep) 9%,transparent)}
+  .journey-experience :global(.journey-top){padding-bottom:1.1rem;border-bottom:1px solid color-mix(in srgb,var(--cian) 18%,white)}
+  .journey-experience :global(.journey-live){color:var(--deep);font-size:1rem;font-weight:800;letter-spacing:.01em}
+  .journey-experience :global(.journey-layout){align-items:stretch;gap:clamp(1rem,2vw,1.75rem);padding-top:1.25rem}
+  .journey-experience :global(.steps){position:relative;align-content:center;gap:.7rem;padding:0 0 0 1rem}
+  .journey-experience :global(.steps)::before{content:"";position:absolute;inset:1.5rem auto 1.5rem 1.55rem;width:2px;border-radius:2px;background:linear-gradient(var(--aqua),color-mix(in srgb,var(--cian) 18%,white))}
+  .journey-experience :global(.steps li){position:relative;z-index:1}
+  .journey-experience :global(.journey-step){min-height:76px;border:1px solid color-mix(in srgb,var(--cian) 16%,white);border-radius:var(--r-md);background:var(--paper);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+  .journey-experience :global(.journey-step:hover){transform:translateX(3px);border-color:var(--mist);box-shadow:0 8px 22px color-mix(in srgb,var(--deep) 8%,transparent)}
+  .journey-experience :global(.journey-step[aria-pressed="true"]){border-color:var(--cian);background:color-mix(in srgb,var(--aqua) 12%,white)}
+  .journey-experience :global(.step-number){box-shadow:0 0 0 5px white}
+  .journey-experience :global(.ride-scene){align-self:stretch;min-width:0;padding:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-lg);background:white;box-shadow:0 16px 36px color-mix(in srgb,var(--deep) 10%,transparent)}
+  .journey-experience :global(.stage-image-frame){width:100%;max-width:none;min-height:320px;height:clamp(320px,40vw,520px);border:0;border-radius:0;box-shadow:none}
+  .journey-experience :global(.stage-image-frame picture),.journey-experience :global(.stage-image-photo){width:100%;height:100%;object-fit:cover}
+  .journey-experience :global(.ride-scene figcaption){display:grid;gap:.3rem;padding:1rem 1.2rem 1.2rem}
+  .journey-experience :global(.ride-scene figcaption b){color:var(--deep);font-size:1.05rem}
+  .journey-experience :global(.ride-scene figcaption span){color:#45666b;line-height:1.55}
+  .tariff-receipt{position:relative;background:#fff}
+  .tariff-receipt .detail-two-col{align-items:stretch;gap:clamp(2rem,6vw,5rem)}
+  .tariff-receipt .detail-two-col>div:first-child{align-self:center}
+  .tariff-receipt .detail-checks{position:relative;gap:0;padding:1.2rem;border:1px solid color-mix(in srgb,var(--cian) 25%,white);border-radius:var(--r-lg);background:linear-gradient(145deg,#fff,var(--paper));box-shadow:0 22px 55px color-mix(in srgb,var(--deep) 10%,transparent)}
+  .tariff-receipt .detail-checks::before{content:"";position:absolute;inset:1rem auto 1rem 1.1rem;border-left:2px dashed color-mix(in srgb,var(--cian) 30%,white)}
+  .tariff-receipt .detail-checks li{position:relative;margin-left:.7rem;border:0;border-bottom:1px dashed color-mix(in srgb,var(--cian) 24%,white);border-radius:0;background:transparent;box-shadow:none}
+  .tariff-receipt .detail-checks li:last-child{border-bottom:0}
+  @media(max-width:900px){.journey-experience::before{display:none}.journey-experience :global(.stage-image-frame){height:clamp(300px,58vw,460px)}}
+  @media(max-width:600px){.journey-experience :global(.journey){padding:.9rem}.journey-experience :global(.steps){padding-left:.45rem}.journey-experience :global(.steps)::before{left:1rem}.journey-experience :global(.journey-step){min-height:72px}.journey-experience :global(.stage-image-frame){height:clamp(260px,78vw,360px);min-height:260px}.tariff-receipt .detail-checks{padding:.55rem}}
+  @media(prefers-reduced-motion:reduce){.journey-experience :global(.journey-step){transition:none}}
+</style>
