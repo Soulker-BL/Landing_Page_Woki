@@ -7,7 +7,7 @@ const { solid = false } = Astro.props;
 <header class:list={['top', { scrolled: solid }]} data-solid={solid ? '' : undefined}>
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
-    <nav id="menu" aria-label="Principal">
+    <nav id="menu" aria-label="Navegación principal">
       {navigation.map(({ href, label }) => <a href={href}>{label}</a>)}
     </nav>
     <a class="pide" href={routes.download}>
