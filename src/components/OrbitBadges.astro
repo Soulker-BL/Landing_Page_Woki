@@ -11,7 +11,10 @@ const { items } = Astro.props;
   <div class="orbit-center" aria-hidden="true"></div>
   <div class="orbit-ring orbit-ring-outer" aria-hidden="true"></div>
   <div class="orbit-ring orbit-ring-inner" aria-hidden="true"></div>
-  {items.map((item, index) => <span class="orbit-badge" style={`--orbit-start:${index * 72}deg;--orbit-end:${index * 72 + 360}deg;--orbit-counter-start:${-index * 72}deg;--orbit-counter-end:${-index * 72 - 360}deg`} aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span>)}
+  {items.map((item, index) => {
+    const angle = index * 360 / items.length;
+    return <span class="orbit-badge" style={`--orbit-start:${angle}deg;--orbit-end:${angle + 360}deg;--orbit-counter-start:${-angle}deg;--orbit-counter-end:${-angle - 360}deg`} aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span>;
+  })}
 </div>
 
 <style>
