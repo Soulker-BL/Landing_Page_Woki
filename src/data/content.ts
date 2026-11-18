@@ -9,7 +9,9 @@ export interface IconItem extends ContentItem {
   iconPath: string;
 }
 
-export type JourneyStep = ContentItem;
+export interface JourneyStep extends ContentItem {
+  alt: string;
+}
 
 export const benefits: IconItem[] = [
   { title: 'Viajes seguros', description: 'Conductores verificados con documentos y vehículo al día.', iconPath: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3zM9 12l2 2 4-4' },
@@ -19,17 +21,17 @@ export const benefits: IconItem[] = [
 ];
 
 export const passengerSteps: JourneyStep[] = [
-  { title: 'Pide tu taxi', description: 'Indica dónde estás y a dónde vas. Añade una referencia si la necesitas.' },
-  { title: 'Te asignamos conductor', description: `${brand.name} conecta contigo al taxi verificado más cercano.` },
-  { title: 'Comparte tu PIN y viaja', description: 'Dale el PIN al conductor para confirmar que es el viaje correcto.' },
-  { title: 'Paga y califica', description: 'Paga en efectivo o con Yape y deja tu reseña del conductor.' },
+  { title: 'Pide tu taxi', description: 'Indica dónde estás y a dónde vas. Añade una referencia si la necesitas.', alt: `Pasajero solicitando un taxi con la aplicación ${brand.name} en ${brand.city}.` },
+  { title: 'Te asignamos conductor', description: `${brand.name} conecta contigo al taxi verificado más cercano.`, alt: `Pasajero revisando la asignación de un conductor en la aplicación ${brand.name}.` },
+  { title: 'Comparte tu PIN y viaja', description: 'Dale el PIN al conductor para confirmar que es el viaje correcto.', alt: `Pasajero verificando el PIN de seguridad de su viaje en ${brand.name}.` },
+  { title: 'Paga y califica', description: 'Paga en efectivo o con Yape y deja tu reseña del conductor.', alt: `Pasajero consultando el pago y la calificación de su viaje con ${brand.name}.` },
 ];
 
 export const driverSteps: JourneyStep[] = [
-  { title: 'Conéctate', description: 'Activa “En línea” y mira las solicitudes que tienes cerca.' },
-  { title: 'Revisa el viaje', description: 'Ves recogida, destino, distancia, tiempo y forma de pago.' },
-  { title: 'Acepta tu tarifa', description: 'Acepta la tarifa o súmale S/1, S/2 o S/3 en un toque.' },
-  { title: 'Gana más', description: 'Controla lo ganado hoy y tu porcentaje de aceptación.' },
+  { title: 'Conéctate', description: 'Activa “En línea” y mira las solicitudes que tienes cerca.', alt: `Conductor local conectándose para recibir solicitudes de viaje con ${brand.name}.` },
+  { title: 'Revisa el viaje', description: 'Ves recogida, destino, distancia, tiempo y forma de pago.', alt: `Conductor revisando los detalles de una solicitud de taxi en la aplicación ${brand.name}.` },
+  { title: 'Acepta tu tarifa', description: 'Acepta la tarifa o súmale S/1, S/2 o S/3 en un toque.', alt: `Conductor revisando y aceptando la tarifa de un viaje en ${brand.name}.` },
+  { title: 'Gana más', description: 'Controla lo ganado hoy y tu porcentaje de aceptación.', alt: `Conductor consultando sus ganancias y viajes en la aplicación ${brand.name}.` },
 ];
 
 export const driverBenefits: ContentItem[] = [
@@ -68,17 +70,63 @@ export const casas = Array.from({ length: 34 }, (_, i) => {
   return { x: 290 + i * 26 + ((i * 13) % 9), w, top: 106 - h, c: casaColores[i % 9 === 4 ? 5 : i % 5] };
 }).filter((c) => c.x + c.w < 650 || c.x > 790);
 
-export function buildJsonLd(site?: URL) {
+export type StructuredPage = 'home' | 'about' | 'contact';
+
+export function buildJsonLd(site?: URL, page: StructuredPage = 'home') {
   const base = site ?? new URL(brand.siteUrl);
-  return [
-    { '@context': 'https://schema.org', '@type': 'Organization', '@id': `${base.href}#organization`, name: brand.name, url: base.href, logo: new URL('/favicon.svg', base).href, areaServed: { '@type': 'City', name: brand.city } },
-    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${base.href}#website`, name: brand.name, url: base.href, inLanguage: 'es-PE', publisher: { '@id': `${base.href}#organization` } },
-    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
+  const organizationId = `${base.href}#organization`;
+  const serviceId = `${base.href}#taxi-service`;
+  const websiteId = `${base.href}#website`;
+  const localBusiness: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'TaxiService'],
+    '@id': serviceId,
+    name: brand.name,
+    legalName: brand.legalName,
+    url: base.href,
+    logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', base).href, caption: `${brand.name} logo` },
+    areaServed: [
+      { '@type': 'City', name: brand.city },
+      { '@type': 'AdministrativeArea', name: brand.region },
+      { '@type': 'Country', name: brand.country },
+    ],
+    address: { '@type': 'PostalAddress', addressLocality: brand.city, addressRegion: brand.region, addressCountry: 'PE' },
+  };
+  if (!brand.whatsappIsTemporary) localBusiness.telephone = brand.whatsapp;
+  if (!brand.emailIsTemporary) localBusiness.email = brand.email;
+
+  const structuredData: Record<string, unknown>[] = [
+    { '@context': 'https://schema.org', '@type': 'Organization', '@id': organizationId, name: brand.name, legalName: brand.legalName, url: base.href, logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', base).href }, areaServed: { '@type': 'City', name: brand.city } },
+    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': websiteId, name: brand.name, url: base.href, inLanguage: 'es-PE', publisher: { '@id': organizationId } },
+    localBusiness,
   ];
+
+  const playUrl = import.meta.env.PUBLIC_GOOGLE_PLAY_URL?.trim();
+  if (playUrl) structuredData.push({ '@context': 'https://schema.org', '@type': 'MobileApplication', name: brand.name, operatingSystem: 'Android', applicationCategory: 'TravelApplication', url: playUrl, downloadUrl: playUrl, isPartOf: { '@id': websiteId } });
+
+  if (page === 'home') {
+    structuredData.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) });
+    return structuredData;
+  }
+
+  const pagePath = page === 'about' ? '/nosotros' : '/contacto';
+  const pageName = page === 'about' ? 'Nosotros' : 'Contáctanos';
+  const pageUrl = new URL(pagePath, base).href;
+  structuredData.push({ '@context': 'https://schema.org', '@type': page === 'about' ? 'AboutPage' : 'ContactPage', '@id': `${pageUrl}#page`, name: `${pageName} | ${brand.name}`, url: pageUrl, isPartOf: { '@id': websiteId }, mainEntity: { '@id': serviceId } });
+  structuredData.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: base.href },
+      { '@type': 'ListItem', position: 2, name: pageName, item: pageUrl },
+    ],
+  });
+  return structuredData;
 }
 
 export const contacto = {
   email: brand.email,
+  emailIsTemporary: brand.emailIsTemporary,
   ubicacion: `${brand.city}, ${brand.region}, ${brand.country}`,
   whatsapp: brand.whatsapp,
   whatsappIsTemporary: brand.whatsappIsTemporary,

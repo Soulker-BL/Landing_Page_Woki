@@ -93,31 +93,33 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
   const scene = journey.querySelector<HTMLElement>('[data-ride-scene]');
   const title = journey.querySelector<HTMLElement>('[data-scene-title]');
   const description = journey.querySelector<HTMLElement>('[data-scene-description]');
-  const frame = journey.querySelector<HTMLElement>('[data-stage-frame]');
-  const image = journey.querySelector<HTMLImageElement>('[data-stage-image]');
-  const placeholderTitle = journey.querySelector<HTMLElement>('[data-placeholder-title]');
-  const placeholderPath = journey.querySelector<HTMLElement>('[data-placeholder-path]');
+  const images = all<HTMLImageElement>('[data-stage-image]').filter((image) => image.closest('[data-journey]') === journey);
+  const placeholder = journey.querySelector<HTMLElement>('[data-image-placeholder]');
   const buttons = all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === journey);
-  const showStage = (button: HTMLButtonElement, loadImage = true) => {
+  const showStage = (button: HTMLButtonElement) => {
     const titleText = button.dataset.title ?? '';
-    const imagePath = button.dataset.image ?? '';
-    if (scene) scene.dataset.step = button.dataset.step ?? '0';
+    const stepIndex = Number(button.dataset.step ?? 0);
+    if (scene) scene.dataset.step = String(stepIndex);
     if (title) title.textContent = titleText;
     if (description) description.textContent = button.dataset.description ?? '';
-    if (placeholderTitle) placeholderTitle.textContent = titleText;
-    if (placeholderPath) placeholderPath.textContent = imagePath.replace(/^\//, '');
-    if (frame) frame.classList.remove('has-image');
-    if (image && imagePath && loadImage) {
-      const preload = new Image();
-      preload.onload = () => {
-        image.src = imagePath;
-        image.alt = titleText;
-        frame?.classList.add('has-image');
-      };
-      preload.onerror = () => frame?.classList.remove('has-image');
-      preload.src = imagePath;
-    }
+    const activeImage = images.find((image) => Number(image.dataset.stageImage) === stepIndex);
+    images.forEach((image) => {
+      const isActive = image === activeImage;
+      image.hidden = !isActive;
+      image.closest('picture')?.toggleAttribute('hidden', !isActive);
+      if (isActive) image.removeAttribute('aria-hidden');
+      else image.setAttribute('aria-hidden', 'true');
+    });
+    if (placeholder) placeholder.hidden = Boolean(activeImage && !activeImage.dataset.failed);
   };
+  images.forEach((image) => image.addEventListener('error', () => {
+    image.dataset.failed = 'true';
+    if (!image.hidden && placeholder) placeholder.hidden = false;
+  }));
+  images.forEach((image) => image.addEventListener('load', () => {
+    delete image.dataset.failed;
+    if (!image.hidden && placeholder) placeholder.hidden = true;
+  }));
   const initial = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
   if (initial) showStage(initial);
   buttons.forEach((button) => {

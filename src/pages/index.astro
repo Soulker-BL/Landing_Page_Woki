@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Cta from '../components/Cta.astro';
@@ -16,12 +17,12 @@ const jsonLd = buildJsonLd(Astro.site);
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <section class="hero" id="inicio">
       <div class="streets" aria-hidden="true"></div>
       <div class="wrap">
         <div class="hero-copy">
-          <h1>Muévete fácil y seguro con Woki</h1>
+          <h1>Pide tu taxi en Cerro de Pasco, fácil y seguro</h1>
           <p class="lead">Solicita tu taxi en segundos, viaja con conductores verificados y llega a tu destino con confianza en {brand.city}.</p>
           <div class="stores"><StoreButtons /></div>
         </div>
@@ -59,7 +60,7 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="benefits" id="seguridad" aria-labelledby="h-ben">
       <div class="wrap">
-        <h2 id="h-ben" data-reveal>Tu taxi urbano, más cerca</h2>
+        <h2 id="h-ben" data-reveal>Seguridad y confianza para tu taxi urbano</h2>
         <p class="lead" data-reveal style="--i:1">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
         <div class="grid4">
           {benefits.map((benefit) => (
@@ -77,7 +78,8 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="drivers" id="conductores" aria-labelledby="h-drv">
       <div class="wrap">
-        <div data-reveal class="photo" role="img" aria-label="Conductor Woki sonriendo dentro de su taxi" style={`--driver-photo: url('${assets.driverPhoto}')`}>
+        <div data-reveal class="photo">
+          <Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 920px) 48vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" class="driver-photo-image" loading="lazy" decoding="async" pictureAttributes={{ class: 'driver-photo-picture' }} />
           <div class="roof" aria-hidden="true">Woki<small>TAXI</small></div>
           <div class="meter" aria-hidden="true"><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
         </div>
