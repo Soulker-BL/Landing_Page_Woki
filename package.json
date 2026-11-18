@@ -4,8 +4,9 @@
   "version": "1.1.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/postbuild.mjs",
     "check": "astro check",
+    "check:seo": "npm run build && node scripts/check-seo.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

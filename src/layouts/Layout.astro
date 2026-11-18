@@ -18,7 +18,7 @@ const {
   ogType = 'website',
   splash = false,
 } = Astro.props;
-const siteUrl = Astro.site ?? new URL(brand.siteUrl);
+const siteUrl = new URL(brand.siteUrl);
 const canonicalPath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
 const canonical = new URL(canonicalPath, siteUrl).href;
 const ogImage = typeof image === 'string'
@@ -28,7 +28,7 @@ const aboutBannerUrl = (await getImage({ src: assets.aboutBanner, width: 1448, f
 const contactBannerUrl = (await getImage({ src: assets.contactBanner, width: 1448, format: 'webp', quality: 82 })).src;
 const pageBannerUrl = bannerImage ? (await getImage({ src: bannerImage, width: 1448, format: 'webp', quality: 82 })).src : '';
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
-const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VERCEL_ENV === 'preview';
+const noIndex = brand.noIndex;
 ---
 <!doctype html>
 <html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${aboutBannerUrl}'); --contact-banner: url('${contactBannerUrl}'); --page-banner: url('${pageBannerUrl}')`}>
@@ -43,6 +43,7 @@ const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VER
     <link rel="canonical" href={canonical} />
     <link rel="preload" href={openSansLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="es_PE" />
     <meta property="og:site_name" content={brand.name} />

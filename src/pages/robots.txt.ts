@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro';
+import { brand } from '../data/site';
 
-export const GET: APIRoute = ({ site }) => {
-  const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VERCEL_ENV === 'preview';
-  const sitemap = noIndex || !site ? '' : `\nSitemap: ${new URL('/sitemap.xml', site).href}`;
-  const body = `User-agent: *\nAllow: /${sitemap}\n`;
+export const GET: APIRoute = () => {
+  const body = brand.noIndex
+    ? 'User-agent: *\nDisallow: /\n'
+    : `User-agent: *\nAllow: /\nSitemap: ${new URL('/sitemap.xml', brand.siteUrl).href}\n`;
 
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

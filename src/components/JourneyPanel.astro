@@ -1,6 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
-import { media } from '../data/media';
+import images from '../data/images';
 import type { JourneyStep } from '../data/content';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const { role, steps } = Astro.props;
 const isPassenger = role === 'pasajero';
-const stepImages = isPassenger ? media.passengerSteps : media.driverSteps;
+const stepImages = isPassenger ? images.passengerSteps : images.driverSteps;
 const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada, en cuatro momentos';
 ---
 <div class:list={['journey', 'panel', isPassenger ? 'p-pas' : 'p-con']} data-journey data-role={role} aria-label={`Recorrido interactivo del ${role}`}>
@@ -24,7 +24,7 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
     </ol>
     <figure class:list={['ride-scene', !isPassenger && 'driver-scene']} data-ride-scene data-step="0" aria-label={`Imagen de etapa para ${role}`}>
       <div class="stage-image-frame has-image" data-stage-frame>
-        {steps.map((step, index) => <Picture src={stepImages[index]} formats={['avif', 'webp']} widths={[360, 540, 720, 960]} sizes="(min-width: 1000px) 58vw, 100vw" alt={step.alt} class="stage-image-photo" data-stage-image={index} loading={isPassenger && index === 0 ? 'eager' : 'lazy'} decoding="async" hidden={index !== 0} aria-hidden={index === 0 ? undefined : 'true'} pictureAttributes={{ class: 'stage-picture', hidden: index !== 0 }} />)}
+        {steps.map((_, index) => <Picture src={stepImages[index].src} formats={['avif', 'webp']} widths={[360, 540, 720, 960]} sizes="(min-width: 1000px) 58vw, 100vw" alt={stepImages[index].alt} class="stage-image-photo" data-stage-image={index} loading={isPassenger && index === 0 ? 'eager' : 'lazy'} fetchpriority={isPassenger && index === 0 ? 'high' : undefined} decoding="async" hidden={index !== 0} aria-hidden={index === 0 ? undefined : 'true'} pictureAttributes={{ class: 'stage-picture', hidden: index !== 0 }} />)}
         <div class="image-placeholder" data-image-placeholder hidden aria-hidden="true"><span class="image-placeholder-icon">＋</span><b>La imagen de esta etapa no está disponible.</b></div>
       </div>
       <figcaption><b data-scene-title>{steps[0].title}</b><span data-scene-description>{steps[0].description}</span></figcaption>

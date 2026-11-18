@@ -1,4 +1,8 @@
-import { media } from './media';
+import images from './images';
+import { getContactEmail, getSiteConfig } from './site-config.mjs';
+
+const runtimeEnv = typeof process === 'undefined' ? {} : process.env;
+const siteConfig = getSiteConfig({ ...import.meta.env, ...runtimeEnv });
 
 export const brand = {
   name: 'Woki',
@@ -6,11 +10,12 @@ export const brand = {
   city: 'Cerro de Pasco',
   region: 'Pasco',
   country: 'Perú',
-  email: 'hola@woki.com.pe',
+  email: getContactEmail(siteConfig.requestedSiteUrl),
   emailIsTemporary: true,
   whatsapp: '+51 900 000 000',
   whatsappIsTemporary: true,
-  siteUrl: (import.meta.env.PUBLIC_SITE_URL?.trim() || 'https://woki.com.pe').replace(/\/+$/, ''),
+  siteUrl: siteConfig.siteUrl,
+  noIndex: siteConfig.isNoIndex,
   themeColor: '#218e97',
   demoPin: '4827',
   legalUpdated: '17 de noviembre de 2026',
@@ -37,10 +42,10 @@ export const routes = {
 } as const;
 
 export const assets = {
-  socialImage: media.driverPhoto,
-  driverPhoto: media.driverPhoto,
-  aboutBanner: media.aboutBanner,
-  contactBanner: media.contactBanner,
+  socialImage: images.driver.src,
+  driverPhoto: images.driver.src,
+  aboutBanner: images.aboutBanner.src,
+  contactBanner: images.contactBanner.src,
 } as const;
 
 export const navigation = [
