@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Features from '../components/Features.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
-import { assets } from '../data/site';
+import { assets, brand } from '../data/site';
 
 const title = `Seguridad en tus viajes | Woki`;
 const description = `Conoce las herramientas de seguridad para pedir taxi en Cerro de Pasco: conductor verificado, PIN y seguimiento. Revisa cómo te acompaña Woki.`;
@@ -23,8 +23,13 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
         </div>
       </div>
     </section>
+    <section class="pin-showcase" aria-label={`Ejemplo de PIN de viaje ${brand.demoPin}`}>
+      <div class="wrap pin-showcase-inner">
+        <div class="pin-rings" aria-hidden="true"><span></span><span></span><span></span><div class="pin-ticket"><small>Ejemplo de PIN de viaje</small><strong aria-hidden="true">{brand.demoPin}</strong></div></div>
+      </div>
+    </section>
     <Features />
-    <section class="detail-section safety-flow" aria-labelledby="safety-flow-title">
+    <section class="detail-section safety-flow safety-timeline" aria-labelledby="safety-flow-title">
       <div class="wrap">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Durante el viaje</p><h2 id="safety-flow-title">Qué puedes revisar en la app</h2></header>
         <div class="detail-cards">
@@ -45,3 +50,32 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   <Footer />
   <script>import '../scripts/main.ts';</script>
 </Layout>
+
+<style>
+  .safety-overview{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper),white)}
+  .safety-overview .safety-grid{gap:1rem}
+  .safety-overview .benefit{position:relative;overflow:hidden;min-height:230px;padding:1.5rem;border:1px solid color-mix(in srgb,var(--cian) 19%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 16px 40px color-mix(in srgb,var(--deep) 8%,transparent)}
+  .safety-overview .benefit::after{content:"";position:absolute;right:-36px;top:-43px;width:130px;height:130px;border:1px solid color-mix(in srgb,var(--aqua) 28%,white);border-radius:50%;box-shadow:0 0 0 14px color-mix(in srgb,var(--aqua) 8%,transparent),0 0 0 28px color-mix(in srgb,var(--aqua) 5%,transparent);pointer-events:none}
+  .safety-overview .benefit .sign{position:relative;z-index:1;width:54px;height:54px;border-radius:18px;background:color-mix(in srgb,var(--aqua) 24%,white);box-shadow:0 0 0 6px color-mix(in srgb,var(--aqua) 9%,transparent)}
+  .safety-overview .benefit h3{position:relative;z-index:1;margin-top:1.15rem;color:var(--deep)}
+  .safety-overview .benefit p{position:relative;z-index:1;color:#45666b;line-height:1.6}
+  .pin-showcase{position:relative;overflow:hidden;padding:clamp(1.5rem,4vw,3rem) 0;background:var(--paper)}
+  .pin-showcase::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--aqua) 18%,transparent),transparent 62%);pointer-events:none}
+  .pin-showcase-inner{display:grid;place-items:center;min-height:210px}
+  .pin-rings{position:relative;display:grid;place-items:center;width:min(100%,490px);aspect-ratio:2.8}
+  .pin-rings>span{position:absolute;inset:12%;border:1px solid color-mix(in srgb,var(--cian) 20%,transparent);border-radius:50%}
+  .pin-rings>span:nth-child(2){inset:2% 7%}
+  .pin-rings>span:nth-child(3){inset:-9% 0}
+  .pin-ticket{position:relative;z-index:1;display:grid;gap:.45rem;justify-items:center;padding:1rem 2rem;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:20px;background:white;box-shadow:0 16px 40px color-mix(in srgb,var(--deep) 14%,transparent)}
+  .pin-ticket small{color:var(--deep);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .pin-ticket strong{color:var(--deep);font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:.35em;line-height:1}
+  .safety-timeline{overflow:hidden;background:#fff}
+  .safety-timeline .detail-cards{position:relative;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-top:1.3rem}
+  .safety-timeline .detail-cards::before{content:"";position:absolute;top:2.55rem;left:9%;right:9%;height:2px;background:linear-gradient(90deg,var(--aqua),var(--cian),var(--pin));opacity:.68}
+  .safety-timeline .detail-cards article{position:relative;z-index:1;min-height:245px;padding:1.2rem;border-color:color-mix(in srgb,var(--cian) 19%,white);border-radius:var(--r-lg);background:linear-gradient(160deg,#fff,var(--paper));box-shadow:0 15px 34px color-mix(in srgb,var(--deep) 8%,transparent)}
+  .safety-timeline .detail-cards article>span{width:48px;height:48px;border:5px solid white;border-radius:50%;background:var(--deep);color:white;box-shadow:0 0 0 2px color-mix(in srgb,var(--cian) 35%,white)}
+  .safety-timeline .detail-cards article:nth-child(4)>span{background:var(--pin);color:var(--ink)}
+  .safety-timeline .detail-cards h3{margin-top:.3rem}
+  @media(max-width:900px){.safety-timeline .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-timeline .detail-cards::before{display:none}}
+  @media(max-width:600px){.safety-overview .benefit{min-height:0}.pin-showcase-inner{min-height:155px}.pin-rings{aspect-ratio:2}.pin-rings>span:nth-child(3){inset:-4% 0}.safety-timeline .detail-cards{grid-template-columns:1fr}.safety-timeline .detail-cards article{min-height:0}}
+</style>
