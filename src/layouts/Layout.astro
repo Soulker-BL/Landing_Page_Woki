@@ -1,51 +1,65 @@
 ---
-import '@fontsource-variable/open-sans';
+import openSansLatin from '@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2?url';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import Taxi from '../components/Taxi.astro';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import { assets, brand } from '../data/site';
 
-interface Props { title?: string; description?: string; image?: string; splash?: boolean }
+interface Props { title?: string; description?: string; image?: string | ImageMetadata; imageAlt?: string; ogType?: string; splash?: boolean }
 const {
   title = brand.defaultTitle,
   description = brand.defaultDescription,
   image = assets.socialImage,
+  imageAlt = 'Pasajero y conductor usando Woki para coordinar un taxi en Cerro de Pasco',
+  ogType = 'website',
   splash = false,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL(image, Astro.site).href;
+const siteUrl = Astro.site ?? new URL(brand.siteUrl);
+const canonicalPath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
+const canonical = new URL(canonicalPath, siteUrl).href;
+const ogImage = typeof image === 'string'
+  ? new URL(image, siteUrl).href
+  : new URL((await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 })).src, siteUrl).href;
+const aboutBannerUrl = (await getImage({ src: assets.aboutBanner, width: 1448, format: 'webp', quality: 82 })).src;
+const contactBannerUrl = (await getImage({ src: assets.contactBanner, width: 1448, format: 'webp', quality: 82 })).src;
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const noIndex = import.meta.env.PUBLIC_NOINDEX === 'true' || import.meta.env.VERCEL_ENV === 'preview';
 ---
 <!doctype html>
-<html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${assets.aboutBanner}'); --contact-banner: url('${assets.contactBanner}')`}>
+<html lang="es-PE" class:list={{ 'no-splash': !splash }} style={`--about-banner: url('${aboutBannerUrl}'); --contact-banner: url('${contactBannerUrl}')`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content={brand.themeColor} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href={openSansLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="es_PE" />
     <meta property="og:site_name" content={brand.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={`${brand.name} — ${title}`} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${brand.name} — ${title}`} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js')</script>
     {splash && <script is:inline>try{if(sessionStorage.getItem('woki-splash')){document.documentElement.classList.add('no-splash')}else{sessionStorage.setItem('woki-splash','1')}}catch(e){}</script>}
   </head>
   <body id="top">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     {splash && (
       <div class="splash" aria-hidden="true">
         <div>

@@ -1,3 +1,5 @@
+import { media } from './media';
+
 export const brand = {
   name: 'Woki',
   legalName: 'Woki Mobility S.A.C.',
@@ -5,14 +7,15 @@ export const brand = {
   region: 'Pasco',
   country: 'Perú',
   email: 'hola@woki.com.pe',
+  emailIsTemporary: true,
   whatsapp: '+51 900 000 000',
   whatsappIsTemporary: true,
-  siteUrl: 'https://woki.com.pe',
+  siteUrl: (import.meta.env.PUBLIC_SITE_URL?.trim() || 'https://woki.com.pe').replace(/\/+$/, ''),
   themeColor: '#218e97',
   demoPin: '4827',
   legalUpdated: '17 de noviembre de 2026',
-  defaultTitle: 'Woki – Taxi urbano seguro y confiable en Cerro de Pasco',
-  defaultDescription: 'Solicita tu taxi en segundos con Woki. Viajes con seguimiento y PIN de seguridad en Cerro de Pasco.',
+  defaultTitle: 'Taxi en Cerro de Pasco fácil y seguro | Woki',
+  defaultDescription: 'Pide tu taxi en Cerro de Pasco con Woki: conoce tu tarifa, sigue el viaje y comparte un PIN de seguridad. Descubre una forma más fácil de moverte.',
 } as const;
 
 export const analytics = {
@@ -34,12 +37,10 @@ export const routes = {
 } as const;
 
 export const assets = {
-  socialImage: '/images/conductor.jpg',
-  driverPhoto: '/images/conductor.jpg',
-  aboutBanner: '/images/woki-nosotros.jpg',
-  contactBanner: '/images/woki-contacto.jpg',
-  passengerStep: (step: number) => `/images/pasos/pasajero-${step}.jpg`,
-  driverStep: (step: number) => `/images/pasos/conductor-${step}.jpg`,
+  socialImage: media.driverPhoto,
+  driverPhoto: media.driverPhoto,
+  aboutBanner: media.aboutBanner,
+  contactBanner: media.contactBanner,
 } as const;
 
 export const navigation = [

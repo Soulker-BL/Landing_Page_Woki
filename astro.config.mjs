@@ -1,8 +1,20 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { loadEnv } from 'vite';
 
-// Cambia esta URL por tu dominio real (importante para SEO, sitemap y canonical)
-export default defineConfig({
-  site: 'https://woki.com.pe',
-  integrations: [sitemap()],
+export default defineConfig(({ mode }) => {
+  const fileEnv = loadEnv(mode, process.cwd(), '');
+  const site = (process.env.PUBLIC_SITE_URL?.trim() || fileEnv.PUBLIC_SITE_URL?.trim() || 'https://woki.com.pe').replace(/\/+$/, '');
+  const vercelEnv = process.env.VERCEL_ENV || fileEnv.VERCEL_ENV;
+  const noIndexBuild = process.env.PUBLIC_NOINDEX === 'true' || fileEnv.PUBLIC_NOINDEX === 'true' || vercelEnv === 'preview';
+  return {
+    site,
+    trailingSlash: 'never',
+    vite: { envPrefix: ['PUBLIC_', 'VERCEL_'] },
+    integrations: noIndexBuild ? [] : [sitemap({
+      serialize(item) {
+        return { ...item, lastmod: new Date() };
+      },
+    })],
+  };
 });

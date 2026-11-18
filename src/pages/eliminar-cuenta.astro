@@ -3,7 +3,7 @@ import Legal from '../layouts/Legal.astro';
 import { contacto } from '../data/content';
 import { brand, routes } from '../data/site';
 ---
-<Legal title="Solicitud de eliminación de cuenta" description={`Cómo solicitar la eliminación de tu cuenta y datos personales de ${brand.name}.`}>
+<Legal title="Solicitud de eliminación de cuenta" description={`Solicita la eliminación de tu cuenta de ${brand.name} y conoce qué datos incluir, los plazos de respuesta y las excepciones de conservación legales.`}>
   <p>Si creaste una cuenta en {brand.name}, puedes pedir que la eliminemos escribiendo a <a href={`mailto:${contacto.email}?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20cuenta`}>{contacto.email}</a> con el asunto <strong>Solicitud de eliminación de cuenta</strong>.</p>
   <h2>Qué incluir en la solicitud</h2>
   <p>Indica el correo o número de teléfono asociado a tu cuenta y si eres pasajero o conductor. Usaremos esos datos para localizar la cuenta y verificar que la solicitud sea tuya; no envíes contraseñas ni documentos por correo.</p>

@@ -3,11 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Contact from '../components/Contact.astro';
-import { brand } from '../data/site';
+import { buildJsonLd } from '../data/content';
+import { assets, brand } from '../data/site';
+const structuredData = buildJsonLd(Astro.site, 'contact');
 ---
-<Layout title={`Contáctanos | ${brand.name}`} description={`Escríbenos para consultas sobre ${brand.name}, el servicio de taxi urbano en ${brand.city}.`}>
+<Layout title={`Contáctanos | ${brand.name}`} description={`Contacta a ${brand.name} por consultas sobre taxis en ${brand.city}, ayuda para pasajeros o información para conductores. Escríbenos desde este formulario.`} image={assets.contactBanner} imageAlt="Banner de contacto de Woki en Cerro de Pasco" ogType="website">
+  {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
-  <main>
+  <main id="main-content">
     <section class="subpage-hero contact-hero"><div class="wrap"><p class="eyebrow">Contáctanos</p><h1>¿Tienes algo en mente? Hablemos.</h1><p class="lead">Estamos aquí para orientarte sobre tus viajes, el registro de conductores o cualquier consulta relacionada con Woki.</p></div></section>
     <Contact />
   </main>
