@@ -2,14 +2,14 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { brand } from '../data/site';
-interface Props { title: string; description: string; updated?: string }
+import { assets, brand } from '../data/site';
+interface Props { title: string; description: string; updated?: string; imageAlt?: string }
 const { title, description, updated = brand.legalUpdated } = Astro.props;
 const base = Astro.site ?? new URL(brand.siteUrl);
 const pagePath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
 const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: base.href }, { '@type': 'ListItem', position: 2, name: title, item: new URL(pagePath, base).href }] };
 ---
-<Layout title={`${title} | ${brand.name}`} description={description}>
+<Layout title={`${title} | ${brand.name}`} description={description} image={assets.socialImage} imageAlt={Astro.props.imageAlt ?? `Información sobre ${title.toLowerCase()} de Woki`}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
   <Header solid />
   <main id="main-content" class="legal-page wrap">

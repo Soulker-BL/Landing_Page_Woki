@@ -6,7 +6,7 @@ import { buildJsonLd, companyPillars, companyPurpose, values } from '../data/con
 import { assets, brand } from '../data/site';
 const structuredData = buildJsonLd(Astro.site, 'about');
 ---
-<Layout title={`Nosotros | ${brand.name}`} description={`Conoce ${brand.name}, la plataforma de taxi urbano de ${brand.city} que conecta a pasajeros y conductores con tecnología cercana y viajes más claros.`} image={assets.aboutBanner} imageAlt="Banner de Woki y su propuesta de movilidad local en Cerro de Pasco" ogType="website">
+<Layout title={`Nosotros | ${brand.name}`} description={`Conoce Woki, plataforma de taxi urbano en Cerro de Pasco. Descubre nuestra misión y visión, y cómo conectamos a pasajeros con conductores locales.`} image={assets.aboutBanner} imageAlt="Banner de Woki y su propuesta de movilidad local en Cerro de Pasco" ogType="website">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">

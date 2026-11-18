@@ -7,7 +7,7 @@ import { buildJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 const structuredData = buildJsonLd(Astro.site, 'contact');
 ---
-<Layout title={`Contáctanos | ${brand.name}`} description={`Contacta a ${brand.name} por consultas sobre taxis en ${brand.city}, ayuda para pasajeros o información para conductores. Escríbenos desde este formulario.`} image={assets.contactBanner} imageAlt="Banner de contacto de Woki en Cerro de Pasco" ogType="website">
+<Layout title={`Contáctanos | ${brand.name}`} description={`Contacta a Woki por consultas sobre taxis en Cerro de Pasco o información para conductores. Revisa el estado actual de nuestros canales de contacto.`} image={assets.contactBanner} imageAlt="Banner de contacto de Woki en Cerro de Pasco" ogType="website">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
