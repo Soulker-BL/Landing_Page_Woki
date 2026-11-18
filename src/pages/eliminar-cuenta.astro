@@ -1,14 +1,37 @@
 ---
 import Legal from '../layouts/Legal.astro';
-import { contacto } from '../data/content';
 import { brand, routes } from '../data/site';
 ---
-<Legal title="Solicitud de eliminación de cuenta" description={`Solicita la eliminación de tu cuenta de ${brand.name} y conoce qué datos incluir, los plazos de respuesta y las excepciones de conservación legales.`}>
-  <p>Si creaste una cuenta en {brand.name}, puedes pedir que la eliminemos escribiendo a <a href={`mailto:${contacto.email}?subject=Solicitud%20de%20eliminaci%C3%B3n%20de%20cuenta`}>{contacto.email}</a> con el asunto <strong>Solicitud de eliminación de cuenta</strong>.</p>
-  <h2>Qué incluir en la solicitud</h2>
-  <p>Indica el correo o número de teléfono asociado a tu cuenta y si eres pasajero o conductor. Usaremos esos datos para localizar la cuenta y verificar que la solicitud sea tuya; no envíes contraseñas ni documentos por correo.</p>
-  <h2>Qué se elimina</h2>
-  <p>Al confirmar la solicitud, {brand.name} eliminará o anonimizará los datos asociados a tu cuenta que ya no sean necesarios. Algunos registros podrían conservarse durante el plazo exigido por ley o para atender obligaciones y reclamos pendientes; te informaremos si aplica.</p>
-  <h2>Cuánto tarda</h2>
-  <p>Confirmaremos la recepción y te comunicaremos el resultado por el mismo canal. Para consultas sobre privacidad, revisa la <a href={routes.privacy}>política de privacidad</a> o escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+<Legal title="Guía para eliminar tu cuenta" description={`Sigue estos pasos para solicitar la eliminación de tu cuenta de ${brand.name} desde la app y conoce qué revisar antes de confirmar.`}>
+  <p class="account-guide-intro">Puedes iniciar la eliminación directamente desde la aplicación de {brand.name}. Usa la cuenta que deseas cerrar y revisa con atención la información que la app muestra antes de confirmar.</p>
+
+  <section class="account-guide-note" aria-labelledby="account-before-title">
+    <h2 id="account-before-title">Antes de empezar</h2>
+    <p>Asegúrate de poder iniciar sesión en la cuenta correcta. Si tienes un viaje en curso, una solicitud pendiente o información que quieras conservar, resuélvelo o guárdala antes de continuar.</p>
+  </section>
+
+  <h2>Pasos para eliminar la cuenta</h2>
+  <ol class="account-deletion-steps">
+    <li><span>01</span><div><h3>Abre la app de Woki</h3><p>Entra en la aplicación desde tu teléfono.</p></div></li>
+    <li><span>02</span><div><h3>Inicia sesión</h3><p>Accede a la cuenta que quieres eliminar.</p></div></li>
+    <li><span>03</span><div><h3>Abre el menú</h3><p>Toca el menú hamburguesa (☰) para ver las opciones de tu cuenta.</p></div></li>
+    <li><span>04</span><div><h3>Elige «Eliminar cuenta»</h3><p>Abre esa opción y lee la información y las advertencias que presenta la app.</p></div></li>
+    <li><span>05</span><div><h3>Revisa y confirma</h3><p>Si estás seguro, confirma la solicitud siguiendo las indicaciones de la pantalla. Si cambias de opinión, no confirmes el paso final.</p></div></li>
+  </ol>
+
+  <h2>¿Por qué eliminar tu cuenta?</h2>
+  <p>Puedes hacerlo si ya no deseas usar Woki o prefieres cerrar tu perfil. No compartas más información de la que solicite el proceso dentro de la aplicación; si se pide un motivo, selecciona la opción que describa mejor tu situación.</p>
+
+  <h2>¿Qué pasa después?</h2>
+  <ul>
+    <li>Dejarás de poder usar el perfil que solicitaste eliminar.</li>
+    <li>Podrías perder acceso al historial y a otra información asociada a esa cuenta; guarda previamente lo que necesites.</li>
+    <li>El tratamiento o la conservación de ciertos datos se rige por la <a href={routes.privacy}>Política de Privacidad</a> y las obligaciones aplicables.</li>
+    <li>La app te mostrará la confirmación y cualquier información adicional sobre el resultado de la solicitud.</li>
+  </ul>
+
+  <section class="account-guide-note" aria-labelledby="account-help-title">
+    <h2 id="account-help-title">¿No puedes iniciar sesión?</h2>
+    <p>Visita la página de <a href={routes.contact}>Contáctanos</a> para consultar las opciones de ayuda disponibles. No envíes contraseñas ni códigos de acceso.</p>
+  </section>
 </Legal>

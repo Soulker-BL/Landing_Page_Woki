@@ -32,7 +32,7 @@ section{padding:clamp(3.5rem,8vw,6.5rem) 0}
 .btn.solid{background:var(--cian);color:#fff}
 .btn.solid:hover{background:var(--deep);border-color:var(--deep)}
 .store{display:inline-flex;align-items:center;gap:.7rem;background:#000;color:#fff;text-decoration:none;padding:.6rem 1.1rem;border-radius:12px;border:1px solid #fff4;line-height:1.1}
-.store-pending{background:linear-gradient(135deg,#65d9dd,#a0e9eb);color:#0d2f34;border:1px solid #65d9dd;box-shadow:0 8px 22px #00303735;cursor:default}
+.store-pending{background:#000;color:#fff;border:1px solid #ffffff40;box-shadow:0 8px 22px #00303735;cursor:default}
 .store-pending .store-ic{filter:none;opacity:1}
 .store small{display:block;font-size:.68rem;opacity:.85}
 .store b{font-size:1.15rem}
@@ -457,6 +457,15 @@ html.no-splash{--s:0s}
 .legal-page p,.legal-page li{line-height:1.75;color:#274a50}
 .legal-page ul{padding-left:1.2rem;display:grid;gap:.4rem;margin:.6rem 0}
 .legal-page a{color:#176f78;text-decoration:underline}
+.account-guide-intro{font-size:1.08rem;color:#274a50}
+.account-guide-note{margin:1.5rem 0;padding:1.1rem 1.25rem;border:1px solid #cfe5e7;border-left:4px solid var(--cian);border-radius:16px;background:var(--paper)}
+.legal-page .account-guide-note h2{margin:.15rem 0 .45rem}
+.legal-page .account-guide-note p{margin:0}
+.account-deletion-steps{display:grid;gap:.8rem;margin:1rem 0 2rem;padding:0;list-style:none}
+.account-deletion-steps li{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:start;gap:.9rem;padding:1rem 1.1rem;border:1px solid #d7e9eb;border-radius:16px;background:#fff;box-shadow:0 10px 26px #0030370b}
+.account-deletion-steps li>span{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--cian);color:#fff;font-size:.78rem;font-weight:800}
+.legal-page .account-deletion-steps h3{margin:.1rem 0 .25rem;color:var(--deep);font-size:1.02rem}
+.legal-page .account-deletion-steps p{margin:0}
 
 
 @keyframes splashDrive{from{transform:translateX(-170px)}to{transform:translateX(calc(100vw + 40px))}}
@@ -522,7 +531,7 @@ html.no-splash{--s:0s}
 .contact-card p a{color:#176f78}
 .store-pending{opacity:1;cursor:default;user-select:none}
 .store-pending::after{display:none}
-@media(hover:hover) and (prefers-reduced-motion:no-preference){.store-pending:hover{background:linear-gradient(135deg,#65d9dd,#a0e9eb);box-shadow:0 13px 28px #00303745;transform:translateY(-2px) scale(1.05)}}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.store-pending:hover{background:#111;box-shadow:0 13px 28px #00303755;transform:translateY(-2px) scale(1.05)}}
 .store-pending small{font-size:.58rem!important;letter-spacing:.04em}
 .contact-form h2{font-size:1.65rem;margin-bottom:-.35rem}
 .contact-form .form-intro{font-size:.92rem;color:#3d5a5f;line-height:1.55}

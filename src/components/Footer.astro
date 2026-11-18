@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import StoreButtons from './StoreButtons.astro';
 import { casas, contacto } from '../data/content';
-import { brand, footerNavigation, legalNavigation } from '../data/site';
+import { brand, footerNavigation, legalNavigation, routes } from '../data/site';
 ---
 <footer>
     <div class="sky" aria-hidden="true">
@@ -31,12 +31,12 @@ import { brand, footerNavigation, legalNavigation } from '../data/site';
       </div>
       <nav aria-label="Pie de página" data-reveal style="--i:1"><h3>{brand.name}</h3><ul>{footerNavigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
       <div data-reveal style="--i:2"><h3>Contacto</h3><ul><li>{contacto.emailIsTemporary ? <span>Correo: muy pronto</span> : <a href={`mailto:${contacto.email}`}>{contacto.email}</a>}</li><li>{brand.city}, {brand.country}</li></ul></div>
-      <nav aria-label="Información legal" data-reveal style="--i:3"><h3>Aviso legal</h3><ul>{legalNavigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
+      <nav aria-label="Aviso legal" data-reveal style="--i:3"><h3>Aviso legal</h3><ul>{legalNavigation.filter(({ href }) => href !== routes.accountDeletion).map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul></nav>
       <div data-reveal style="--i:4"><h3>Descarga la app</h3><div class="mini"><StoreButtons /></div></div>
     </div>
     <div class="checker foot-checker" aria-hidden="true"></div>
     <div class="wrap legal">
-      <span>© {new Date().getFullYear()} {brand.legalName} Todos los derechos reservados.</span>
+      <span>© 2026 Woki Taxi App. Todos los derechos reservados.</span>
       <span>{legalNavigation.map(({ href, label }, index) => <>{index > 0 && ' · '}<a href={href}>{label}</a></>)}</span>
       <button class="cookie-settings" type="button" data-open-analytics-consent aria-controls="analytics-consent" aria-expanded="false">Preferencias de analítica</button>
       <a class="up" href="#top">Volver arriba <svg viewBox="0 0 16 16"><path d="M3 10l5-5 5 5"/></svg></a>
