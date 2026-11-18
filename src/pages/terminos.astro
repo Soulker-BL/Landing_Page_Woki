@@ -1,9 +1,8 @@
 ---
 import Legal from '../layouts/Legal.astro';
-import { contacto } from '../data/content';
 import { brand } from '../data/site';
 ---
-<Legal title="Términos y condiciones" description={`Consulta las condiciones para usar ${brand.name}, la plataforma que conecta a pasajeros y conductores de taxi urbano en ${brand.city}, Perú.`}>
+<Legal title="Términos y condiciones" imageAlt="Términos y condiciones para usar la plataforma Woki" description={`Conoce las condiciones de uso de Woki para pasajeros y conductores de taxi en Cerro de Pasco. Lee las reglas antes de usar la plataforma.`}>
   <h2>1. Quiénes somos y aceptación</h2>
   <p>{brand.name} es una plataforma operada por {brand.legalName} («{brand.name}»). Al usar nuestra app o este sitio web aceptas estos términos. Si no estás de acuerdo, por favor no uses el servicio.</p>
   <h2>2. Qué es {brand.name}</h2>
@@ -35,5 +34,5 @@ import { brand } from '../data/site';
   <h2>11. Ley aplicable</h2>
   <p>Estos términos se rigen por las leyes de la República del Perú.</p>
   <h2>12. Contacto</h2>
-  <p>Para consultas o reclamos escríbenos a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+  <p>Para consultas o reclamos escríbenos a {brand.email}.</p>
 </Legal>

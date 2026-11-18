@@ -3,8 +3,8 @@ import Legal from '../layouts/Legal.astro';
 import { contacto } from '../data/content';
 import { brand } from '../data/site';
 ---
-<Legal title="Política de privacidad" description={`Conoce cómo ${brand.name} recopila, utiliza y protege datos personales en su landing y aplicación, y qué derechos puedes ejercer como titular.`}>
-  <p>Esta política describe el tratamiento de datos personales relacionado con el sitio web y la aplicación {brand.name}. {brand.legalName} es el responsable indicado para este servicio. El tratamiento debe ajustarse a la Ley N.º 29733 y su Reglamento vigente. Si tienes una consulta o deseas ejercer tus derechos, escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+<Legal title="Política de privacidad" imageAlt="Política de privacidad y datos personales de Woki" description={`Lee cómo Woki trata los datos personales de la landing y app, qué derechos tienes y cómo se gestiona la analítica. Consulta la política completa.`}>
+  <p>Esta política describe el tratamiento de datos personales relacionado con el sitio web y la aplicación {brand.name}. {brand.legalName} es el responsable indicado para este servicio. El tratamiento debe ajustarse a la Ley N.º 29733 y su Reglamento vigente. Si tienes una consulta o deseas ejercer tus derechos, escribe a {contacto.email}.</p>
   <h2>1. Datos que podemos tratar</h2>
   <ul>
     <li>Datos de cuenta y contacto: nombre, número de teléfono y correo electrónico.</li>
@@ -28,9 +28,9 @@ import { brand } from '../data/site';
   <h2>5. Conservación y eliminación</h2>
   <p>Conservamos los datos durante el tiempo necesario para prestar el servicio, atender reclamos y cumplir obligaciones legales. Después, los eliminamos o anonimizamos de forma segura, salvo que una norma exija conservarlos por más tiempo. Puedes solicitar la eliminación de tu cuenta en la página <a href="/eliminar-cuenta">Eliminar cuenta</a>. Algunos registros pueden mantenerse por el plazo legal aplicable.</p>
   <h2>6. Seguridad y transferencias</h2>
-  <p>Aplicamos medidas de seguridad técnicas y organizativas acordes con la naturaleza de los datos. Si proveedores procesan información fuera del Perú, {brand.name} debe informar esa transferencia y asegurar las garantías que exige la normativa aplicable. Para conocer los proveedores y destinos actualmente usados, consulta a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+  <p>Aplicamos medidas de seguridad técnicas y organizativas acordes con la naturaleza de los datos. Si proveedores procesan información fuera del Perú, {brand.name} debe informar esa transferencia y asegurar las garantías que exige la normativa aplicable. Para conocer los proveedores y destinos actualmente usados, consulta a {contacto.email}.</p>
   <h2>7. Tus derechos</h2>
-  <p>Puedes solicitar acceso, información, actualización, rectificación, inclusión, supresión o cancelación y oposición de tus datos, según corresponda. Escribe a <a href={`mailto:${contacto.email}`}>{contacto.email}</a> desde un canal de contacto e indica qué derecho deseas ejercer. También puedes acudir a la Autoridad Nacional de Protección de Datos Personales si consideras que no atendimos tu solicitud conforme a ley.</p>
+  <p>Puedes solicitar acceso, información, actualización, rectificación, inclusión, supresión o cancelación y oposición de tus datos, según corresponda. Escribe a {contacto.email} desde un canal de contacto e indica qué derecho deseas ejercer. También puedes acudir a la Autoridad Nacional de Protección de Datos Personales si consideras que no atendimos tu solicitud conforme a ley.</p>
   <h2>8. Cookies y analítica de la landing</h2>
   <p>La medición de uso de esta landing es opcional. Google Tag Manager y la etiqueta de Google Analytics 4 permanecen bloqueados hasta que selecciones “Aceptar analítica”. Si rechazas, no cargamos el contenedor de Google Tag Manager desde esta landing ni enviamos eventos de analítica. Puedes cambiar tu elección desde “Preferencias de analítica” al pie de la página.</p>
   <p>Si aceptas, Google Analytics puede recibir información técnica y de navegación, como páginas visitadas, interacciones, dirección de referencia, navegador y dispositivo, y puede utilizar cookies o identificadores del navegador para medir visitas. El contenedor que carga esas etiquetas es Google Tag Manager. Google trata la información conforme a sus propios términos y políticas; consulta la <a href="https://policies.google.com/privacy" rel="external">Política de Privacidad de Google</a>. La configuración del periodo de conservación se administra en la propiedad de Google Analytics de Woki.</p>
@@ -38,5 +38,5 @@ import { brand } from '../data/site';
   <h2>9. Privacidad de menores</h2>
   <p>{brand.name} no está dirigido a menores de edad. Si detectamos que se creó una cuenta de un menor sin las autorizaciones que correspondan, podemos restringirla y eliminar sus datos conforme a la ley.</p>
   <h2>10. Cambios y contacto</h2>
-  <p>Publicaremos los cambios de esta política en esta misma página e indicaremos la fecha de actualización. Punto de contacto de privacidad: <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+  <p>Publicaremos los cambios de esta política en esta misma página e indicaremos la fecha de actualización. Punto de contacto de privacidad: {contacto.email}.</p>
 </Legal>

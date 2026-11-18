@@ -2,11 +2,11 @@
 import Legal from '../layouts/Legal.astro';
 import { brand } from '../data/site';
 ---
-<Legal title="Aviso legal" description={`Revisa la información legal sobre el sitio de ${brand.name}, sus contenidos, propiedad intelectual, enlaces externos y normativa aplicable en Perú.`}>
+<Legal title="Aviso legal" imageAlt="Información legal del sitio web de Woki" description={`Consulta la información legal de Woki: titularidad, contenidos, propiedad intelectual y enlaces de terceros. Revisa las condiciones del sitio.`}>
   <h2>Responsable del sitio</h2>
   <p>Este sitio web es titularidad de {brand.legalName}, con domicilio en {brand.city}, región de {brand.region}, {brand.country}.</p>
   <h2>Contacto</h2>
-  <p>Para consultas relacionadas con el sitio o sus contenidos, puedes escribir a <a href={`mailto:${brand.email}`}>{brand.email}</a>.</p>
+  <p>Para consultas relacionadas con el sitio o sus contenidos, puedes escribir a {brand.email}.</p>
   <h2>Finalidad del sitio</h2>
   <p>Este sitio presenta información sobre los servicios de movilidad de {brand.name}, sus funciones y los canales disponibles para pasajeros y conductores.</p>
   <h2>Propiedad intelectual</h2>

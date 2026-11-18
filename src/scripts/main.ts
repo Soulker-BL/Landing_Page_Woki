@@ -156,7 +156,7 @@ if (journeyTrack) {
   syncJourneyStage();
 }
 
-// Formulario de contacto: usa el endpoint configurado o prepara un correo.
+// El formulario solo se activa con un endpoint configurado.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector<HTMLElement>('[data-form-status]');
@@ -178,20 +178,6 @@ if (contactForm) {
       return;
     }
 
-    const email = contactForm.dataset.email;
-    if (!email) {
-      if (status) status.textContent = 'El correo de contacto aún no está configurado.';
-      return;
-    }
-    const subject = `Consulta Woki: ${String(data.get('motivo') ?? '')}`;
-    const body = [
-      `Nombre: ${data.get('nombre') ?? ''}`,
-      `Correo o teléfono: ${data.get('contacto') ?? ''}`,
-      `Motivo: ${data.get('motivo') ?? ''}`,
-      '',
-      String(data.get('mensaje') ?? ''),
-    ].join('\n');
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    if (status) status.textContent = 'Se abrirá tu correo con el mensaje listo para enviar.';
+    if (status) status.textContent = 'El formulario de contacto estará disponible pronto.';
   });
 }
