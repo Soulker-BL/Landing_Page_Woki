@@ -392,6 +392,7 @@ html.no-splash{--s:0s}
 .about-mission-card::before{content:"";position:absolute;top:-74px;right:-66px;width:190px;height:190px;border-radius:44% 56% 64% 36%;background:#65d9dd1c;transform:rotate(-18deg)}
 .about-mission-card .about-mission-label,.about-mission-card>p:last-child{position:relative;z-index:1}
 .about-mission-card .about-mission-label{margin:0;color:var(--deep);font-size:clamp(1.4rem,2.2vw,1.8rem);letter-spacing:.04em;text-transform:uppercase}
+.about-mission-card .about-mission-label::after{content:"";display:block;width:2.6rem;height:3px;margin:.55rem auto 0;border-radius:99px;background:var(--pin)}
 .about-mission-card>p:last-child{max-width:60ch;color:#3d5a5f;font-size:1rem;font-weight:400;line-height:1.75}
 .about-location{position:relative;overflow:hidden;background:linear-gradient(125deg,#004b55 0%,var(--deep) 54%,#08717a 100%);color:#fff}
 .about-location::before{content:"";position:absolute;width:450px;height:450px;border:1px solid #ffffff12;border-radius:50%;left:-230px;top:-210px;box-shadow:0 0 0 42px #ffffff08,0 0 0 84px #ffffff05;pointer-events:none}
@@ -404,7 +405,15 @@ html.no-splash{--s:0s}
 .pasco-map-card{padding:1rem;border:1px solid #ffffff2c;border-radius:26px;background:#ffffff0b;box-shadow:0 24px 60px #002e3440;backdrop-filter:blur(8px)}
 .pasco-map-heading{display:flex;justify-content:space-between;align-items:center;padding:.45rem .55rem .9rem;color:#d9f4f4;font-size:.73rem;font-weight:800;letter-spacing:.12em}
 .pasco-map-heading b{color:var(--aqua)}
-.pasco-map{width:100%;height:auto;border-radius:20px;overflow:hidden}
+.peru-map{width:100%;height:auto;border-radius:20px;overflow:hidden}
+.peru-map [data-map-art]{transform-box:view-box;transform-origin:31.79% 57%;transition:transform .32s cubic-bezier(.2,.75,.25,1)}
+.pasco-map-controls{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem .55rem .2rem;color:#d9f4f4;font-size:.8rem}
+.pasco-map-controls>div{display:flex;align-items:center;gap:.45rem}
+.pasco-map-controls button{min-width:38px;min-height:38px;padding:.35rem .65rem;border:1px solid #ffffff5c;border-radius:999px;background:#ffffff12;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+.pasco-map-controls button:hover:not(:disabled){background:#ffffff28;border-color:var(--aqua)}
+.pasco-map-controls button:disabled{opacity:.38;cursor:not-allowed}
+.pasco-map-controls button:last-child{min-width:0;font-size:.76rem}
+.pasco-map-controls button:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
 .pasco-map-caption{display:flex;align-items:center;gap:.65rem;padding:.9rem .55rem .2rem;color:#d9f4f4;font-size:.8rem}
 .pasco-map-caption span{flex:none;width:8px;height:8px}
 .about-pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding:0;list-style:none}
@@ -420,7 +429,8 @@ html.no-splash{--s:0s}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.values{grid-template-columns:1fr}}
 @media(max-width:900px){.about-location-grid{grid-template-columns:1fr}.about-location-copy>p:not(.eyebrow){max-width:620px}.about-pillars{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:1.2rem}}
-@media(max-width:600px){.about-centered-heading{margin-bottom:1.8rem}.about-centered-heading>p:last-child{font-size:1rem}.about-mission-grid{grid-template-columns:1fr}.about-mission-card{min-height:210px}.about-location-grid{gap:2rem}.pasco-map-card{padding:.55rem;border-radius:20px}.pasco-map{border-radius:15px}.pasco-map-heading{padding:.5rem}.about-pillars{grid-template-columns:1fr;gap:1rem}.about-pillars li{min-height:0;padding:1.4rem 1.2rem}}
+@media(max-width:600px){.about-centered-heading{margin-bottom:1.8rem}.about-centered-heading>p:last-child{font-size:1rem}.about-mission-grid{grid-template-columns:1fr}.about-mission-card{min-height:210px}.about-location-grid{gap:2rem}.pasco-map-card{padding:.55rem;border-radius:20px}.peru-map{border-radius:15px}.pasco-map-heading{padding:.5rem}.pasco-map-controls{gap:.55rem;padding:.7rem .5rem .1rem}.pasco-map-controls>div{gap:.3rem}.pasco-map-controls button{min-width:36px;min-height:36px}.pasco-map-controls button:last-child{padding-inline:.55rem}.about-pillars{grid-template-columns:1fr;gap:1rem}.about-pillars li{min-height:0;padding:1.4rem 1.2rem}}
+@media(prefers-reduced-motion:reduce){.peru-map [data-map-art]{transition:none}}
 
 
 .faq{background:#fff}
