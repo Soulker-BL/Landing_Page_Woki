@@ -2,16 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { aboutStatements, values } from '../data/content';
+import { values } from '../data/content';
 import { brand, routes } from '../data/site';
 ---
 <Layout title={`Nosotros | ${brand.name}`} description={`Conoce ${brand.name}, la plataforma local que acerca a pasajeros y conductores de taxi urbano en ${brand.city}.`}>
   <Header solid />
   <main>
     <section class="subpage-hero about-hero"><div class="wrap"><p class="eyebrow">Quiénes somos</p><h1>La ciudad se mueve mejor cuando nos acercamos.</h1><p class="lead">{brand.name} conecta pasajeros y conductores de taxi urbano en {brand.city} con una experiencia sencilla, cercana y pensada para la vida local.</p></div></section>
-    <section class="about about-story" aria-labelledby="about-story-title"><div class="wrap about-story-grid"><div><p class="eyebrow dark">Quiénes somos</p><h2 id="about-story-title">Tecnología útil, hecha para moverse por aquí</h2></div><div class="about-story-copy"><p class="lead">{brand.name} conecta pasajeros y conductores de taxi urbano en {brand.city}. Creamos una alternativa digital local para que pedir un viaje sea más claro y sencillo, con información útil para ambas partes durante el recorrido.</p><p class="about-note">{brand.legalName} · {brand.city}, {brand.country}</p></div></div></section>
-    <section class="about-purpose" aria-labelledby="about-purpose-title"><div class="wrap"><div class="about-section-heading"><p class="eyebrow dark">Lo que nos guía</p><h2 id="about-purpose-title">Una idea clara para cada viaje</h2><p>Trabajamos para acercar la tecnología a las necesidades reales de la movilidad local.</p></div><div class="about-purpose-grid">{aboutStatements.map((statement) => <article class="about-purpose-card"><span class="about-purpose-mark" aria-hidden="true">{statement.mark}</span><div><p class="eyebrow dark">{statement.label}</p><h3>{statement.title}</h3><p>{statement.description}</p></div></article>)}</div></div></section>
-    <section class="about-values" aria-labelledby="about-values-title"><div class="wrap"><div class="about-section-heading"><p class="eyebrow dark">Nuestra forma de avanzar</p><h2 id="about-values-title">Los valores detrás de Woki</h2></div><ul class="values">{values.map((value) => <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={value.iconPath} /></svg></span><h3>{value.title}</h3><p>{value.description}</p></li>)}</ul></div></section>
+    <section class="about"><div class="wrap about-grid"><div><p class="eyebrow dark">Nuestra idea</p><h2>Tecnología útil, hecha para moverse por aquí</h2><p class="lead">Creemos que pedir un taxi puede ser claro desde el primer toque: saber quién viene, compartir los datos del viaje y llegar con más tranquilidad. Por eso construimos {brand.name} para conectar a la comunidad con herramientas digitales prácticas.</p><p class="about-note">{brand.legalName} · {brand.city}, {brand.country}</p></div><ul class="values">{values.map((value) => <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={value.iconPath} /></svg></span><h3>{value.title}</h3><p>{value.description}</p></li>)}</ul></div></section>
     <section class="about-cta"><div class="wrap"><h2>¿Te mueves con {brand.name}?</h2><p>Conoce el servicio para pasajeros y conductores.</p><a class="btn solid" href={routes.download}>Ver opciones de descarga</a></div></section>
   </main>
   <Footer />
