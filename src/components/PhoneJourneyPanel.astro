@@ -28,6 +28,7 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
       <figcaption><b data-scene-title>{steps[0].title}</b><span data-scene-description>{steps[0].description}</span></figcaption>
     </figure>
     <ol class="phone-step-list">
+      <svg class="phone-route" viewBox="0 0 40 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="phone-route-base" d="M12 18v364"/><path class="phone-route-progress" d="M12 18v364"/><g class="phone-route-marker" transform="translate(12 18)"><path d="M0-10a8 8 0 0 0-8 8C-8 5 0 13 0 13S8 5 8-2a8 8 0 0 0-8-8z"/><circle cy="-2" r="2.4"/></g></svg>
       {steps.map(({ title, description }, index) => {
         const image = stepImages[index];
         return <li><button class="phone-step" type="button" data-step-button data-step={index} data-title={title} data-description={description} aria-pressed={index === 0 ? 'true' : 'false'}><span class="phone-step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span class="phone-step-copy"><small>ETAPA {index + 1}</small><b>{title}</b><span>{description}</span></span></button><Picture src={image.src} formats={['avif', 'webp']} widths={[320, 480, 640, 800]} sizes="(min-width: 800px) 1px, 90vw" alt={image.alt} class="phone-mobile-image" loading="lazy" decoding="async" /></li>;
@@ -57,7 +58,14 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
   .phone-scene figcaption b{color:var(--deep)}
   .phone-scene figcaption span{color:#45666b;font-size:.88rem;line-height:1.45}
   .phone-step-list{position:relative;grid-area:steps;display:grid;gap:1.15rem;margin:0;padding:0;list-style:none;counter-reset:stage}
-  .phone-step-list::before{content:"";position:absolute;top:1rem;bottom:1rem;left:25px;border-left:2px dotted color-mix(in srgb,var(--journey-accent) 40%,white)}
+  .phone-route{position:absolute;top:0;bottom:0;left:6px;width:38px;height:100%;overflow:visible;pointer-events:none}
+  .phone-route-base,.phone-route-progress{fill:none;stroke:color-mix(in srgb,var(--journey-accent) 42%,white);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+  .phone-route-progress{stroke:var(--journey-accent-light);stroke-width:3;stroke-dasharray:364;stroke-dashoffset:0}
+  .phone-route-marker{fill:var(--pin);stroke:var(--paper);stroke-width:2;filter:drop-shadow(0 2px 5px color-mix(in srgb,var(--deep) 35%,transparent));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .phone-route-marker circle{fill:var(--deep);stroke:none}
+  .phone-journey:has(.phone-scene[data-step="1"]) .phone-route-marker{transform:translate(12px,139px)}
+  .phone-journey:has(.phone-scene[data-step="2"]) .phone-route-marker{transform:translate(12px,261px)}
+  .phone-journey:has(.phone-scene[data-step="3"]) .phone-route-marker{transform:translate(12px,382px)}
   .phone-step-list>li{position:relative;z-index:1;min-width:0}
   .phone-step{display:grid;width:100%;min-height:100px;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:.85rem;padding:1rem;border:1px solid color-mix(in srgb,var(--journey-accent) 20%,white);border-radius:var(--r-md);background:#fff;color:var(--ink);text-align:left;font:inherit;cursor:pointer;transition:border-color .2s ease,background-color .2s ease,transform .2s ease,box-shadow .2s ease}
   .phone-step:hover{transform:translateX(4px);border-color:var(--journey-accent-light);box-shadow:0 12px 28px color-mix(in srgb,var(--deep) 10%,transparent)}
@@ -75,6 +83,6 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
   .phone-journey[data-role="conductor"] .phone-step-list::before{border-color:color-mix(in srgb,var(--aqua) 46%,white)}
   .phone-journey[data-role="conductor"] .phone-step-number{background:color-mix(in srgb,var(--deep) 7%,white)}
   [data-scroll-journey] .phone-journey{max-height:min(86svh,760px);overflow:hidden}
-  @media(max-width:800px){.phone-journey{max-height:none;overflow:visible}.phone-journey-layout,.phone-journey[data-role="conductor"] .phone-journey-layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"steps" "phone";gap:1.2rem}.phone-scene{display:none}.phone-step-list{gap:.8rem}.phone-step-list::before{left:21px}.phone-step{min-height:0;padding:.85rem;grid-template-columns:42px minmax(0,1fr)}.phone-step-number{width:38px;height:38px}.phone-mobile-image{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin:.65rem 0 0 0;border:4px solid white;border-radius:var(--r-md);box-shadow:0 14px 32px color-mix(in srgb,var(--deep) 12%,transparent)}.phone-journey[data-role="conductor"] .phone-step-list{order:0}.phone-journey[data-role="conductor"] .phone-scene{order:initial}}
+  @media(max-width:800px){.phone-journey{max-height:none;overflow:visible}.phone-journey-layout,.phone-journey[data-role="conductor"] .phone-journey-layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"steps" "phone";gap:1.2rem}.phone-scene{display:none}.phone-step-list{gap:.8rem}.phone-route{left:0;width:30px}.phone-route-marker{display:none}.phone-route-progress{stroke-dasharray:2 8;stroke-dashoffset:0}.phone-step{min-height:0;padding:.85rem;grid-template-columns:42px minmax(0,1fr)}.phone-step-number{width:38px;height:38px}.phone-mobile-image{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin:.65rem 0 0 0;border:4px solid white;border-radius:var(--r-md);box-shadow:0 14px 32px color-mix(in srgb,var(--deep) 12%,transparent)}.phone-journey[data-role="conductor"] .phone-step-list{order:0}.phone-journey[data-role="conductor"] .phone-scene{order:initial}}
   @media(prefers-reduced-motion:reduce){.phone-step{transition:none}.phone-scene{display:none}.phone-mobile-image{display:block}.phone-journey{max-height:none;overflow:visible}}
 </style>
