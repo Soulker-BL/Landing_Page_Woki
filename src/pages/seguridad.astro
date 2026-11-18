@@ -4,13 +4,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Features from '../components/Features.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
-import { brand, assets } from '../data/site';
+import { assets } from '../data/site';
 
-const title = `Seguridad en tus viajes | Woki ${brand.city}`;
-const description = `Conoce las herramientas de seguridad de Woki: conductores verificados, PIN por viaje, seguimiento del recorrido y comunicación desde la app.`;
+const title = `Seguridad en tus viajes | Woki`;
+const description = `Conoce las herramientas de seguridad para pedir taxi en Cerro de Pasco: conductor verificado, PIN y seguimiento. Revisa cómo te acompaña Woki.`;
 const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad en Woki', description);
 ---
-<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas para viajar con Woki" ogType="article">
+<Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.contactBanner} imageAlt="Herramientas de seguridad de Woki para viajes en taxi" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
@@ -33,6 +33,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
           <article data-reveal><span>03</span><h3>Sigue y coordina</h3><p>Consulta el recorrido y utiliza las opciones de chat o llamada incluidas en la app.</p></article>
           <article data-reveal><span>04</span><h3>Cuéntanos cómo fue</h3><p>Al terminar, puedes dejar una calificación de tu experiencia.</p></article>
         </div>
+      </div>
+    </section>
+    <section class="detail-section" aria-labelledby="safety-coordination-title">
+      <div class="wrap detail-two-col">
+        <div><p class="eyebrow dark">Antes de iniciar</p><h2 id="safety-coordination-title">Confirma que el viaje corresponde a tu solicitud</h2><p>Antes de abordar, puedes revisar la información del conductor, el vehículo y la placa que aparecen en la app. El PIN sirve para confirmar el inicio con el conductor que llegó por ese viaje; compártelo solo cuando hayas verificado los datos del servicio.</p><p>Durante el trayecto, el seguimiento en el mapa ayuda a consultar el recorrido. Si necesitas coordinar algo, la aplicación incluye opciones de chat y llamada para comunicarte con el conductor. Estas herramientas acompañan la coordinación y no sustituyen la atención ante una emergencia.</p></div>
+        <div><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
       </div>
     </section>
   </main>

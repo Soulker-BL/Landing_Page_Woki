@@ -7,7 +7,7 @@ import { buildSectionJsonLd, driverBenefits, driverSteps, passengerSteps } from 
 import { brand, assets } from '../data/site';
 
 const title = `Cómo funciona Woki | Taxi en ${brand.city}`;
-const description = `Conoce cómo pedir un taxi Woki en ${brand.city} o recibir viajes como conductor. Revisa las etapas, tarifas y herramientas disponibles en la app.`;
+const description = `Descubre cómo pedir un taxi Woki en Cerro de Pasco, revisar cada viaje y conocer su tarifa. Explora los pasos para pasajeros y conductores.`;
 const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo funciona Woki', description);
 ---
 <Layout title={title} description={description} image={assets.socialImage} bannerImage={assets.aboutBanner} imageAlt="Recorrido de un viaje en Woki" ogType="article">
@@ -32,6 +32,16 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
       <div class="wrap detail-two-col">
         <div><p class="eyebrow dark">Claridad antes de salir</p><h2 id="detail-tariff-title">Revisa los detalles antes de confirmar</h2><p class="lead">La app presenta la recogida, el destino, la distancia, el tiempo y la forma de pago. El conductor puede revisar la tarifa y aceptarla o ajustar su propuesta.</p></div>
         <ul class="detail-checks">{driverBenefits.map((benefit) => <li><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ul>
+      </div>
+    </section>
+    <section class="detail-section" aria-labelledby="journey-details-title">
+      <div class="wrap">
+        <header class="about-centered-heading"><p class="eyebrow dark">Una experiencia compartida</p><h2 id="journey-details-title">Cada parte del viaje tiene información útil</h2><p>La app reúne los datos que pasajero y conductor necesitan para coordinar el servicio de taxi.</p></header>
+        <div class="detail-two-col">
+          <article><h3>Para quien solicita el taxi</h3><p>El pasajero indica la recogida y el destino, revisa los datos de la solicitud y comparte el PIN con el conductor para confirmar que ambos se preparan para el mismo viaje. Durante el recorrido puede consultar el seguimiento y usar el chat o la llamada disponibles en la app.</p></article>
+          <article><h3>Para quien conduce</h3><p>El conductor puede revisar la recogida, el destino, la distancia, el tiempo y la forma de pago antes de aceptar. También puede aceptar la tarifa o ajustar su propuesta con las opciones mostradas en la aplicación. Al finalizar, puede consultar su actividad y sus ganancias.</p></article>
+        </div>
+        <p class="lead">Conoce las <a href="/seguridad">herramientas de seguridad para el viaje</a> o visita <a href="/conductores">la guía para conducir con Woki</a>.</p>
       </div>
     </section>
   </main>

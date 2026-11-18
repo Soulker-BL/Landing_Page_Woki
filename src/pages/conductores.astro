@@ -6,18 +6,18 @@ import Footer from '../components/Footer.astro';
 import { buildSectionJsonLd, driverBenefits, driverReasons } from '../data/content';
 import { assets, brand } from '../data/site';
 
-const title = `Conduce con Woki | Oportunidades en ${brand.city}`;
-const description = `Descubre cómo funciona Woki para conductores en ${brand.city}: revisa cada solicitud, participa en la tarifa y consulta tus ganancias desde la app.`;
+const title = `Conduce con Woki en ${brand.city}`;
+const description = `Conduce taxi con Woki en Cerro de Pasco: revisa solicitudes, tarifas y actividad desde la app. Conoce los pasos para empezar.`;
 const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce con Woki', description);
 ---
-<Layout title={title} description={description} image={assets.driverPhoto} bannerImage={assets.driverPhoto} imageAlt="Conductor de taxi en Cerro de Pasco" ogType="article">
+<Layout title={title} description={description} image={assets.driverPhoto} bannerImage={assets.driverPhoto} imageAlt="Conductor de taxi revisando sus viajes en la app de Woki" ogType="article">
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
     <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p></div></section>
     <section class="detail-section driver-detail-intro" aria-labelledby="driver-detail-title">
       <div class="wrap detail-driver-grid">
-        <div class="detail-driver-photo"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 920px) 48vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="lazy" decoding="async" /></div>
+        <div class="detail-driver-photo"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 920px) 48vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async" /></div>
         <div><p class="eyebrow dark">Tu trabajo, a tu manera</p><h2 id="driver-detail-title">Decide con información a la vista</h2><p class="lead">Antes de aceptar una solicitud, revisa los datos del recorrido y la forma de pago. Después puedes consultar tus ganancias y actividad desde la app.</p><a class="btn solid" href="/#descargar">Conoce Woki</a></div>
       </div>
     </section>
@@ -41,6 +41,12 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
       <div class="wrap">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Woki en Cerro de Pasco</p><h2 id="driver-detail-reasons-title">Una propuesta conectada con la ciudad</h2><p>Woki organiza sus funciones alrededor del servicio de taxi urbano y de la relación entre conductores y pasajeros locales.</p></header>
         <div class="driver-reasons-grid">{driverReasons.map((reason) => <article class="driver-reason" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span><h3>{reason.title}</h3><p>{reason.description}</p></article>)}</div>
+      </div>
+    </section>
+    <section class="detail-section" aria-labelledby="driver-workflow-title">
+      <div class="wrap detail-two-col">
+        <div><p class="eyebrow dark">Una solicitud a la vez</p><h2 id="driver-workflow-title">Revisa los datos y decide con claridad</h2><p>Al conectarte como conductor, la app muestra solicitudes disponibles cerca. Antes de aceptar, revisa la recogida, el destino, la distancia, el tiempo y la forma de pago. La tarifa se presenta para que puedas aceptarla o ajustar tu propuesta según las opciones de la aplicación.</p><p>Esta información sirve para evaluar cada recorrido desde el inicio.</p></div>
+        <div><h3>Registro y revisión del perfil</h3><p>Para empezar, elige el perfil de conductor, completa los datos que solicita la app y carga tus documentos para la revisión. El equipo revisa la información y te activa para que puedas conectarte.</p><p>Conoce <a href="/como-funciona">las etapas de un viaje para pasajero y conductor</a> y las <a href="/seguridad">herramientas de seguridad que acompañan cada recorrido</a>. Para consultas sobre el registro, visita <a href="/contacto">Contáctanos</a>.</p></div>
       </div>
     </section>
   </main>
