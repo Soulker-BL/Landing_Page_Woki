@@ -35,14 +35,19 @@ import { brand } from '../data/site';
           <p class="eyebrow">Nuestra zona</p>
           <h2 id="about-location-title">¿Dónde operamos?</h2>
           <p>Woki comienza en Cerro de Pasco, conectando a la comunidad con una nueva forma de pedir y coordinar sus viajes urbanos.</p>
-          <span class="about-location-tag"><i aria-hidden="true"></i>Cerro de Pasco · Pasco, Perú</span>
+          <span class="about-location-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Cerro de Pasco · Pasco, Perú</span>
         </div>
         <div class="peru-map-wrap" data-reveal>
-          <svg class="peru-map" viewBox="80 0 280 360" role="img" aria-labelledby="peru-map-title peru-map-description">
-            <title id="peru-map-title">Silueta de Perú con el contorno de Pasco resaltado</title>
-            <desc id="peru-map-description">El departamento de Pasco aparece delineado en amarillo dentro de la silueta del Perú.</desc>
-            <path d="M316.9 96.3 L299.9 95.5 297.4 98.1 281.9 101.4 260.4 113 259 121 254.2 126.9 256.1 136.1 244.7 141 244.8 148.2 239.8 151.4 247.6 166.7 258.1 177.1 254.1 184.4 266.6 185.4 273.7 194.5 290.3 195 305.8 184.9 304.5 210.8 313.1 212.8 323.7 209.8 340 237.3 336 243.1 335 255.1 334.7 269.6 327.3 278.1 330.7 284.4 326.4 290.2 334.5 304.5 322.6 322.9 317.5 331.6 307.8 336 289 326.2 287.3 319.2 250 302.1 216.2 283.4 201.7 272.9 193.9 258.8 197 253.9 181.1 231.5 162.5 200 144.7 166.1 137 158.3 131.1 145.7 116.4 134.6 103 127.7 109.1 120.1 100 103.8 105.9 91.9 120.9 81.1 123.1 88.2 117.7 92.3 118.2 98.5 126 97.2 133.6 99 141.5 107.6 152.2 100.6 155.7 89.1 167.3 74.2 189.9 67.5 210.5 49.7 216.3 38.6 213.7 25.6 218.7 24 231.2 32.1 237.2 40.1 246 44.5 257 62.4 271.1 64.5 281.4 60 288.2 63 299.5 61.5 314 69.5 301.8 86.9 307.4 87.3 316.9 96.3Z" fill="#6acbd0" fill-opacity=".8" stroke="#c8f5f4" stroke-width="2.5" stroke-linejoin="round" />
-            <path d="M174 213.4 174.6 210.4 178.1 208.8 179.4 206.3 183.6 206.8 186.1 205.1 188.6 205 190.9 203.8 192.8 204.3 193.8 202.2 195.4 202.2 196 198.4 197.3 194.3 198.5 190 199.6 190.7 200.7 196.2 203.9 195.8 205.8 196.7 207 200.1 209.3 200.4 211.3 197.2 211.4 202.2 212.9 205.3 215 205 216.2 203.1 216.7 207.1 218.6 206.7 219.9 208.6 222 209.5 223.8 211.2 226.2 210.9 228.5 215.2 227.9 217.8 226.1 220.2 224.1 220.5 222 219.3 220.2 220.3 217.6 221.5 214.8 220.5 212.7 222.1 210.5 222.4 207.8 221.4 205.5 220.1 202.8 220.5 200.9 219.7 198.7 220.3 196.6 220.8 194.2 220.6 193.6 218.5 191.1 218.1 188.8 218.3 186.2 217.9 184 216.9 181.7 216.3 179.4 216.9 177.1 216.4 175.2 215.4Z" fill="none" stroke="#f5a524" stroke-width="2.5" stroke-linejoin="round" />
+          <svg class="peru-map" viewBox="0 0 620 360" data-peru-map role="img" aria-labelledby="peru-map-title peru-map-description">
+            <title id="peru-map-title">Perú con Cerro de Pasco resaltado</title>
+            <desc id="peru-map-description">Silueta de Perú con un marcador aproximado en Cerro de Pasco, en la región Pasco.</desc>
+            <defs><radialGradient id="peru-map-glow"><stop stop-color="#f5a524" stop-opacity=".62" /><stop offset="1" stop-color="#f5a524" stop-opacity="0" /></radialGradient></defs>
+            <g data-map-art>
+              <path d="M316.9 96.3 L299.9 95.5 297.4 98.1 281.9 101.4 260.4 113 259 121 254.2 126.9 256.1 136.1 244.7 141 244.8 148.2 239.8 151.4 247.6 166.7 258.1 177.1 254.1 184.4 266.6 185.4 273.7 194.5 290.3 195 305.8 184.9 304.5 210.8 313.1 212.8 323.7 209.8 340 237.3 336 243.1 335 255.1 334.7 269.6 327.3 278.1 330.7 284.4 326.4 290.2 334.5 304.5 322.6 322.9 317.5 331.6 307.8 336 289 326.2 287.3 319.2 250 302.1 216.2 283.4 201.7 272.9 193.9 258.8 197 253.9 181.1 231.5 162.5 200 144.7 166.1 137 158.3 131.1 145.7 116.4 134.6 103 127.7 109.1 120.1 100 103.8 105.9 91.9 120.9 81.1 123.1 88.2 117.7 92.3 118.2 98.5 126 97.2 133.6 99 141.5 107.6 152.2 100.6 155.7 89.1 167.3 74.2 189.9 67.5 210.5 49.7 216.3 38.6 213.7 25.6 218.7 24 231.2 32.1 237.2 40.1 246 44.5 257 62.4 271.1 64.5 281.4 60 288.2 63 299.5 61.5 314 69.5 301.8 86.9 307.4 87.3 316.9 96.3Z" fill="#6acbd0" fill-opacity=".86" stroke="#c8f5f4" stroke-width="2.5" stroke-linejoin="round" />
+              <circle cx="197.1" cy="205.2" r="31" fill="url(#peru-map-glow)" /><circle cx="197.1" cy="205.2" r="12" fill="#f5a524" fill-opacity=".3" stroke="#ffd36c" stroke-width="2" /><circle cx="197.1" cy="205.2" r="5.5" fill="#f5a524" stroke="#fff" stroke-width="2.5" />
+            </g>
+            <path d="M207 205.2h162" fill="none" stroke="#fff" stroke-opacity=".82" stroke-width="2" /><circle cx="369" cy="205.2" r="4" fill="#f5a524" />
+            <rect x="382" y="177" width="202" height="58" rx="17" fill="#fff" /><text x="400" y="201" fill="#218e97" font-size="11" font-family="Open Sans, sans-serif" font-weight="700" letter-spacing="1.5">ZONA WOKI</text><text x="400" y="221" fill="#0d2f34" font-size="15" font-family="Open Sans, sans-serif" font-weight="800">Cerro de Pasco</text>
           </svg>
         </div>
       </div>
