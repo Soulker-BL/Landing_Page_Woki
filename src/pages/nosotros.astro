@@ -19,12 +19,10 @@ import { brand, routes } from '../data/site';
         </header>
         <div class="about-mission-grid">
           <article class="about-mission-card" data-reveal>
-            <span class="about-card-index" aria-hidden="true">01</span>
             <p class="eyebrow dark">Misión</p>
             <p>{companyPurpose.mission}</p>
           </article>
           <article class="about-mission-card" data-reveal>
-            <span class="about-card-index" aria-hidden="true">02</span>
             <p class="eyebrow dark">Visión</p>
             <p>{companyPurpose.vision}</p>
           </article>
@@ -73,14 +71,13 @@ import { brand, routes } from '../data/site';
           <h2 id="about-how-title">¿Cómo trabajamos?</h2>
           <p>Cuatro principios orientan la forma en que conectamos cada viaje.</p>
         </header>
-        <ol class="about-pillars">
-          {companyPillars.map((pillar, index) => <li data-reveal>
-            <span class="about-pillar-number">{String(index + 1).padStart(2, '0')}</span>
+        <ul class="about-pillars">
+          {companyPillars.map((pillar) => <li data-reveal>
             <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={pillar.iconPath} /></svg></span>
             <h3>{pillar.title}</h3>
             <p>{pillar.description}</p>
           </li>)}
-        </ol>
+        </ul>
       </div>
     </section>
     <section class="about-cta"><div class="wrap"><h2>¿Te mueves con {brand.name}?</h2><p>Conoce el servicio para pasajeros y conductores.</p><a class="btn solid" href={routes.download}>Ver opciones de descarga</a></div></section>
