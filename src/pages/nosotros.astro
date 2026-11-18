@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { companyPillars, companyPurpose, values } from '../data/content';
-import { brand, routes } from '../data/site';
+import { brand } from '../data/site';
 ---
 <Layout title={`Nosotros | ${brand.name}`} description={`Conoce ${brand.name}, la plataforma local que acerca a pasajeros y conductores de taxi urbano en ${brand.city}.`}>
   <Header solid />
@@ -80,7 +80,6 @@ import { brand, routes } from '../data/site';
         </ul>
       </div>
     </section>
-    <section class="about-cta"><div class="wrap"><h2>¿Te mueves con {brand.name}?</h2><p>Conoce el servicio para pasajeros y conductores.</p><a class="btn solid" href={routes.download}>Ver opciones de descarga</a></div></section>
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>
