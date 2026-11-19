@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Features from '../components/Features.astro';
+import OrbitBadges from '../components/OrbitBadges.astro';
+import TopographicBackdrop from '../components/TopographicBackdrop.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -14,36 +16,37 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
-    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p></div></section>
-    <section class="detail-section safety-overview" aria-labelledby="safety-overview-title">
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Pensado para cada etapa</p><h2 id="safety-overview-title">Información clara para viajar</h2><p>Revisa los recursos que acompañan el viaje desde que solicitas el taxi hasta que llegas a destino.</p></header>
-        <div class="grid4 safety-grid">
-          {benefits.map((item) => <article class="benefit" data-reveal><span class="sign" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span><h3>{item.title}</h3><p>{item.description}</p></article>)}
+    <section class="subpage-hero detail-hero safety-hero"><TopographicBackdrop city /><div class="wrap safety-hero-grid"><div class="safety-hero-copy"><p class="eyebrow">Confianza en cada recorrido</p><h1>Viaja con más tranquilidad</h1><p class="lead">Conoce las herramientas de Woki que ayudan a identificar el viaje, seguir el recorrido y mantener el contacto.</p></div><div class="safety-pin-stage"><OrbitBadges items={benefits}/><div class="safety-pin-panel" role="img" aria-label={`Ejemplo de PIN de viaje ${brand.demoPin}`}><span>Ejemplo</span><strong aria-hidden="true">{[...brand.demoPin].map((digit,index)=><i style={`--digit-index:${index}`}>{digit}</i>)}</strong></div></div></div></section>
+    <section class="detail-section safety-coordination" aria-labelledby="safety-coordination-title">
+      <TopographicBackdrop />
+      <div class="wrap detail-two-col">
+        <div><p class="eyebrow dark">Antes de iniciar</p><h2 id="safety-coordination-title">Confirma que el viaje corresponde a tu solicitud</h2><p>Antes de abordar, puedes revisar la información del conductor, el vehículo y la placa que aparecen en la app. El PIN sirve para confirmar el inicio con el conductor que llegó por ese viaje; compártelo solo cuando hayas verificado los datos del servicio.</p><p>Durante el trayecto, el seguimiento en el mapa ayuda a consultar el recorrido. Si necesitas coordinar algo, la aplicación incluye opciones de chat y llamada para comunicarte con el conductor. Estas herramientas acompañan la coordinación y no sustituyen la atención ante una emergencia.</p>
+          <fieldset class="safety-checklist"><legend>Antes de abordar</legend><label for="verify-driver"><input id="verify-driver" type="checkbox"/><span>Conductor</span></label><label for="verify-vehicle"><input id="verify-vehicle" type="checkbox"/><span>Vehículo</span></label><label for="verify-plate"><input id="verify-plate" type="checkbox"/><span>Placa</span></label><p class="checklist-ready" role="status" aria-live="polite" aria-atomic="true">Todo listo</p></fieldset>
         </div>
-      </div>
-    </section>
-    <section class="pin-showcase" aria-label={`Ejemplo de PIN de viaje ${brand.demoPin}`}>
-      <div class="wrap pin-showcase-inner">
-        <div class="pin-rings" aria-hidden="true"><span></span><span></span><span></span><div class="pin-ticket"><small>Ejemplo de PIN de viaje</small><strong aria-hidden="true">{brand.demoPin}</strong></div></div>
+        <div class="safety-after"><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
       </div>
     </section>
     <Features />
     <section class="detail-section safety-flow safety-timeline" aria-labelledby="safety-flow-title">
+      <TopographicBackdrop />
       <div class="wrap">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Durante el viaje</p><h2 id="safety-flow-title">Qué puedes revisar en la app</h2></header>
+        <div class="safety-time-rail" aria-hidden="true"><span></span></div>
         <div class="detail-cards">
-          <article data-reveal><span>01</span><h3>Identifica el servicio</h3><p>Revisa la información del conductor, el vehículo y la placa antes de abordar.</p></article>
-          <article data-reveal><span>02</span><h3>Confirma el inicio</h3><p>Comparte el PIN del viaje con el conductor para confirmar que corresponde a tu solicitud.</p></article>
-          <article data-reveal><span>03</span><h3>Sigue y coordina</h3><p>Consulta el recorrido y utiliza las opciones de chat o llamada incluidas en la app.</p></article>
-          <article data-reveal><span>04</span><h3>Cuéntanos cómo fue</h3><p>Al terminar, puedes dejar una calificación de tu experiencia.</p></article>
+          <article data-reveal><span>01</span><small>Antes de abordar</small><h3>Identifica el servicio</h3><p>Revisa la información del conductor, el vehículo y la placa antes de abordar.</p></article>
+          <article data-reveal><span>02</span><small>Antes de iniciar</small><h3>Confirma el inicio</h3><p>Comparte el PIN del viaje con el conductor para confirmar que corresponde a tu solicitud.</p></article>
+          <article data-reveal><span>03</span><small>Durante el viaje</small><h3>Sigue y coordina</h3><p>Consulta el recorrido y utiliza las opciones de chat o llamada incluidas en la app.</p></article>
+          <article data-reveal><span>04</span><small>Después del viaje</small><h3>Cuéntanos cómo fue</h3><p>Al terminar, puedes dejar una calificación de tu experiencia.</p></article>
         </div>
       </div>
     </section>
-    <section class="detail-section" aria-labelledby="safety-coordination-title">
-      <div class="wrap detail-two-col">
-        <div><p class="eyebrow dark">Antes de iniciar</p><h2 id="safety-coordination-title">Confirma que el viaje corresponde a tu solicitud</h2><p>Antes de abordar, puedes revisar la información del conductor, el vehículo y la placa que aparecen en la app. El PIN sirve para confirmar el inicio con el conductor que llegó por ese viaje; compártelo solo cuando hayas verificado los datos del servicio.</p><p>Durante el trayecto, el seguimiento en el mapa ayuda a consultar el recorrido. Si necesitas coordinar algo, la aplicación incluye opciones de chat y llamada para comunicarte con el conductor. Estas herramientas acompañan la coordinación y no sustituyen la atención ante una emergencia.</p></div>
-        <div><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
+    <section class="detail-section safety-overview" aria-labelledby="safety-overview-title">
+      <TopographicBackdrop city />
+      <div class="wrap">
+        <header class="about-centered-heading" data-reveal><p class="eyebrow">Pensado para cada etapa</p><h2 id="safety-overview-title">Información clara para viajar</h2><p>Revisa los recursos que acompañan el viaje desde que solicitas el taxi hasta que llegas a destino.</p></header>
+        <div class="grid4 safety-grid">
+          {benefits.map((item) => <article class="benefit" data-reveal><span class="sign" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={item.iconPath} /></svg></span><h3>{item.title}</h3><p>{item.description}</p></article>)}
+        </div>
       </div>
     </section>
   </main>
@@ -52,30 +55,61 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
 </Layout>
 
 <style>
-  .safety-overview{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper),white)}
-  .safety-overview .safety-grid{gap:1rem}
-  .safety-overview .benefit{position:relative;overflow:hidden;min-height:230px;padding:1.5rem;border:1px solid color-mix(in srgb,var(--cian) 19%,white);border-radius:var(--r-lg);background:#fff;box-shadow:0 16px 40px color-mix(in srgb,var(--deep) 8%,transparent)}
-  .safety-overview .benefit::after{content:"";position:absolute;right:-36px;top:-43px;width:130px;height:130px;border:1px solid color-mix(in srgb,var(--aqua) 28%,white);border-radius:50%;box-shadow:0 0 0 14px color-mix(in srgb,var(--aqua) 8%,transparent),0 0 0 28px color-mix(in srgb,var(--aqua) 5%,transparent);pointer-events:none}
-  .safety-overview .benefit .sign{position:relative;z-index:1;width:54px;height:54px;border-radius:18px;background:color-mix(in srgb,var(--aqua) 24%,white);box-shadow:0 0 0 6px color-mix(in srgb,var(--aqua) 9%,transparent)}
-  .safety-overview .benefit h3{position:relative;z-index:1;margin-top:1.15rem;color:var(--deep)}
-  .safety-overview .benefit p{position:relative;z-index:1;color:#45666b;line-height:1.6}
-  .pin-showcase{position:relative;overflow:hidden;padding:clamp(1.5rem,4vw,3rem) 0;background:var(--paper)}
-  .pin-showcase::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--aqua) 18%,transparent),transparent 62%);pointer-events:none}
-  .pin-showcase-inner{display:grid;place-items:center;min-height:210px}
-  .pin-rings{position:relative;display:grid;place-items:center;width:min(100%,490px);aspect-ratio:2.8}
-  .pin-rings>span{position:absolute;inset:12%;border:1px solid color-mix(in srgb,var(--cian) 20%,transparent);border-radius:50%}
-  .pin-rings>span:nth-child(2){inset:2% 7%}
-  .pin-rings>span:nth-child(3){inset:-9% 0}
-  .pin-ticket{position:relative;z-index:1;display:grid;gap:.45rem;justify-items:center;padding:1rem 2rem;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:20px;background:white;box-shadow:0 16px 40px color-mix(in srgb,var(--deep) 14%,transparent)}
-  .pin-ticket small{color:var(--deep);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-  .pin-ticket strong{color:var(--deep);font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:.35em;line-height:1}
-  .safety-timeline{overflow:hidden;background:#fff}
-  .safety-timeline .detail-cards{position:relative;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-top:1.3rem}
-  .safety-timeline .detail-cards::before{content:"";position:absolute;top:2.55rem;left:9%;right:9%;height:2px;background:linear-gradient(90deg,var(--aqua),var(--cian),var(--pin));opacity:.68}
-  .safety-timeline .detail-cards article{position:relative;z-index:1;min-height:245px;padding:1.2rem;border-color:color-mix(in srgb,var(--cian) 19%,white);border-radius:var(--r-lg);background:linear-gradient(160deg,#fff,var(--paper));box-shadow:0 15px 34px color-mix(in srgb,var(--deep) 8%,transparent)}
-  .safety-timeline .detail-cards article>span{width:48px;height:48px;border:5px solid white;border-radius:50%;background:var(--deep);color:white;box-shadow:0 0 0 2px color-mix(in srgb,var(--cian) 35%,white)}
-  .safety-timeline .detail-cards article:nth-child(4)>span{background:var(--pin);color:var(--ink)}
-  .safety-timeline .detail-cards h3{margin-top:.3rem}
-  @media(max-width:900px){.safety-timeline .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-timeline .detail-cards::before{display:none}}
-  @media(max-width:600px){.safety-overview .benefit{min-height:0}.pin-showcase-inner{min-height:155px}.pin-rings{aspect-ratio:2}.pin-rings>span:nth-child(3){inset:-4% 0}.safety-timeline .detail-cards{grid-template-columns:1fr}.safety-timeline .detail-cards article{min-height:0}}
+  .safety-hero{position:relative;isolation:isolate;min-height:550px;padding:8rem 0 4.5rem;overflow:hidden;background:linear-gradient(120deg,var(--deep),var(--ink))}
+  .safety-hero>.wrap{position:relative;z-index:1;display:grid;width:min(calc(100% - 2.5rem),var(--max));grid-template-columns:minmax(0,1fr) minmax(320px,.85fr);align-items:center;gap:clamp(1.5rem,5vw,5rem);margin-inline:auto}
+  .safety-hero-copy{max-width:620px}
+  .safety-hero-copy .eyebrow{color:var(--aqua)}
+  .safety-hero-copy h1{max-width:11ch;color:white;font-size:clamp(2.65rem,5.7vw,4.75rem);line-height:1.02;text-wrap:balance}
+  .safety-hero-copy .lead{max-width:52ch;color:var(--paper);font-size:1.05rem;line-height:1.65}
+  .safety-pin-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:400px}
+  .safety-pin-stage :global(.orbit-badges){--orbit-size:clamp(290px,35vw,450px);position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%)}
+  .safety-pin-panel{position:relative;z-index:2;display:grid;justify-items:center;gap:.6rem;min-width:220px;padding:1.25rem 1.6rem;border:1px solid color-mix(in srgb,var(--aqua) 42%,transparent);border-radius:24px;background:color-mix(in srgb,var(--deep) 58%,transparent);color:white;box-shadow:0 24px 65px color-mix(in srgb,var(--ink) 36%,transparent);backdrop-filter:blur(16px)}
+  .safety-pin-panel>span{color:var(--aqua);font-size:.76rem;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+  .safety-pin-panel strong{display:flex;gap:.13em;color:white;font-size:clamp(3rem,6vw,5rem);font-weight:850;letter-spacing:.14em;line-height:1}
+  .safety-pin-panel i{font-style:normal;animation:pin-digit-turn .68s cubic-bezier(.2,.85,.3,1.1) both;animation-delay:calc(var(--digit-index)*80ms);transform-origin:center}
+  @keyframes pin-digit-turn{from{opacity:0;transform:perspective(200px) rotateX(-90deg) translateY(8px)}to{opacity:1;transform:perspective(200px) rotateX(0) translateY(0)}}
+  .safety-coordination{position:relative;isolation:isolate;overflow:hidden;background:var(--paper)}
+  .safety-coordination>.wrap{position:relative;z-index:1;align-items:start}
+  .safety-coordination :global(.topographic-backdrop){color:var(--cian);opacity:.09}
+  .safety-coordination h2,.safety-after h3{color:var(--deep);text-wrap:balance}
+  .safety-coordination p,.safety-after p{color:var(--ink);line-height:1.7}
+  .safety-after{padding:1.2rem;border-left:2px solid var(--pin);background:color-mix(in srgb,var(--aqua) 7%,white)}
+  .safety-after a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
+  .safety-checklist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:1.5rem 0 0;padding:1rem;border:1px solid color-mix(in srgb,var(--cian) 27%,white);border-radius:var(--r-md);background:#fff}
+  .safety-checklist legend{grid-column:1/-1;padding:0 .35rem;color:var(--deep);font-weight:850}
+  .safety-checklist label{display:flex;align-items:center;gap:.55rem;min-height:48px;padding:.55rem .65rem;border:1px solid color-mix(in srgb,var(--cian) 20%,white);border-radius:12px;background:var(--paper);color:var(--ink);font-size:.9rem;font-weight:750;cursor:pointer}
+  .safety-checklist label:focus-within{outline:3px solid var(--pin);outline-offset:2px}
+  .safety-checklist input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--cian)}
+  .checklist-ready{display:none;grid-column:1/-1;align-items:center;gap:.5rem;margin:0;padding:.65rem .8rem;border-radius:12px;background:var(--deep);color:white!important;font-weight:800}
+  .checklist-ready::before{content:"✓";display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--pin);color:var(--ink)}
+  .safety-checklist:has(#verify-driver:checked):has(#verify-vehicle:checked):has(#verify-plate:checked) .checklist-ready{display:flex}
+  .safety-flow{position:relative;isolation:isolate;overflow:hidden;background:#fff}
+  .safety-flow>.wrap{position:relative;z-index:1}
+  .safety-time-rail{position:relative;width:100%;height:3px;margin:2.5rem 0 -1.5rem;border-radius:3px;background:color-mix(in srgb,var(--aqua) 28%,white)}
+  .safety-time-rail span{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cian),var(--aqua),var(--pin));transform-origin:left}
+  .safety-flow .detail-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+  .safety-flow .detail-cards article{position:relative;min-height:245px;padding:1.25rem;border-color:color-mix(in srgb,var(--cian) 20%,white);border-radius:var(--r-lg);background:linear-gradient(155deg,#fff,var(--paper));box-shadow:0 15px 35px color-mix(in srgb,var(--deep) 9%,transparent)}
+  .safety-flow .detail-cards article>span{width:48px;height:48px;margin-bottom:.8rem;border:5px solid white;border-radius:50%;background:var(--deep);color:white;box-shadow:0 0 0 2px color-mix(in srgb,var(--cian) 40%,white)}
+  .safety-flow .detail-cards article:nth-child(4)>span{background:var(--pin);color:var(--ink)}
+  .safety-flow .detail-cards article>small{display:block;margin-bottom:.55rem;color:var(--cian);font-size:.7rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+  .safety-flow .detail-cards h3{margin:.25rem 0 .55rem;color:var(--deep)}
+  .safety-flow .detail-cards p{color:var(--ink);line-height:1.6}
+  @supports (animation-timeline:view()){
+    .safety-flow .safety-time-rail span{width:0;animation:safety-progress 1s linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
+  }
+  @keyframes safety-progress{to{width:100%}}
+  .safety-overview{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink));color:#fff}
+  .safety-overview>.wrap{position:relative;z-index:1}
+  .safety-overview :global(.topographic-backdrop){color:var(--aqua);opacity:.14}
+  .safety-overview .about-centered-heading h2,.safety-overview .about-centered-heading>p:last-child{color:white}
+  .safety-overview .about-centered-heading .eyebrow{color:var(--aqua)}
+  .safety-overview .safety-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-top:2.3rem}
+  .safety-overview .benefit{position:relative;overflow:hidden;min-height:245px;padding:1.4rem;border:1px solid color-mix(in srgb,var(--aqua) 28%,transparent);border-radius:var(--r-lg);background:color-mix(in srgb,var(--deep) 66%,transparent);box-shadow:0 18px 42px color-mix(in srgb,var(--ink) 32%,transparent);backdrop-filter:blur(12px)}
+  .safety-overview .benefit::after{content:"";position:absolute;right:-45px;top:-46px;width:150px;height:150px;border:1px solid color-mix(in srgb,var(--aqua) 30%,transparent);border-radius:50%;box-shadow:0 0 0 13px color-mix(in srgb,var(--aqua) 8%,transparent),0 0 0 27px color-mix(in srgb,var(--aqua) 4%,transparent);pointer-events:none}
+  .safety-overview .benefit .sign{position:relative;z-index:1;width:54px;height:54px;border:1px solid color-mix(in srgb,var(--aqua) 44%,transparent);border-radius:18px;background:color-mix(in srgb,var(--cian) 70%,transparent);color:white}
+  .safety-overview .benefit h3{position:relative;z-index:1;margin-top:1.2rem;color:white}
+  .safety-overview .benefit p{position:relative;z-index:1;color:var(--paper);line-height:1.6}
+  @media(max-width:950px){.safety-hero{min-height:0;padding:7.5rem 0 4rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(260px,.75fr)}.safety-pin-stage{min-height:340px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}.safety-overview .safety-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:640px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1.3rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:290px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(80vw,330px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.checklist-ready{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}.safety-overview .safety-grid{grid-template-columns:1fr}.safety-overview .benefit{min-height:0}}
+  @media(prefers-reduced-motion:reduce){.safety-pin-panel i{animation:none}.safety-time-rail span{animation:none!important;width:100%}}
 </style>
