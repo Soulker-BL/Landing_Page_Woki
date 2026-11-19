@@ -3,6 +3,7 @@ import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import TopographicBackdrop from '../components/TopographicBackdrop.astro';
 import { buildSectionJsonLd, driverBenefits, driverReasons } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -14,39 +15,46 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
-    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p></div></section>
+    <section class="subpage-hero detail-hero driver-hero"><TopographicBackdrop city /><div class="wrap driver-hero-grid"><div class="driver-hero-copy"><p class="eyebrow">Para quienes conducen</p><h1>Conduce con Woki a tu manera</h1><p class="lead">Conoce las funciones que te ayudan a revisar cada solicitud y mantener a la vista la información de tus viajes.</p></div><div class="driver-hero-visual"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 1000px) 46vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async"/><article class="driver-float-card float-request"><b>{driverBenefits[0].title}</b><span>{driverBenefits[0].description}</span></article><article class="driver-float-card float-online"><b>{driverBenefits[3].title}</b><span>{driverBenefits[3].description}</span></article></div></div></section>
     <section class="detail-section driver-detail-intro driver-split" aria-labelledby="driver-detail-title">
       <div class="wrap detail-driver-grid">
-        <div class="detail-driver-photo"><Picture src={assets.driverPhoto} formats={['avif', 'webp']} widths={[360, 540, 720, 960, 1200]} sizes="(min-width: 920px) 48vw, 100vw" alt="Conductor de taxi en Cerro de Pasco" loading="eager" fetchpriority="high" decoding="async" /></div>
-        <div><p class="eyebrow dark">Tu trabajo, a tu manera</p><h2 id="driver-detail-title">Decide con información a la vista</h2><p class="lead">Antes de aceptar una solicitud, revisa los datos del recorrido y la forma de pago. Después puedes consultar tus ganancias y actividad desde la app.</p><a class="btn solid" href="/#descargar">Conoce Woki</a></div>
+        <div class="driver-intro-mark" aria-hidden="true"><TopographicBackdrop city /><span class="driver-intro-pin"></span></div>
+        <div><p class="eyebrow dark">Tu trabajo, a tu manera</p><h2 id="driver-detail-title">Decide con información a la vista</h2><p class="lead">Antes de aceptar una solicitud, revisa los datos del recorrido y la forma de pago. Después puedes consultar tus ganancias y actividad desde la app.</p></div>
       </div>
     </section>
     <section class="detail-section driver-detail-benefits driver-bento" aria-labelledby="driver-detail-benefits-title">
       <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Herramientas para cada jornada</p><h2 id="driver-detail-benefits-title">Lo que tienes a la vista</h2><p>Funciones para organizarte desde que te conectas hasta que completas un viaje.</p></header>
-        <ol class="driver-benefits detail-driver-benefits">{driverBenefits.map((benefit, index) => <li data-reveal><span class="driver-benefit-step">{String(index + 1).padStart(2, '0')}</span><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ol>
+        <header class="about-centered-heading driver-bento-heading" data-reveal><p class="eyebrow dark">Herramientas para cada jornada</p><h2 id="driver-detail-benefits-title">Lo que tienes a la vista</h2><p>Funciones para organizarte desde que te conectas hasta que completas un viaje.</p><p class="eyebrow dark driver-city-label">Woki en Cerro de Pasco</p><h3>Una propuesta conectada con la ciudad</h3><p>Woki organiza sus funciones alrededor del servicio de taxi urbano y de la relación entre conductores y pasajeros locales.</p></header>
+        <ol class="driver-bento-grid">
+          <li class="driver-bento-main" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={driverReasons[0].iconPath}/></svg></span><h3>{driverReasons[0].title}</h3><p>{driverReasons[0].description}</p></li>
+          <li class="driver-bento-item fare-benefit" data-reveal><span class="driver-benefit-step" aria-hidden="true">01</span><b>{driverBenefits[1].title}</b><span>{driverBenefits[1].description}</span></li>
+          <li class="driver-bento-item income-benefit" data-reveal><span class="driver-benefit-step" aria-hidden="true">02</span><b>{driverBenefits[2].title}</b><span>{driverBenefits[2].description}</span></li>
+          <li class="driver-bento-item trust-reason" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={driverReasons[1].iconPath}/></svg></span><h3>{driverReasons[1].title}</h3><p>{driverReasons[1].description}</p></li>
+          <li class="driver-bento-item urban-reason" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={driverReasons[2].iconPath}/></svg></span><h3>{driverReasons[2].title}</h3><p>{driverReasons[2].description}</p></li>
+        </ol>
       </div>
     </section>
     <section class="detail-section driver-onboarding" aria-labelledby="driver-onboarding-title">
       <div class="wrap">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Primeros pasos</p><h2 id="driver-onboarding-title">Cómo empezar a conducir con Woki</h2><p>El registro y la revisión se realizan desde la aplicación.</p></header>
         <div class="detail-cards driver-step-strip" tabindex="0" role="region" aria-label="Primeros pasos para conducir con Woki">
-          <article data-reveal><span>01</span><h3>Elige el perfil conductor</h3><p>En la app, selecciona la opción para registrarte como conductor.</p></article>
-          <article data-reveal><span>02</span><h3>Envía tus documentos</h3><p>Completa tu registro y carga la información solicitada para la revisión.</p></article>
-          <article data-reveal><span>03</span><h3>Espera la validación</h3><p>El equipo revisa tus documentos y te activa para que puedas conectarte.</p></article>
+          <article data-reveal tabindex="0"><span>01</span><h3>Elige el perfil conductor</h3><p>En la app, selecciona la opción para registrarte como conductor.</p></article>
+          <article data-reveal tabindex="0"><span>02</span><h3>Envía tus documentos</h3><p>Completa tu registro y carga la información solicitada para la revisión.</p></article>
+          <article data-reveal tabindex="0"><span>03</span><h3>Espera la validación</h3><p>El equipo revisa tus documentos y te activa para que puedas conectarte.</p></article>
         </div>
       </div>
     </section>
-    <section class="detail-section driver-detail-reasons" aria-labelledby="driver-detail-reasons-title">
-      <div class="wrap">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Woki en Cerro de Pasco</p><h2 id="driver-detail-reasons-title">Una propuesta conectada con la ciudad</h2><p>Woki organiza sus funciones alrededor del servicio de taxi urbano y de la relación entre conductores y pasajeros locales.</p></header>
-        <div class="driver-reasons-grid">{driverReasons.map((reason) => <article class="driver-reason" data-reveal><span class="driver-reason-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={reason.iconPath} /></svg></span><h3>{reason.title}</h3><p>{reason.description}</p></article>)}</div>
-      </div>
+    <section class="detail-section driver-request-demo" aria-label="Ejemplo de solicitud" aria-hidden="true">
+      <div class="wrap request-demo-card"><div><span>Ejemplo de solicitud</span><h2>{driverBenefits[0].title}</h2><p>{driverBenefits[0].description}</p></div><div class="request-demo-actions"><button type="button" disabled>Rechazar</button><button type="button" disabled>Aceptar</button></div></div>
     </section>
-    <section class="detail-section" aria-labelledby="driver-workflow-title">
-      <div class="wrap detail-two-col">
-        <div><p class="eyebrow dark">Una solicitud a la vez</p><h2 id="driver-workflow-title">Revisa los datos y decide con claridad</h2><p>Al conectarte como conductor, la app muestra solicitudes disponibles cerca. Antes de aceptar, revisa la recogida, el destino, la distancia, el tiempo y la forma de pago. La tarifa se presenta para que puedas aceptarla o ajustar tu propuesta según las opciones de la aplicación.</p><p>Esta información sirve para evaluar cada recorrido desde el inicio.</p></div>
-        <div><h3>Registro y revisión del perfil</h3><p>Para empezar, elige el perfil de conductor, completa los datos que solicita la app y carga tus documentos para la revisión. El equipo revisa la información y te activa para que puedas conectarte.</p><p>Conoce <a href="/como-funciona">las etapas de un viaje para pasajero y conductor</a> y las <a href="/seguridad">herramientas de seguridad que acompañan cada recorrido</a>. Para consultas sobre el registro, visita <a href="/contacto">Contáctanos</a>.</p></div>
+    <section class="detail-section driver-cta" aria-labelledby="driver-workflow-title">
+      <TopographicBackdrop city />
+      <div class="wrap">
+        <div class="detail-two-col">
+          <div><p class="eyebrow dark">Una solicitud a la vez</p><h2 id="driver-workflow-title">Revisa los datos y decide con claridad</h2><p>Al conectarte como conductor, la app muestra solicitudes disponibles cerca. Antes de aceptar, revisa la recogida, el destino, la distancia, el tiempo y la forma de pago. La tarifa se presenta para que puedas aceptarla o ajustar tu propuesta según las opciones de la aplicación.</p><p>Esta información sirve para evaluar cada recorrido desde el inicio.</p></div>
+          <div><h3>Registro y revisión del perfil</h3><p>Para empezar, elige el perfil de conductor, completa los datos que solicita la app y carga tus documentos para la revisión. El equipo revisa la información y te activa para que puedas conectarte.</p><p>Conoce <a href="/como-funciona">las etapas de un viaje para pasajero y conductor</a> y las <a href="/seguridad">herramientas de seguridad que acompañan cada recorrido</a>. Para consultas sobre el registro, visita <a href="/contacto">Contáctanos</a>.</p></div>
+        </div>
+        <a class="btn driver-final-cta" href="/#descargar"><span class="driver-final-pin" aria-hidden="true"></span>Conoce Woki</a>
       </div>
     </section>
   </main>
@@ -55,32 +63,84 @@ const structuredData = buildSectionJsonLd(Astro.site, '/conductores', 'Conduce c
 </Layout>
 
 <style>
+  .driver-hero{position:relative;isolation:isolate;min-height:600px;padding:8rem 0 5rem;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink))}
+  .driver-hero>.wrap{position:relative;z-index:1;display:grid;width:min(calc(100% - 2.5rem),var(--max));grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(2rem,6vw,6rem);margin-inline:auto}
+  .driver-hero-copy{max-width:560px}
+  .driver-hero-copy h1{max-width:12ch;color:#fff;font-size:clamp(2.7rem,5.6vw,5rem);line-height:1.02;text-wrap:balance}
+  .driver-hero-copy .eyebrow{color:var(--aqua)}
+  .driver-hero-copy .lead{max-width:50ch;color:var(--paper);font-size:1.1rem;line-height:1.65}
+  .driver-hero-visual{position:relative;min-width:0;aspect-ratio:1.2;isolation:isolate}
+  .driver-hero-visual::before{content:"";position:absolute;z-index:-1;inset:-7%;border:1px solid color-mix(in srgb,var(--aqua) 30%,transparent);border-radius:50%;box-shadow:0 0 0 20px color-mix(in srgb,var(--aqua) 5%,transparent),0 0 0 48px color-mix(in srgb,var(--aqua) 3%,transparent)}
+  .driver-hero-visual picture,.driver-hero-visual img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:47% 53% 42% 58% / 46% 40% 60% 54%}
+  .driver-hero-visual img{box-shadow:0 28px 72px color-mix(in srgb,var(--ink) 42%,transparent)}
+  .driver-float-card{position:absolute;z-index:2;display:grid;gap:.25rem;width:min(72%,300px);padding:.85rem 1rem;border:1px solid color-mix(in srgb,var(--aqua) 35%,transparent);border-radius:17px;background:color-mix(in srgb,var(--deep) 62%,transparent);color:#fff;box-shadow:0 14px 35px color-mix(in srgb,var(--ink) 28%,transparent);backdrop-filter:blur(14px)}
+  .driver-float-card b{font-size:.9rem;line-height:1.3}
+  .driver-float-card span{color:var(--paper);font-size:.76rem;line-height:1.45}
+  .float-request{top:12%;left:-8%}
+  .float-online{right:-9%;bottom:10%;animation-delay:-3.5s}
+  @keyframes driver-parallax{from{transform:translateY(-8px)}to{transform:translateY(8px)}}
   .driver-split{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(115deg,#fff 0%,var(--paper) 100%)}
-  .driver-split::before{content:"";position:absolute;z-index:-1;inset:8% 0 auto 53%;height:82%;border-radius:45% 0 0 45%;background:linear-gradient(135deg,color-mix(in srgb,var(--aqua) 17%,white),transparent 72%)}
-  .driver-split .detail-driver-grid{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(2rem,6vw,6rem)}
-  .driver-split .detail-driver-photo{position:relative;aspect-ratio:1.12;border-radius:clamp(24px,4vw,48px) 12px clamp(24px,4vw,48px) 12px;box-shadow:0 28px 70px color-mix(in srgb,var(--deep) 18%,transparent)}
-  .driver-split .detail-driver-photo::after{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.55);border-radius:inherit;pointer-events:none}
-  .driver-split .detail-driver-grid>div:last-child{max-width:510px}
-  .driver-split .detail-driver-grid h2{max-width:12ch}
-  .driver-split .detail-driver-grid .btn{min-height:48px}
-  .driver-bento{background:linear-gradient(180deg,var(--paper),white)}
-  .driver-bento .detail-driver-benefits{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"first second second" "first third fourth";grid-template-rows:repeat(2,minmax(190px,1fr));gap:1rem}
-  .driver-bento .detail-driver-benefits li{position:relative;justify-content:space-between;min-height:0;padding:clamp(1.1rem,2vw,1.7rem);border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-top:3px solid var(--cian);border-radius:var(--r-lg);background:#fff;box-shadow:0 15px 36px color-mix(in srgb,var(--deep) 8%,transparent)}
-  .driver-bento .detail-driver-benefits li:nth-child(1){grid-area:first;background:linear-gradient(145deg,var(--deep),color-mix(in srgb,var(--deep) 83%,var(--cian)));color:white}
-  .driver-bento .detail-driver-benefits li:nth-child(2){grid-area:second}
-  .driver-bento .detail-driver-benefits li:nth-child(3){grid-area:third}
-  .driver-bento .detail-driver-benefits li:nth-child(4){grid-area:fourth}
-  .driver-bento .detail-driver-benefits li b{font-size:clamp(1rem,1.45vw,1.25rem);line-height:1.3}
-  .driver-bento .detail-driver-benefits li:nth-child(1) b,.driver-bento .detail-driver-benefits li:nth-child(1)>span:last-child{color:white}
-  .driver-bento .detail-driver-benefits li:nth-child(1) .driver-benefit-step{background:var(--pin);color:var(--ink)}
-  .driver-bento .detail-driver-benefits li>span:last-child{font-size:.9rem;line-height:1.55}
-  .driver-bento .detail-driver-benefits li:hover{transform:translateY(-4px);box-shadow:0 22px 42px color-mix(in srgb,var(--deep) 14%,transparent)}
+  .driver-split .detail-driver-grid{grid-template-columns:minmax(200px,.65fr) minmax(0,1.35fr);gap:clamp(2rem,6vw,6rem)}
+  .driver-intro-mark{position:relative;display:grid;place-items:center;min-height:240px;overflow:hidden;border-radius:50%;background:linear-gradient(135deg,var(--deep),var(--ink));box-shadow:0 24px 60px color-mix(in srgb,var(--deep) 20%,transparent)}
+  .driver-intro-mark :global(.topographic-backdrop){opacity:.34}
+  .driver-intro-pin{position:relative;z-index:1;width:22px;height:22px;border:5px solid white;border-radius:50% 50% 50% 0;background:var(--pin);box-shadow:0 0 0 11px color-mix(in srgb,var(--pin) 18%,transparent);transform:rotate(-45deg)}
+  .driver-split .detail-driver-grid>div:last-child{max-width:700px}
+  .driver-split .detail-driver-grid h2{max-width:14ch;text-wrap:balance}
+  .driver-bento{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper),white)}
+  .driver-bento-heading{max-width:760px;margin:0 auto 2.5rem}
+  .driver-bento-heading h3{margin:.7rem 0;color:var(--deep);font-size:clamp(1.35rem,2.3vw,1.8rem)}
+  .driver-city-label{margin:2.1rem 0 .2rem}
+  .driver-bento-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(220px,auto));grid-template-areas:"main main fare income" "main main trust urban";gap:1rem;margin:0;padding:0;list-style:none}
+  .driver-bento-grid>li{position:relative;display:flex;min-width:0;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:.65rem;overflow:hidden;padding:clamp(1.2rem,2.2vw,2rem);border:1px solid color-mix(in srgb,var(--cian) 23%,white);border-top:3px solid var(--cian);border-radius:var(--r-lg);background:#fff;box-shadow:0 16px 38px color-mix(in srgb,var(--deep) 9%,transparent);transition:transform .25s ease,box-shadow .25s ease}
+  .driver-bento-main{grid-area:main;justify-content:space-between!important;background:linear-gradient(145deg,var(--deep),var(--ink))!important;color:#fff}
+  .driver-bento-main::after{content:"";position:absolute;right:-20%;top:-7%;width:75%;aspect-ratio:1;border:1px solid color-mix(in srgb,var(--aqua) 32%,transparent);border-radius:50%;box-shadow:0 0 0 20px color-mix(in srgb,var(--aqua) 6%,transparent),0 0 0 42px color-mix(in srgb,var(--aqua) 4%,transparent)}
+  .driver-bento-main .driver-reason-icon{position:relative;z-index:1;width:82px;height:82px;border-radius:25px;background:color-mix(in srgb,var(--aqua) 20%,transparent);color:var(--aqua)}
+  .driver-bento-main .driver-reason-icon svg{width:42px;height:42px}
+  .driver-bento-main h3,.driver-bento-main p{position:relative;z-index:1;color:#fff}
+  .driver-bento-main h3{max-width:15ch;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.2}
+  .driver-bento-main p{font-size:.95rem;line-height:1.65}
+  .fare-benefit{grid-area:fare}.income-benefit{grid-area:income}.trust-reason{grid-area:trust}.urban-reason{grid-area:urban}
+  .driver-benefit-step{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:var(--cian);color:white;font-size:.78rem;font-weight:850}
+  .driver-bento-item .driver-reason-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:color-mix(in srgb,var(--aqua) 22%,white);color:var(--deep)}
+  .driver-bento-item .driver-reason-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .driver-bento-item b,.driver-bento-item h3{color:var(--deep);font-size:1.02rem;line-height:1.35}
+  .driver-bento-item>span:last-child,.driver-bento-item p{color:var(--ink);font-size:.84rem;line-height:1.5}
   .driver-onboarding{overflow:hidden;background:#fff}
-  .driver-step-strip{display:grid;grid-template-columns:repeat(3,minmax(250px,1fr));gap:1rem;overflow-x:auto;padding:0 0 1.15rem;scroll-snap-type:x mandatory;scroll-padding:1rem;overscroll-behavior-inline:contain}
-  .driver-step-strip article{scroll-snap-align:start;min-height:230px;border-top:3px solid var(--cian);transition:transform .2s ease,box-shadow .2s ease}
-  .driver-step-strip article:hover{transform:translateY(-4px);box-shadow:0 22px 42px color-mix(in srgb,var(--deep) 13%,transparent)}
+  .driver-step-strip{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;overflow:visible;padding:1.2rem 0 1.1rem;scroll-snap-type:x mandatory;scroll-padding:1rem;overscroll-behavior-inline:contain}
+  .driver-step-strip article{position:relative;min-height:235px;padding:1.4rem;border:1px solid color-mix(in srgb,var(--cian) 24%,white);border-top:3px solid var(--cian);border-radius:20px;background:linear-gradient(155deg,#fff,var(--paper));box-shadow:0 15px 35px color-mix(in srgb,var(--deep) 10%,transparent);scroll-snap-align:start;transition:transform .2s ease,box-shadow .2s ease}
+  .driver-step-strip article:nth-child(2){margin-top:1.6rem}
+  .driver-step-strip article:nth-child(3){margin-top:3.2rem}
+  .driver-step-strip article>span{display:grid;place-items:center;width:45px;height:45px;margin-bottom:1.1rem;border-radius:50%;background:var(--pin);color:var(--ink);font-weight:850}
+  .driver-step-strip article h3{color:var(--deep)}
+  .driver-step-strip article p{color:var(--ink);line-height:1.6}
+  .driver-step-strip article:focus-visible{outline:3px solid var(--pin);outline-offset:4px}
   .driver-step-strip:focus-visible{outline:3px solid var(--pin);outline-offset:5px;border-radius:var(--r-md)}
-  @media(max-width:900px){.driver-split .detail-driver-grid{grid-template-columns:1fr;gap:2rem}.driver-split .detail-driver-photo{aspect-ratio:16/10}.driver-split .detail-driver-grid>div:last-child{max-width:680px}.driver-bento .detail-driver-benefits{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"first second" "first third" "fourth fourth";grid-template-rows:repeat(2,minmax(180px,auto)) minmax(150px,auto)}.driver-bento .detail-driver-benefits li:nth-child(1){grid-row:span 2}.driver-step-strip{grid-template-columns:repeat(3,minmax(260px,1fr))}}
-  @media(max-width:600px){.driver-split::before{inset:28% -20% auto 20%;height:48%;border-radius:50%}.driver-split .detail-driver-photo{aspect-ratio:4/3}.driver-bento .detail-driver-benefits{grid-template-columns:1fr;grid-template-areas:"first" "second" "third" "fourth";grid-template-rows:auto}.driver-bento .detail-driver-benefits li:nth-child(1){grid-row:auto;min-height:190px}.driver-step-strip{grid-template-columns:repeat(3,minmax(82vw,1fr));gap:.75rem}.driver-step-strip article{min-height:205px}}
-  @media(prefers-reduced-motion:reduce){.driver-bento .detail-driver-benefits li,.driver-step-strip article{transition:none}}
+  .driver-request-demo{padding-top:2rem;padding-bottom:2rem;background:var(--paper)}
+  .request-demo-card{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:clamp(1.25rem,3vw,2rem);border:1px solid color-mix(in srgb,var(--aqua) 34%,white);border-radius:var(--r-lg);background:linear-gradient(135deg,var(--deep),var(--ink));color:#fff;box-shadow:0 20px 55px color-mix(in srgb,var(--deep) 18%,transparent)}
+  .request-demo-card>div:first-child{max-width:650px}
+  .request-demo-card>div:first-child>span{color:var(--aqua);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+  .request-demo-card h2{margin:.5rem 0;color:white;font-size:1.25rem}
+  .request-demo-card p{margin:0;color:var(--paper);line-height:1.55}
+  .request-demo-actions{display:flex;flex:none;gap:.65rem}
+  .request-demo-actions button{min-height:44px;padding:.6rem 1rem;border:1px solid color-mix(in srgb,var(--aqua) 45%,transparent);border-radius:999px;background:transparent;color:white;font:inherit;font-weight:750;opacity:.8}
+  .request-demo-actions button:last-child{border-color:var(--pin);background:var(--pin);color:var(--ink)}
+  .driver-cta{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink));color:white}
+  .driver-cta>.wrap{position:relative;z-index:1}
+  .driver-cta h2,.driver-cta h3{color:white}
+  .driver-cta p{color:var(--paper);line-height:1.65}
+  .driver-cta a:not(.btn){color:var(--aqua);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
+  .driver-final-cta{position:relative;display:flex;width:100%;align-items:center;justify-content:center;gap:.7rem;min-height:48px;margin-top:1.25rem;padding:.7rem 1.25rem;border:1px solid white;border-radius:999px;background:white;color:var(--deep);font-weight:800;text-decoration:none}
+  .driver-final-pin{display:inline-block;width:11px;height:11px;border-radius:50% 50% 50% 0;background:var(--pin);transform:rotate(-45deg)}
+  @media(hover:hover){.driver-bento-grid>li:hover{transform:perspective(900px) rotateX(-1.4deg) rotateY(1.4deg) translateY(-5px);box-shadow:0 25px 48px color-mix(in srgb,var(--deep) 17%,transparent)}.driver-step-strip article:hover{transform:translateY(-5px);box-shadow:0 23px 46px color-mix(in srgb,var(--deep) 15%,transparent)}}
+  @supports (animation-timeline:view()){
+    .driver-hero-visual{view-timeline-name:--driver-hero;view-timeline-axis:block}
+    .driver-float-card{animation:driver-parallax 1s linear both;animation-timeline:--driver-hero;animation-range:entry 0% exit 100%}
+    .driver-step-strip{view-timeline-name:--boarding-tickets;view-timeline-axis:block}
+    .driver-step-strip article{animation:ticket-fan 1s cubic-bezier(.2,.75,.25,1) both;animation-timeline:--boarding-tickets;animation-range:entry 0% cover 65%}
+    .driver-step-strip article:nth-child(2){animation-delay:0ms}.driver-step-strip article:nth-child(3){animation-delay:70ms}
+  }
+  @keyframes ticket-fan{from{opacity:.62;transform:translateY(28px) rotate(var(--ticket-tilt,0deg))}to{opacity:1;transform:translateY(0) rotate(0)}}
+  @media(max-width:950px){.driver-hero{min-height:0;padding:7.5rem 0 4rem}.driver-hero>.wrap{grid-template-columns:1fr;gap:2.5rem}.driver-hero-copy{max-width:700px}.driver-hero-visual{width:min(100%,680px);margin-inline:auto;aspect-ratio:1.5}.float-request{left:2%}.float-online{right:1%}.driver-bento-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto;grid-template-areas:"main main" "fare income" "trust urban"}.driver-bento-main{min-height:330px}.driver-step-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:620px){.driver-hero{padding:7rem 0 3rem}.driver-hero>.wrap{width:calc(100% - 2rem);gap:2rem}.driver-hero-copy h1{font-size:clamp(2.5rem,12vw,3.5rem)}.driver-hero-copy .lead{font-size:1rem}.driver-hero-visual{aspect-ratio:1.05}.driver-float-card{width:min(78%,270px);padding:.7rem .8rem}.driver-float-card b{font-size:.82rem}.driver-float-card span{font-size:.71rem}.float-request{top:8%;left:-2%}.float-online{right:-2%;bottom:7%}.driver-split .detail-driver-grid{grid-template-columns:1fr;gap:1.5rem}.driver-intro-mark{min-height:165px;width:165px;margin-inline:auto}.driver-bento-heading{margin-bottom:1.5rem}.driver-bento-grid{grid-template-columns:1fr;grid-template-areas:"main" "fare" "income" "trust" "urban";gap:.8rem}.driver-bento-grid>li{min-height:185px;padding:1.2rem}.driver-bento-main{min-height:280px!important}.driver-step-strip{display:grid;grid-template-columns:repeat(3,minmax(82vw,1fr));overflow-x:auto;gap:.75rem;padding-bottom:1rem}.driver-step-strip article,.driver-step-strip article:nth-child(2),.driver-step-strip article:nth-child(3){min-height:215px;margin:0}.request-demo-card{align-items:flex-start;flex-direction:column;gap:1.3rem}.request-demo-actions{width:100%}.request-demo-actions button{flex:1}.driver-cta .detail-two-col{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){.driver-float-card,.driver-step-strip article,.driver-bento-grid>li{animation:none;transition:none}.driver-step-strip article{transform:none!important}}
 </style>
