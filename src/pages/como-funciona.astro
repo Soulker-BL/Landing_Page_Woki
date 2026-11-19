@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import JourneyPanel from '../components/JourneyPanel.astro';
+import PhoneJourneyPanel from '../components/PhoneJourneyPanel.astro';
+import TopographicBackdrop from '../components/TopographicBackdrop.astro';
 import { buildSectionJsonLd, driverBenefits, driverSteps, passengerSteps } from '../data/content';
 import { brand, assets } from '../data/site';
 
@@ -14,27 +15,34 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} slot="head" />)}
   <Header solid />
   <main id="main-content">
-    <section class="subpage-hero detail-hero"><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
-    <section class="detail-section detail-journey journey-experience" aria-labelledby="journey-detail-title">
-      <div class="wrap tabs">
-        <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
-        <input type="radio" name="rol" id="t-pas" checked />
-        <input type="radio" name="rol" id="t-con" />
-        <div class="tablist">
-          <label for="t-pas"><span>Pasajero</span></label>
-          <label for="t-con"><span>Conductor</span></label>
+    <section class="subpage-hero detail-hero journey-hero"><TopographicBackdrop city /><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
+    <section class="detail-section detail-journey journey-experience how-scroll-track" data-scroll-journey aria-labelledby="journey-detail-title">
+      <TopographicBackdrop />
+      <div class="how">
+        <div class="wrap tabs">
+          <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
+          <fieldset class="journey-role-group">
+            <legend class="visually-hidden">Elige un tipo de recorrido</legend>
+            <input type="radio" name="rol" id="t-pas" checked />
+            <input type="radio" name="rol" id="t-con" />
+            <div class="tablist">
+              <label for="t-pas"><span>Pasajero</span></label>
+              <label for="t-con"><span>Conductor</span></label>
+            </div>
+            <PhoneJourneyPanel role="pasajero" steps={passengerSteps} />
+            <PhoneJourneyPanel role="conductor" steps={driverSteps} />
+          </fieldset>
         </div>
-        <JourneyPanel role="pasajero" steps={passengerSteps} />
-        <JourneyPanel role="conductor" steps={driverSteps} />
       </div>
     </section>
     <section class="detail-section detail-tariff tariff-receipt" aria-labelledby="detail-tariff-title">
+      <TopographicBackdrop city />
       <div class="wrap detail-two-col">
         <div><p class="eyebrow dark">Claridad antes de salir</p><h2 id="detail-tariff-title">Revisa los detalles antes de confirmar</h2><p class="lead">La app presenta la recogida, el destino, la distancia, el tiempo y la forma de pago. El conductor puede revisar la tarifa y aceptarla o ajustar su propuesta.</p></div>
         <ul class="detail-checks">{driverBenefits.map((benefit) => <li><b>{benefit.title}</b><span>{benefit.description}</span></li>)}</ul>
       </div>
     </section>
-    <section class="detail-section" aria-labelledby="journey-details-title">
+    <section class="detail-section journey-explainer" aria-labelledby="journey-details-title">
       <div class="wrap">
         <header class="about-centered-heading"><p class="eyebrow dark">Una experiencia compartida</p><h2 id="journey-details-title">Cada parte del viaje tiene información útil</h2><p>La app reúne los datos que pasajero y conductor necesitan para coordinar el servicio de taxi.</p></header>
         <div class="detail-two-col">
@@ -50,36 +58,59 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
 </Layout>
 
 <style>
-  .journey-experience{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper),#fff 76%)}
-  .journey-experience::before{content:"";position:absolute;inset:15% auto 5% 50%;width:1px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--cian) 25%,transparent),transparent);pointer-events:none}
-  .journey-experience>.wrap{position:relative;z-index:1}
-  .journey-experience :global(.about-centered-heading){max-width:700px;margin-inline:auto}
-  .journey-experience :global(.tablist){min-height:56px;box-shadow:0 12px 32px color-mix(in srgb,var(--deep) 12%,transparent)}
-  .journey-experience :global(.journey){position:relative;margin-top:1.75rem;padding:clamp(1.1rem,3vw,2rem);border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-lg);background:rgba(255,255,255,.92);box-shadow:0 24px 64px color-mix(in srgb,var(--deep) 9%,transparent)}
-  .journey-experience :global(.journey-top){padding-bottom:1.1rem;border-bottom:1px solid color-mix(in srgb,var(--cian) 18%,white)}
-  .journey-experience :global(.journey-live){color:var(--deep);font-size:1rem;font-weight:800;letter-spacing:.01em}
-  .journey-experience :global(.journey-layout){align-items:stretch;gap:clamp(1rem,2vw,1.75rem);padding-top:1.25rem}
-  .journey-experience :global(.steps){position:relative;align-content:center;gap:.7rem;padding:0 0 0 1rem}
-  .journey-experience :global(.steps)::before{content:"";position:absolute;inset:1.5rem auto 1.5rem 1.55rem;width:2px;border-radius:2px;background:linear-gradient(var(--aqua),color-mix(in srgb,var(--cian) 18%,white))}
-  .journey-experience :global(.steps li){position:relative;z-index:1}
-  .journey-experience :global(.journey-step){min-height:76px;border:1px solid color-mix(in srgb,var(--cian) 16%,white);border-radius:var(--r-md);background:var(--paper);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-  .journey-experience :global(.journey-step:hover){transform:translateX(3px);border-color:var(--mist);box-shadow:0 8px 22px color-mix(in srgb,var(--deep) 8%,transparent)}
-  .journey-experience :global(.journey-step[aria-pressed="true"]){border-color:var(--cian);background:color-mix(in srgb,var(--aqua) 12%,white)}
-  .journey-experience :global(.step-number){box-shadow:0 0 0 5px white}
-  .journey-experience :global(.ride-scene){align-self:stretch;min-width:0;padding:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--cian) 22%,white);border-radius:var(--r-lg);background:white;box-shadow:0 16px 36px color-mix(in srgb,var(--deep) 10%,transparent)}
-  .journey-experience :global(.stage-image-frame){width:100%;max-width:none;min-height:320px;height:clamp(320px,40vw,520px);border:0;border-radius:0;box-shadow:none}
-  .journey-experience :global(.stage-image-frame picture),.journey-experience :global(.stage-image-photo){width:100%;height:100%;object-fit:cover}
-  .journey-experience :global(.ride-scene figcaption){display:grid;gap:.3rem;padding:1rem 1.2rem 1.2rem}
-  .journey-experience :global(.ride-scene figcaption b){color:var(--deep);font-size:1.05rem}
-  .journey-experience :global(.ride-scene figcaption span){color:#45666b;line-height:1.55}
-  .tariff-receipt{position:relative;background:#fff}
-  .tariff-receipt .detail-two-col{align-items:stretch;gap:clamp(2rem,6vw,5rem)}
-  .tariff-receipt .detail-two-col>div:first-child{align-self:center}
-  .tariff-receipt .detail-checks{position:relative;gap:0;padding:1.2rem;border:1px solid color-mix(in srgb,var(--cian) 25%,white);border-radius:var(--r-lg);background:linear-gradient(145deg,#fff,var(--paper));box-shadow:0 22px 55px color-mix(in srgb,var(--deep) 10%,transparent)}
-  .tariff-receipt .detail-checks::before{content:"";position:absolute;inset:1rem auto 1rem 1.1rem;border-left:2px dashed color-mix(in srgb,var(--cian) 30%,white)}
-  .tariff-receipt .detail-checks li{position:relative;margin-left:.7rem;border:0;border-bottom:1px dashed color-mix(in srgb,var(--cian) 24%,white);border-radius:0;background:transparent;box-shadow:none}
+  .journey-hero{isolation:isolate;background-color:var(--deep)}
+  .journey-hero .wrap{z-index:1}
+  .journey-experience{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--paper),#fff 72%)}
+  .journey-experience>.how{position:relative;z-index:1}
+  .journey-experience .about-centered-heading{max-width:700px;margin-inline:auto}
+  .journey-role-group{min-width:0;margin:0;padding:0;border:0}
+  .journey-role-group>input{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+  .journey-role-group>.tablist{position:relative;isolation:isolate;display:flex;width:min(100%,420px);min-height:54px;margin:1.35rem auto 1.8rem;padding:.3rem;overflow:hidden;border:1px solid color-mix(in srgb,var(--cian) 28%,white);border-radius:999px;background:color-mix(in srgb,var(--aqua) 16%,white);box-shadow:0 10px 28px color-mix(in srgb,var(--deep) 11%,transparent)}
+  .journey-role-group>.tablist::before{content:"";position:absolute;z-index:-1;inset:.3rem auto .3rem .3rem;width:calc(50% - .3rem);border-radius:999px;background:var(--cian);box-shadow:0 6px 18px color-mix(in srgb,var(--deep) 20%,transparent);transition:transform .36s cubic-bezier(.2,.8,.2,1),background-color .36s}
+  #t-con:checked~.tablist::before{transform:translateX(100%);background:var(--deep)}
+  .journey-role-group>.tablist label{position:relative;z-index:1;display:grid;place-items:center;flex:1;min-height:44px;padding:.55rem .85rem;border-radius:999px;color:var(--deep);font-weight:800;cursor:pointer}
+  #t-pas:checked~.tablist label[for="t-pas"],#t-con:checked~.tablist label[for="t-con"]{color:#fff}
+  #t-pas:focus-visible~.tablist label[for="t-pas"],#t-con:focus-visible~.tablist label[for="t-con"]{outline:3px solid var(--pin);outline-offset:-3px}
+  .journey-role-group .panel{margin:0}
+  .tariff-receipt{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,var(--deep),var(--ink));color:#fff}
+  .tariff-receipt>.wrap{position:relative;z-index:1}
+  .tariff-receipt h2,.tariff-receipt .lead{color:#fff}
+  .tariff-receipt .detail-two-col{align-items:center;gap:clamp(2rem,6vw,5rem)}
+  .tariff-receipt .detail-checks{position:relative;gap:0;overflow:hidden;padding:1.25rem 1.4rem;border:1px solid color-mix(in srgb,var(--aqua) 36%,transparent);border-radius:20px;background:rgba(244,250,250,.97);color:var(--ink);box-shadow:0 24px 60px color-mix(in srgb,var(--ink) 50%,transparent);mask:radial-gradient(circle at 0 50%,transparent 12px,#000 13px) left/50% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 12px,#000 13px) right/50% 100% no-repeat}
+  .tariff-receipt .detail-checks li{position:relative;margin:0;padding:1rem .8rem 1rem 1.4rem;border:0;border-bottom:1px dashed color-mix(in srgb,var(--cian) 30%,white);border-radius:0;background:transparent;box-shadow:none}
+  .tariff-receipt .detail-checks li::before{content:"";position:absolute;left:.1rem;top:1.45rem;width:8px;height:8px;border-radius:50%;background:var(--pin);box-shadow:0 0 0 4px color-mix(in srgb,var(--pin) 17%,transparent)}
   .tariff-receipt .detail-checks li:last-child{border-bottom:0}
-  @media(max-width:900px){.journey-experience::before{display:none}.journey-experience :global(.stage-image-frame){height:clamp(300px,58vw,460px)}}
-  @media(max-width:600px){.journey-experience :global(.journey){padding:.9rem}.journey-experience :global(.steps){padding-left:.45rem}.journey-experience :global(.steps)::before{left:1rem}.journey-experience :global(.journey-step){min-height:72px}.journey-experience :global(.stage-image-frame){height:clamp(260px,78vw,360px);min-height:260px}.tariff-receipt .detail-checks{padding:.55rem}}
-  @media(prefers-reduced-motion:reduce){.journey-experience :global(.journey-step){transition:none}}
+  .journey-explainer{background:#fff}
+  .journey-explainer .detail-two-col article{position:relative;padding:clamp(1.25rem,3vw,2rem);border-top:1px solid color-mix(in srgb,var(--cian) 28%,white)}
+  .journey-explainer .detail-two-col h3{color:var(--deep)}
+  .journey-explainer .detail-two-col p{line-height:1.7}
+  .journey-explainer>.wrap>.lead{margin-top:2rem}
+  .journey-explainer a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
+  @media(min-width:801px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
+    .journey-experience.how-scroll-track>.how{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;display:flex;align-items:center;padding:1svh 0}
+    .journey-experience>.how{min-height:100svh}
+    .journey-experience .journey-role-group{width:100%}
+    .journey-experience .journey-role-group>.tablist{margin:.6rem auto .8rem}
+    .journey-experience :global(.phone-journey){max-height:min(75svh,730px);padding:clamp(.8rem,1.5svh,1.25rem)}
+    .journey-experience :global(.phone-journey-layout){gap:clamp(1rem,4vw,3rem)}
+    .journey-experience :global(.phone-scene){top:calc(50svh - 260px)}
+    .journey-experience :global(.phone-shell){width:min(100%,260px)}
+    .journey-experience :global(.phone-step-list){gap:.65rem}
+    .journey-experience :global(.phone-step){min-height:82px;padding:.7rem}
+    .journey-experience :global(.phone-step-copy>span){font-size:.86rem}
+  }
+  @supports (animation-timeline:view()){
+    .journey-experience{view-timeline-name:--woki-journey;view-timeline-axis:block}
+    .journey-experience :global(.phone-route-progress){stroke-dashoffset:364;animation:draw-journey-route 1s linear both;animation-timeline:--woki-journey;animation-range:entry 0% exit 100%}
+  }
+  @keyframes draw-journey-route{to{stroke-dashoffset:0}}
+  @supports not (animation-timeline:view()){
+    .how-scroll-track{height:auto!important}
+    .journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}
+    .journey-experience :global(.phone-scene){display:none}
+    .journey-experience :global(.phone-journey){max-height:none;overflow:visible}
+    .journey-experience :global(.phone-mobile-image){display:block}
+  }
+  @media(max-width:800px){.journey-experience>.how{min-height:0;padding:0}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}}
+  @media(prefers-reduced-motion:reduce){.journey-experience,.journey-experience :global(.phone-route-progress){animation:none!important;view-timeline-name:none}.journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}.journey-experience :global(.phone-scene){display:none}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}.journey-experience :global(.phone-mobile-image){display:block}.journey-role-group>.tablist::before{transition:none}}
 </style>
