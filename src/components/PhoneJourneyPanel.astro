@@ -21,7 +21,7 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
         <span class="phone-camera" aria-hidden="true"></span>
         <div class="phone-screen" data-stage-frame>
           <div class="phone-map-lines" aria-hidden="true"><svg viewBox="0 0 240 420" preserveAspectRatio="none"><path d="M-8 86c55-53 90 12 128-8s73-71 130-12M-12 165c46-45 76 8 119-3s85-59 143-11M-8 281c54-58 92 2 132-18s71-48 123-4"/><path class="phone-route-line" d="M50 354c14-66 35-97 75-99s35-58 63-66"/></svg></div>
-          {steps.map((_, index) => <Picture src={stepImages[index].src} formats={['avif', 'webp']} widths={[240, 360, 540, 720]} sizes="(min-width: 1000px) 24vw, 84vw" alt={stepImages[index].alt} class="phone-stage-image" data-stage-image={index} loading="lazy" decoding="async" hidden={index !== 0} aria-hidden={index === 0 ? undefined : 'true'} pictureAttributes={{ class: 'phone-stage-picture', hidden: index !== 0 }} />)}
+          {steps.map((_, index) => <Picture src={stepImages[index].src} formats={['avif', 'webp']} widths={[240, 360, 540, 720]} sizes="(min-width: 1000px) 24vw, 84vw" alt={stepImages[index].alt} class="phone-stage-image" data-stage-image={index} loading={isPassenger && index === 0 ? 'eager' : 'lazy'} fetchpriority={isPassenger && index === 0 ? 'high' : undefined} decoding="async" hidden={index !== 0} aria-hidden={index === 0 ? undefined : 'true'} pictureAttributes={{ class: 'phone-stage-picture', hidden: index !== 0 }} />)}
           <div class="phone-placeholder" data-image-placeholder hidden aria-hidden="true">＋</div>
         </div>
       </div>
@@ -56,7 +56,7 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
   .phone-placeholder:not([hidden]){position:absolute;inset:0;z-index:4;display:grid;place-items:center;background:var(--paper);color:var(--cian);font-size:3rem}
   .phone-scene figcaption{display:grid;gap:.25rem;max-width:300px;text-align:center}
   .phone-scene figcaption b{color:var(--deep)}
-  .phone-scene figcaption span{color:#45666b;font-size:.88rem;line-height:1.45}
+  .phone-scene figcaption span{color:var(--ink);font-size:.88rem;line-height:1.45}
   .phone-step-list{position:relative;grid-area:steps;display:grid;gap:1.15rem;margin:0;padding:0;list-style:none;counter-reset:stage}
   .phone-route{position:absolute;top:0;bottom:0;left:6px;width:38px;height:100%;overflow:visible;pointer-events:none}
   .phone-route-base,.phone-route-progress{fill:none;stroke:color-mix(in srgb,var(--journey-accent) 42%,white);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
@@ -75,7 +75,7 @@ const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada,
   .phone-step-copy{display:grid;gap:.25rem}
   .phone-step-copy small{color:var(--journey-accent);font-size:.68rem;font-weight:850;letter-spacing:.12em}
   .phone-step-copy b{color:var(--deep);font-size:1.06rem;line-height:1.3}
-  .phone-step-copy>span{color:#45666b;font-size:.92rem;line-height:1.5}
+  .phone-step-copy>span{color:var(--ink);font-size:.92rem;line-height:1.5}
   .phone-mobile-image{display:none}
   .phone-journey[data-role="conductor"] .phone-journey-layout{grid-template-areas:"steps phone";grid-template-columns:minmax(0,1.18fr) minmax(240px,.82fr)}
   .phone-journey[data-role="conductor"] .phone-step-list{order:0}
