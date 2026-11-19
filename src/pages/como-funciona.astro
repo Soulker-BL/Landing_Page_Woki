@@ -17,12 +17,11 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   <main id="main-content">
     <section class="subpage-hero detail-hero journey-hero"><TopographicBackdrop city /><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
     <section class="detail-section detail-journey journey-experience how-scroll-track" data-scroll-journey aria-labelledby="journey-detail-title">
-      <TopographicBackdrop />
       <div class="how">
+        <TopographicBackdrop />
         <div class="wrap tabs">
           <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Dos formas de viajar</p><h2 id="journey-detail-title">Elige tu recorrido</h2><p>Explora los pasos desde el lado del pasajero o del conductor.</p></header>
-          <fieldset class="journey-role-group">
-            <legend class="visually-hidden">Elige un tipo de recorrido</legend>
+          <fieldset class="journey-role-group" aria-label="Elige el perfil del recorrido">
             <input type="radio" name="rol" id="t-pas" checked />
             <input type="radio" name="rol" id="t-con" />
             <div class="tablist">
@@ -60,8 +59,10 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
 <style>
   .journey-hero{isolation:isolate;background-color:var(--deep)}
   .journey-hero .wrap{z-index:1}
-  .journey-experience{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--paper),#fff 72%)}
-  .journey-experience>.how{position:relative;z-index:1}
+  .journey-experience{position:relative;isolation:isolate;overflow:clip;background:linear-gradient(180deg,var(--paper),#fff 72%)}
+  .journey-experience>.how{position:relative;z-index:1;isolation:isolate}
+  .journey-experience>.how>.topographic-backdrop{z-index:0}
+  .journey-experience>.how>.wrap{position:relative;z-index:1}
   .journey-experience .about-centered-heading{max-width:700px;margin-inline:auto}
   .journey-role-group{min-width:0;margin:0;padding:0;border:0}
   .journey-role-group>input{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
@@ -87,6 +88,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   .journey-explainer>.wrap>.lead{margin-top:2rem}
   .journey-explainer a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
   @media(min-width:801px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
+    .journey-experience.how-scroll-track{height:240svh}
     .journey-experience.how-scroll-track>.how{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;display:flex;align-items:center;padding:1svh 0}
     .journey-experience>.how{min-height:100svh}
     .journey-experience .journey-role-group{width:100%}
@@ -98,6 +100,14 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
     .journey-experience :global(.phone-step-list){gap:.65rem}
     .journey-experience :global(.phone-step){min-height:82px;padding:.7rem}
     .journey-experience :global(.phone-step-copy>span){font-size:.86rem}
+  }
+  @media(min-width:2000px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
+    .journey-experience.how-scroll-track{height:180svh}
+    .journey-experience :global(.phone-journey){max-height:80svh}
+    .journey-experience :global(.phone-shell){width:min(100%,clamp(320px,14vw,520px))}
+    .journey-experience :global(.phone-step){min-height:clamp(110px,9svh,220px);padding:clamp(.75rem,1.2vw,1.5rem)}
+    .journey-experience :global(.phone-step-number){width:clamp(42px,4svh,64px);height:clamp(42px,4svh,64px)}
+    .journey-experience :global(.phone-step-copy>span){font-size:clamp(.95rem,1.05svh,1.25rem)}
   }
   @supports (animation-timeline:view()){
     .journey-experience{view-timeline-name:--woki-journey;view-timeline-axis:block}

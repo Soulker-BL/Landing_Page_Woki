@@ -21,7 +21,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
       <TopographicBackdrop />
       <div class="wrap detail-two-col">
         <div><p class="eyebrow dark">Antes de iniciar</p><h2 id="safety-coordination-title">Confirma que el viaje corresponde a tu solicitud</h2><p>Antes de abordar, puedes revisar la información del conductor, el vehículo y la placa que aparecen en la app. El PIN sirve para confirmar el inicio con el conductor que llegó por ese viaje; compártelo solo cuando hayas verificado los datos del servicio.</p><p>Durante el trayecto, el seguimiento en el mapa ayuda a consultar el recorrido. Si necesitas coordinar algo, la aplicación incluye opciones de chat y llamada para comunicarte con el conductor. Estas herramientas acompañan la coordinación y no sustituyen la atención ante una emergencia.</p>
-          <fieldset class="safety-checklist"><legend>Antes de abordar</legend><label for="verify-driver"><input id="verify-driver" type="checkbox"/><span>Conductor</span></label><label for="verify-vehicle"><input id="verify-vehicle" type="checkbox"/><span>Vehículo</span></label><label for="verify-plate"><input id="verify-plate" type="checkbox"/><span>Placa</span></label><p class="checklist-ready" role="status" aria-live="polite" aria-atomic="true">Todo listo</p></fieldset>
+          <fieldset class="safety-checklist"><legend>Antes de abordar, revisa lo siguiente.</legend><label><input type="checkbox" checked disabled/><span>Conductor</span></label><label><input type="checkbox" checked disabled/><span>Vehículo</span></label><label><input type="checkbox" checked disabled/><span>Placa</span></label></fieldset>
         </div>
         <div class="safety-after"><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
       </div>
@@ -55,14 +55,14 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
 </Layout>
 
 <style>
-  .safety-hero{position:relative;isolation:isolate;min-height:550px;padding:8rem 0 4.5rem;overflow:hidden;background:linear-gradient(120deg,var(--deep),var(--ink))}
+  .safety-hero{position:relative;isolation:isolate;min-height:0;padding:7rem 0 2.75rem;overflow:hidden;background:linear-gradient(120deg,var(--deep),var(--ink))}
   .safety-hero>.wrap{position:relative;z-index:1;display:grid;width:min(calc(100% - 2.5rem),var(--max));grid-template-columns:minmax(0,1fr) minmax(320px,.85fr);align-items:center;gap:clamp(1.5rem,5vw,5rem);margin-inline:auto}
   .safety-hero-copy{max-width:620px}
   .safety-hero-copy .eyebrow{color:var(--aqua)}
   .safety-hero-copy h1{max-width:11ch;color:white;font-size:clamp(2.65rem,5.7vw,4.75rem);line-height:1.02;text-wrap:balance}
   .safety-hero-copy .lead{max-width:52ch;color:var(--paper);font-size:1.05rem;line-height:1.65}
-  .safety-pin-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:400px}
-  .safety-pin-stage :global(.orbit-badges){--orbit-size:clamp(290px,35vw,450px);position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%)}
+  .safety-pin-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:320px}
+  .safety-pin-stage :global(.orbit-badges){--orbit-size:clamp(250px,29vw,370px);position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%)}
   .safety-pin-panel{position:relative;z-index:2;display:grid;justify-items:center;gap:.6rem;min-width:220px;padding:1.25rem 1.6rem;border:1px solid color-mix(in srgb,var(--aqua) 42%,transparent);border-radius:24px;background:color-mix(in srgb,var(--deep) 58%,transparent);color:white;box-shadow:0 24px 65px color-mix(in srgb,var(--ink) 36%,transparent);backdrop-filter:blur(16px)}
   .safety-pin-panel>span{color:var(--aqua);font-size:.76rem;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
   .safety-pin-panel strong{display:flex;gap:.13em;color:white;font-size:clamp(3rem,6vw,5rem);font-weight:850;letter-spacing:.14em;line-height:1}
@@ -77,12 +77,8 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   .safety-after a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
   .safety-checklist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:1.5rem 0 0;padding:1rem;border:1px solid color-mix(in srgb,var(--cian) 27%,white);border-radius:var(--r-md);background:#fff}
   .safety-checklist legend{grid-column:1/-1;padding:0 .35rem;color:var(--deep);font-weight:850}
-  .safety-checklist label{display:flex;align-items:center;gap:.55rem;min-height:48px;padding:.55rem .65rem;border:1px solid color-mix(in srgb,var(--cian) 20%,white);border-radius:12px;background:var(--paper);color:var(--ink);font-size:.9rem;font-weight:750;cursor:pointer}
-  .safety-checklist label:focus-within{outline:3px solid var(--pin);outline-offset:2px}
-  .safety-checklist input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--cian)}
-  .checklist-ready{display:none;grid-column:1/-1;align-items:center;gap:.5rem;margin:0;padding:.65rem .8rem;border-radius:12px;background:var(--deep);color:white!important;font-weight:800}
-  .checklist-ready::before{content:"✓";display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--pin);color:var(--ink)}
-  .safety-checklist:has(#verify-driver:checked):has(#verify-vehicle:checked):has(#verify-plate:checked) .checklist-ready{display:flex}
+  .safety-checklist label{display:flex;align-items:center;gap:.55rem;min-height:48px;padding:.55rem .65rem;border:1px solid color-mix(in srgb,var(--cian) 20%,white);border-radius:12px;background:var(--paper);color:var(--ink);font-size:.9rem;font-weight:750}
+  .safety-checklist input{appearance:none;width:22px;height:22px;flex:none;margin:0;border:2px solid var(--cian);border-radius:5px;background:var(--cian);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8 3 3 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-position:center;background-size:15px;background-repeat:no-repeat;opacity:1}
   .safety-flow{position:relative;isolation:isolate;overflow:hidden;background:#fff}
   .safety-flow>.wrap{position:relative;z-index:1}
   .safety-time-rail{position:relative;width:100%;height:3px;margin:2.5rem 0 -1.5rem;border-radius:3px;background:color-mix(in srgb,var(--aqua) 28%,white)}
@@ -106,10 +102,11 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   .safety-overview .safety-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-top:2.3rem}
   .safety-overview .benefit{position:relative;overflow:hidden;min-height:245px;padding:1.4rem;border:1px solid color-mix(in srgb,var(--aqua) 28%,transparent);border-radius:var(--r-lg);background:color-mix(in srgb,var(--deep) 66%,transparent);box-shadow:0 18px 42px color-mix(in srgb,var(--ink) 32%,transparent);backdrop-filter:blur(12px)}
   .safety-overview .benefit::after{content:"";position:absolute;right:-45px;top:-46px;width:150px;height:150px;border:1px solid color-mix(in srgb,var(--aqua) 30%,transparent);border-radius:50%;box-shadow:0 0 0 13px color-mix(in srgb,var(--aqua) 8%,transparent),0 0 0 27px color-mix(in srgb,var(--aqua) 4%,transparent);pointer-events:none}
-  .safety-overview .benefit .sign{position:relative;z-index:1;width:54px;height:54px;border:1px solid color-mix(in srgb,var(--aqua) 44%,transparent);border-radius:18px;background:color-mix(in srgb,var(--cian) 70%,transparent);color:white}
+  .safety-overview .benefit .sign{position:relative;z-index:1;width:58px;height:58px;border:2px solid color-mix(in srgb,var(--aqua) 80%,white);border-radius:18px;background:var(--cian);color:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--aqua) 13%,transparent)}
+  .safety-overview .benefit .sign svg{width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
   .safety-overview .benefit h3{position:relative;z-index:1;margin-top:1.2rem;color:white}
   .safety-overview .benefit p{position:relative;z-index:1;color:var(--paper);line-height:1.6}
-  @media(max-width:950px){.safety-hero{min-height:0;padding:7.5rem 0 4rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(260px,.75fr)}.safety-pin-stage{min-height:340px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}.safety-overview .safety-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:640px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1.3rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:290px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(80vw,330px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.checklist-ready{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}.safety-overview .safety-grid{grid-template-columns:1fr}.safety-overview .benefit{min-height:0}}
+  @media(max-width:950px){.safety-hero{padding:7rem 0 2.5rem}.safety-hero>.wrap{grid-template-columns:1fr minmax(240px,.7fr)}.safety-pin-stage{min-height:290px}.safety-flow .detail-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-time-rail{display:none}.safety-overview .safety-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:640px){.safety-hero{padding:6.5rem 0 2rem}.safety-hero>.wrap{grid-template-columns:1fr;gap:1rem}.safety-hero-copy h1{font-size:clamp(2.55rem,12vw,3.6rem)}.safety-hero-copy .lead{font-size:1rem}.safety-pin-stage{min-height:250px}.safety-pin-stage :global(.orbit-badges){--orbit-size:min(72vw,300px)}.safety-pin-panel{min-width:190px;padding:1rem 1.25rem}.safety-coordination .detail-two-col{grid-template-columns:1fr;gap:1.5rem}.safety-checklist{grid-template-columns:1fr}.safety-checklist legend{grid-column:auto}.safety-flow .detail-cards{grid-template-columns:1fr}.safety-flow .detail-cards article{min-height:0}.safety-overview .safety-grid{grid-template-columns:1fr}.safety-overview .benefit{min-height:0}}
   @media(prefers-reduced-motion:reduce){.safety-pin-panel i{animation:none}.safety-time-rail span{animation:none!important;width:100%}}
 </style>

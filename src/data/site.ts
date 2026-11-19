@@ -51,7 +51,7 @@ export const assets = {
 export const navigation = [
   { href: routes.home, label: 'Inicio' },
   { href: routes.howItWorks, label: 'Cómo funciona' },
-  { href: routes.safety, label: 'Seguridad' },
+  { href: routes.safety, label: 'Pasajero' },
   { href: routes.drivers, label: 'Conductores' },
   { href: routes.about, label: 'Nosotros' },
   { href: routes.contact, label: 'Contáctanos' },

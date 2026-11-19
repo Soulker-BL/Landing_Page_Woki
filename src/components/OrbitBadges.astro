@@ -23,8 +23,8 @@ const { items } = Astro.props;
   .orbit-ring{position:absolute;inset:13%;border:1px solid color-mix(in srgb,var(--aqua) 28%,transparent);border-radius:50%}
   .orbit-ring-inner{inset:27%;border-style:dashed;opacity:.7}
   .orbit-center{width:34%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--cian) 52%,transparent),transparent 72%);box-shadow:0 0 0 22px color-mix(in srgb,var(--aqua) 7%,transparent)}
-  .orbit-badge{position:absolute;top:50%;left:50%;display:grid;place-items:center;width:48px;height:48px;margin:-24px;border:1px solid color-mix(in srgb,var(--aqua) 38%,transparent);border-radius:16px;background:color-mix(in srgb,var(--deep) 70%,transparent);color:var(--aqua);backdrop-filter:blur(10px);transform:rotate(var(--orbit-start)) translateX(calc(var(--orbit-size)*.39)) rotate(var(--orbit-counter-start));animation:orbit 28s linear infinite}
-  .orbit-badge svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .orbit-badge{position:absolute;top:50%;left:50%;display:grid;place-items:center;width:48px;height:48px;margin:-24px;border:2px solid color-mix(in srgb,var(--aqua) 80%,white);border-radius:16px;background:var(--cian);color:#fff;box-shadow:0 0 0 4px color-mix(in srgb,var(--aqua) 14%,transparent),0 8px 22px color-mix(in srgb,var(--ink) 24%,transparent);transform:rotate(var(--orbit-start)) translateX(calc(var(--orbit-size)*.39)) rotate(var(--orbit-counter-start));animation:orbit 28s linear infinite}
+  .orbit-badge svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
   .orbit-badges:focus .orbit-badge,.orbit-badges:focus-within .orbit-badge{animation-play-state:paused}
   @keyframes orbit{to{transform:rotate(var(--orbit-end)) translateX(calc(var(--orbit-size)*.39)) rotate(var(--orbit-counter-end))}}
   @media(max-width:720px){.orbit-badges{--orbit-size:min(80vw,340px)}}
