@@ -2,6 +2,52 @@
 
 Sitio estático en Astro 5 para Woki, plataforma de taxi urbano en Cerro de Pasco.
 
+## Despliegue en VPS con Docker
+
+Requisitos: Docker Engine y el complemento Docker Compose (`docker compose`) instalados en un VPS Linux. Ejecuta estos comandos en el directorio del proyecto, después de clonarlo o copiarlo al servidor:
+
+```sh
+cp .env.example .env
+nano .env
+docker compose up -d --build
+docker compose ps
+curl -I http://127.0.0.1:8080/
+curl -I http://127.0.0.1:8080/contacto
+```
+
+En `.env`, configura `PUBLIC_SITE_URL=https://www.woki.pe` (o tu dominio definitivo), `PUBLIC_NOINDEX=false` y las otras variables públicas que correspondan. Para pruebas sin indexación, usa `PUBLIC_NOINDEX=true`. El formulario requiere un servicio externo configurado en `PUBLIC_CONTACT_FORM_ENDPOINT`; el contenedor sirve únicamente el sitio estático.
+
+Por defecto se publica en `http://IP_DEL_VPS:8080`; permite ese puerto en el firewall del proveedor/VPS si quieres acceso directo. Para servir HTTP en el puerto 80, configura `HTTP_PORT=80` si está libre. Si cambias el puerto, ajústalo también en los comandos `curl`.
+
+La imagen compila con Node 22, ejecuta la verificación de Astro y copia solamente los archivos generados a Nginx. El servidor se ejecuta sin privilegios, con el sistema de archivos de solo lectura, comprobación de salud y reinicio automático. `.env` queda fuera de la imagen; Compose pasa explícitamente las variables públicas como argumentos de compilación. **Cambiar una variable `PUBLIC_*` requiere reconstruir la imagen**:
+
+```sh
+# Después de actualizar el código o las variables:
+docker compose up -d --build
+
+# Diagnóstico y parada:
+docker compose logs --tail=100 -f web
+docker compose down
+```
+
+### Dominio y HTTPS
+
+Apunta los registros DNS del dominio a la IP del VPS. Para producción con HTTPS, conecta el servicio al proxy inverso de tu VPS (Nginx, Caddy o el panel que uses) y configura allí el certificado TLS y la redirección de HTTP a HTTPS. Configura también el dominio alternativo para redirigir al dominio canónico definido en `PUBLIC_SITE_URL`.
+
+Si el proxy corre directamente en el VPS, configura `BIND_ADDRESS=127.0.0.1` y `HTTP_PORT=8080` en `.env`, vuelve a ejecutar `docker compose up -d --build` y dirige el proxy a `http://127.0.0.1:8080`. Ejemplo del bloque de ubicación para Nginx, dentro del servidor HTTPS que tenga tu certificado:
+
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Si el proxy corre en otro contenedor, conéctalo a la misma red Docker y usa `http://web:8080` como destino en lugar de `127.0.0.1`. El certificado HTTPS se administra en el proxy; no está incluido en esta imagen.
+
 ## SEO e indexación
 
 - El dominio por defecto se define una sola vez en `src/data/site-config.mjs`. Canonical, `og:url`, sitemap, robots y JSON-LD toman la misma URL.
