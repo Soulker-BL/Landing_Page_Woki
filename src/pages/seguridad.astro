@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Features from '../components/Features.astro';
 import OrbitBadges from '../components/OrbitBadges.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
@@ -26,7 +25,6 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
         <div class="safety-after"><h3>Al terminar el recorrido</h3><p>Después del viaje puedes dejar una calificación y consultar las reseñas de otros pasajeros al elegir un servicio. Revisar los datos disponibles en cada etapa te ayuda a mantener una referencia clara del taxi solicitado, el inicio del recorrido y la comunicación durante el viaje.</p><p>Para ver la secuencia completa, consulta <a href="/como-funciona">cómo funciona un viaje con Woki</a>. Si deseas conocer las funciones para conductores, visita <a href="/conductores">la página para conductores</a> o <a href="/contacto">contáctanos</a>.</p></div>
       </div>
     </section>
-    <Features />
     <section class="detail-section safety-flow safety-timeline" aria-labelledby="safety-flow-title">
       <TopographicBackdrop />
       <div class="wrap">
