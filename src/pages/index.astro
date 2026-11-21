@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 import Taxi from '../components/Taxi.astro';
 import Features from '../components/Features.astro';
-import JourneyPanel from '../components/JourneyPanel.astro';
+import PhoneJourneyPanel from '../components/PhoneJourneyPanel.astro';
 import { benefits, passengerSteps, driverSteps, driverBenefits, driverReasons, faqs, buildJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -42,22 +42,22 @@ const jsonLd = buildJsonLd(Astro.site);
       <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C240 70 480 0 720 25s480 40 720 5V60H0z"/></svg>
     </section>
 
-    <div class="how-scroll-track" id="como-funciona" data-autoplay-journey>
-      <section class="how" aria-labelledby="h-how">
+    <section class="how home-how" id="como-funciona" aria-labelledby="h-how">
        <div class="wrap tabs">
         <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
         <p class="lead" data-reveal style="--i:1">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        <fieldset class="journey-role-group" aria-label="Elige el perfil del recorrido">
         <input type="radio" name="rol" id="t-pas" checked />
         <input type="radio" name="rol" id="t-con" />
         <div class="tablist">
           <label for="t-pas"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5.5 20v-1.8a6.5 6.5 0 0113 0V20z"/></svg><span>Pasajero</span></label>
           <label for="t-con"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg><span>Conductor</span></label>
         </div>
-        <JourneyPanel role="pasajero" steps={passengerSteps} autoplay />
-        <JourneyPanel role="conductor" steps={driverSteps} autoplay />
+        <PhoneJourneyPanel role="pasajero" steps={passengerSteps} autoplay />
+        <PhoneJourneyPanel role="conductor" steps={driverSteps} autoplay />
+        </fieldset>
        </div>
-      </section>
-    </div>
+    </section>
 
     <section class="benefits" id="seguridad" aria-labelledby="h-ben">
       <div class="wrap">
@@ -127,3 +127,13 @@ const jsonLd = buildJsonLd(Astro.site);
 
   <script>import '../scripts/main.ts';</script>
 </Layout>
+
+<style>
+  .home-how{padding:clamp(3rem,7vw,5rem) 0}
+  .home-how h2,.home-how>.wrap>.lead{text-align:center}
+  .home-how .journey-role-group{display:block;width:100%;min-width:0;margin:0;padding:0;border:0}
+  .home-how .journey-role-group>.tablist{display:flex;width:max-content;max-width:100%;margin:1.5rem auto 2rem;padding:.35rem;gap:.2rem;border:1px solid #cfe5e7;border-radius:999px;background:#eaf5f5;box-shadow:0 8px 24px #00303712}
+  .home-how .journey-role-group>.tablist label{display:flex;flex:1 1 0;align-items:center;justify-content:center;gap:.55rem;min-width:160px;min-height:48px;padding:.65rem 1.25rem;border-radius:999px;color:#315a60;font-size:.95rem;font-weight:750;line-height:1;white-space:nowrap}
+  .home-how .journey-role-group>.tablist label .role-icon{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:560px){.home-how .journey-role-group>.tablist{width:min(100%,380px);margin:1.15rem auto 1.5rem}.home-how .journey-role-group>.tablist label{min-width:0;padding-inline:.7rem;font-size:.88rem}}
+</style>

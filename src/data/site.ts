@@ -53,7 +53,6 @@ export const assets = {
 export const navigation = [
   { href: routes.home, label: 'Inicio' },
   { href: routes.howItWorks, label: 'Cómo funciona', children: [
-    { href: routes.howItWorks, label: 'Ver cómo funciona' },
     { href: routes.safety, label: 'Pasajero' },
     { href: routes.drivers, label: 'Conductor' },
   ] },
