@@ -50,7 +50,7 @@ Si el proxy corre en otro contenedor, conéctalo a la misma red Docker y usa `ht
 
 ## SEO e indexación
 
-- El dominio por defecto se define una sola vez en `src/data/site-config.mjs`. Canonical, `og:url`, sitemap, robots y JSON-LD toman la misma URL.
+- El dominio canónico es `https://woki.pe` y se define en `src/data/site-config.mjs`. Una configuración `www.woki.pe` se normaliza al dominio sin `www`; canonical, `og:url`, sitemap, robots y JSON-LD toman esa misma URL.
 - Las rutas se publican sin barra final (`trailingSlash: 'never'`). La portada usa `/`.
 - Cada página define title, descripción, imagen social y texto alternativo. La imagen se genera en tamaño social de 1200 × 630.
 - El JSON-LD comparte una sola entidad `Organization`/`LocalBusiness`/`TaxiService`; las otras páginas la referencian. FAQPage solo se incluye en inicio. MobileApplication solo aparece cuando existe el enlace real de Google Play.
@@ -60,7 +60,7 @@ Si el proxy corre en otro contenedor, conéctalo a la misma red Docker y usa `ht
 
 ### Variables de entorno
 
-Define las variables en `.env` durante desarrollo o en las configuraciones de Vercel correspondientes. `.env.example` muestra las variables disponibles; el dominio por defecto está centralizado en el código.
+Define las variables en `.env` durante desarrollo o en la configuración de la plataforma de despliegue. `.env.example` muestra las variables disponibles; el dominio por defecto está centralizado en el código.
 
 | Variable | Uso |
 | --- | --- |
@@ -77,17 +77,11 @@ El modo no indexable se activa si `PUBLIC_NOINDEX=true`, si `VERCEL_ENV=preview`
 
 Para que la detección automática funcione, habilita **Enable access to System Environment Variables** en la configuración del proyecto Vercel. Vercel documenta que `VERCEL_PROJECT_PRODUCTION_URL` toma el dominio de producción personalizado más corto o usa `*.vercel.app` si el proyecto aún no tiene uno; la variable también está disponible en previews. Consulta la [documentación de variables de entorno de sistema de Vercel](https://vercel.com/docs/environment-variables/system-environment-variables).
 
-### Cambio de dominio
+### Dominio oficial e indexación
 
-Cuando se lance el dominio oficial:
+La versión canónica del sitio es `https://woki.pe` (sin `www`). Configura el proveedor de hosting y DNS para servir esta dirección con HTTPS. Si se habilita `www.woki.pe`, redirígelo permanentemente a `https://woki.pe` para evitar que ambas variantes se comporten como sitios diferentes.
 
-1. En Vercel, agrega `www.woki.pe` al proyecto y selecciónalo como dominio principal de producción.
-2. Configura `woki.pe` para redirigir permanentemente a `www.woki.pe` desde los ajustes de Domains de Vercel.
-3. En variables de entorno de Vercel, define `PUBLIC_SITE_URL` con la URL oficial `https://www.woki.pe` en Production.
-4. Quita `PUBLIC_NOINDEX` del entorno Production (o déjala vacía). No fuerces `PUBLIC_NOINDEX=true` en producción.
-5. Guarda y vuelve a desplegar Production.
-6. Ejecuta `npm run check:seo` en un build de producción con las mismas variables y comprueba que canonical, `og:url`, sitemap y robots usan `www.woki.pe`, que el sitemap lista nueve rutas y que no hay meta `noindex`.
-7. En Search Console, verifica la propiedad del dominio y envía `https://www.woki.pe/sitemap.xml` después de que el dominio responda públicamente.
+En producción, define `PUBLIC_SITE_URL=https://woki.pe` y deja `PUBLIC_NOINDEX` vacío o elimínala. Después de desplegar, ejecuta `npm run check:seo` con las mismas variables y confirma que canonical, `og:url`, sitemap y robots usan `woki.pe`, que el sitemap lista nueve rutas y que no hay meta `noindex`. En Google Search Console, envía `https://woki.pe/sitemap.xml` y solicita la indexación de las páginas públicas.
 
 En los previews, Vercel detecta el estado de prueba automáticamente. Para una compilación local indexable se usa el dominio por defecto del proyecto; para comprobar el modo de pruebas, define `PUBLIC_NOINDEX=true` y un host de despliegue `VERCEL_URL`.
 

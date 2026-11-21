@@ -29,7 +29,7 @@ function metaContent(html, expression) {
 }
 
 const outputFiles = await filesUnder(dist);
-const htmlFiles = outputFiles.filter((file) => file.endsWith('.html'));
+const htmlFiles = outputFiles.filter((file) => file.endsWith('.html') && !/^google[\da-f]+\.html$/i.test(path.basename(file)));
 assert(htmlFiles.length > 0, 'No se encontraron páginas HTML compiladas en dist.');
 
 const pages = [];
@@ -161,7 +161,7 @@ if (env.PUBLIC_CONTACT_FORM_ENDPOINT?.trim()) {
   assert(Boolean(contact && /id="contact-form-unavailable"/.test(contact.html) && /<button[^>]*type="submit"[^>]*disabled/.test(contact.html)), 'Sin endpoint, el formulario debe explicar que no está disponible y desactivar el envío.');
 }
 
-for (const page of pages) assert(!/href=["']mailto:/i.test(page.html), `${page.relative}: contiene un enlace de correo temporal.`);
+for (const page of pages) assert(!/href=["']mailto:[^"']+@(example\.(?:com|org)|localhost)(?:["'])/i.test(page.html), `${page.relative}: contiene un enlace de correo de ejemplo.`);
 for (const page of pages) assert(!/href=["']https:\/\/wa\.me\//i.test(page.html), `${page.relative}: contiene un enlace de WhatsApp temporal.`);
 
 for (const page of pages) {

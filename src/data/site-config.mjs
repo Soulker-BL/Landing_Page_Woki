@@ -1,9 +1,15 @@
-export const DEFAULT_SITE_URL = 'https://www.woki.pe';
+export const DEFAULT_SITE_URL = 'https://woki.pe';
 
 const withoutTrailingSlash = (value) => value.replace(/\/+$/, '');
 
+function normalizeSiteUrl(value) {
+  const url = new URL(withoutTrailingSlash(value));
+  if (url.hostname.toLowerCase() === 'www.woki.pe') url.hostname = 'woki.pe';
+  return withoutTrailingSlash(url.href);
+}
+
 export function getSiteConfig(env = {}) {
-  const requestedSiteUrl = withoutTrailingSlash(env.PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL);
+  const requestedSiteUrl = normalizeSiteUrl(env.PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL);
   const productionHost = env.VERCEL_PROJECT_PRODUCTION_URL?.trim().toLowerCase() || '';
   const isNoIndex = env.PUBLIC_NOINDEX === 'true'
     || env.VERCEL_ENV === 'preview'
