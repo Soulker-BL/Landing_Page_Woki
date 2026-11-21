@@ -468,6 +468,75 @@ html.no-splash{--s:0s}
 .legal-page .account-deletion-steps h3{margin:.1rem 0 .25rem;color:var(--deep);font-size:1.02rem}
 .legal-page .account-deletion-steps p{margin:0}
 
+/* Navegación con submenú para las páginas de recorrido. */
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.top .nav-dropdown-trigger{display:inline-flex;align-items:center;gap:.35rem;border:0;border-radius:999px;padding:.5rem 1.05rem;background:transparent;color:inherit;font:inherit;white-space:nowrap;cursor:pointer;transition:background .25s,color .25s}
+.top .nav-dropdown-trigger:hover,.top .nav-dropdown-trigger[aria-expanded="true"]{background:#ffffff26}
+.top.scrolled .nav-dropdown-trigger:hover,.top.scrolled .nav-dropdown-trigger[aria-expanded="true"]{background:#e3f3f4;color:var(--deep)}
+.nav-dropdown-trigger svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .2s}
+.nav-dropdown-trigger[aria-expanded="true"] svg{transform:rotate(180deg)}
+.nav-submenu{position:absolute;top:calc(100% + .65rem);left:0;z-index:40;display:grid;min-width:220px;gap:.25rem;padding:.55rem;border:1px solid #d6eaec;border-radius:18px;background:#fff;box-shadow:0 16px 36px #00303724;opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .18s,transform .18s,visibility .18s}
+.nav-dropdown:hover .nav-submenu,.nav-dropdown:focus-within .nav-submenu,.nav-dropdown.expanded .nav-submenu{opacity:1;visibility:visible;transform:none}
+.top .nav-submenu a{display:block;padding:.7rem .85rem;border-radius:11px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.top .nav-submenu a:hover,.top .nav-submenu a[aria-current="page"]{background:var(--paper);color:var(--deep)}
+.nav-dropdown-trigger:focus-visible,.nav-submenu a:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
+
+/* Panel legal con selector persistente entre documentos directos. */
+.legal-page.legal-hub{width:min(calc(100% - 2.5rem),var(--max));max-width:var(--max);padding:8rem 0 4rem}
+.legal-hub-heading{max-width:760px;margin:0 auto 2rem;text-align:center}
+.legal-hub-heading .eyebrow{justify-content:center}
+.legal-hub-heading h1{margin:.5rem 0;font-size:clamp(2.25rem,5vw,3.5rem);color:var(--deep);text-transform:uppercase}
+.legal-hub-heading>p:last-child{margin:0;color:#45666b;line-height:1.65}
+.legal-hub-layout{display:grid;grid-template-columns:minmax(230px,.32fr) minmax(0,1fr);align-items:start;gap:clamp(1rem,2.5vw,2rem)}
+.legal-selector,.legal-document{border:1px solid #cfe5e7;border-radius:24px;background:#fff;box-shadow:0 18px 45px #0030370d}
+.legal-selector{position:sticky;top:90px;display:grid;gap:.3rem;padding:.8rem}
+.legal-selector h2{margin:.4rem .65rem .45rem;color:var(--deep);font-size:1rem}
+.legal-selector a{padding:.75rem .7rem;border-radius:12px;color:var(--ink);font-size:.9rem;font-weight:700;line-height:1.4;text-decoration:none;transition:background .18s,color .18s}
+.legal-selector a:hover,.legal-selector a[aria-current="page"]{background:#e5f4f5;color:var(--deep)}
+.legal-document{min-width:0;padding:clamp(1.25rem,3vw,2.5rem)}
+.legal-document h2:first-child{margin:0 0 .5rem;color:var(--deep);font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.2}
+.legal-document .updated{margin:0 0 1.6rem;color:#607b7f;font-size:.88rem}
+.legal-document h2{margin:1.8rem 0 .55rem}
+.legal-document p,.legal-document li{overflow-wrap:anywhere}
+.legal-document p:first-of-type{margin-top:0}
+
+@media(max-width:1000px){
+  .top nav{left:auto;right:0;width:max-content;min-width:220px;max-width:calc(100vw - 2rem);align-items:stretch}
+  .top nav>a,.top .nav-dropdown,.top .nav-dropdown-trigger{width:100%}
+  .top nav>a,.top .nav-dropdown-trigger{justify-content:flex-start;text-align:left}
+  .nav-dropdown{display:grid;grid-template-columns:minmax(0,1fr)}
+  .nav-dropdown-trigger svg{margin-left:auto}
+  .nav-submenu{position:static;display:none;min-width:0;margin:.1rem .15rem .3rem .8rem;padding:.3rem;border:0;border-left:2px solid #bfe2e4;border-radius:0;background:transparent;box-shadow:none;opacity:1;visibility:visible;transform:none}
+  .nav-dropdown:hover .nav-submenu,.nav-dropdown:focus-within .nav-submenu{display:none}
+  .nav-dropdown.expanded .nav-submenu{display:grid}
+  .top .nav-submenu a{white-space:normal}
+}
+@media(max-width:720px){
+  .legal-hub-layout{grid-template-columns:1fr}
+  .legal-selector{position:relative;top:auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem}
+  .legal-selector h2{grid-column:1/-1}
+}
+@media(max-width:460px){
+  .legal-selector{grid-template-columns:1fr}
+  .legal-hub-heading{margin-bottom:1.3rem}
+  .legal-page.legal-hub{padding-top:7rem}
+}
+
+.journey-autoplay-toggle{flex:none;border:1px solid #cfe5e7;border-radius:999px;padding:.45rem .8rem;background:#f4fafa;color:var(--deep);font:inherit;font-size:.78rem;font-weight:750;cursor:pointer}
+.journey-autoplay-toggle:hover{background:#e5f4f5}
+.journey-autoplay-toggle:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
+.journey-step{position:relative;overflow:hidden;padding-bottom:1rem}
+.step-progress{position:absolute;right:1rem;bottom:.35rem;left:1rem;height:3px;overflow:hidden;border-radius:5px;background:#dceced}
+.step-progress>span{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cian),var(--aqua),var(--pin));transform:scaleX(0);transform-origin:left}
+.journey[data-playing] .journey-step[aria-pressed="true"] .step-progress>span{animation:journey-progress 3s linear forwards}
+@keyframes journey-progress{to{transform:scaleX(1)}}
+@media(min-width:801px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
+  .how-scroll-track[data-autoplay-journey]{height:auto}
+  .how-scroll-track[data-autoplay-journey]>.how{position:relative;top:auto;height:auto;min-height:0;overflow:visible;padding:clamp(3rem,6vw,5rem) 0}
+}
+@media(max-width:600px){.journey-top{align-items:center;flex-direction:row}.journey-autoplay-toggle{font-size:.72rem;padding:.4rem .65rem}}
+@media(prefers-reduced-motion:reduce){.step-progress>span{animation:none!important}.journey-autoplay-toggle{display:none}}
+
 
 @keyframes splashDrive{from{transform:translateX(-170px)}to{transform:translateX(calc(100vw + 40px))}}
 .splash .road{position:absolute;left:0;right:0;bottom:16%;height:64px;background:#00000024}
