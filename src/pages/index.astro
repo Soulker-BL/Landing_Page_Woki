@@ -44,8 +44,11 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="how home-how" id="como-funciona" aria-labelledby="h-how">
        <div class="wrap tabs">
-        <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
-        <p class="lead" data-reveal style="--i:1">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        <header class="home-how-heading" data-reveal>
+          <p class="eyebrow dark">Dos formas de viajar</p>
+          <h2 id="h-how">Cómo funciona Woki</h2>
+          <p class="lead">Pide tu viaje o recibe solicitudes en pocos pasos.</p>
+        </header>
         <fieldset class="journey-role-group" aria-label="Elige el perfil del recorrido">
         <input type="radio" name="rol" id="t-pas" checked />
         <input type="radio" name="rol" id="t-con" />
@@ -61,8 +64,11 @@ const jsonLd = buildJsonLd(Astro.site);
 
     <section class="benefits" id="seguridad" aria-labelledby="h-ben">
       <div class="wrap">
-        <h2 id="h-ben" data-reveal>Seguridad y confianza para tu taxi urbano</h2>
-        <p class="lead" data-reveal style="--i:1">Woki conecta pasajeros y conductores con confianza, cercanía y facilidad de uso.</p>
+        <header class="home-section-heading" data-reveal>
+          <p class="eyebrow dark">Para pasajeros</p>
+          <h2 id="h-ben">Seguridad y confianza en cada viaje</h2>
+          <p class="lead">Revisa quién te recoge, comparte tu PIN y sigue tu recorrido con información clara.</p>
+        </header>
         <div class="grid4">
           {benefits.map((benefit) => (
             <article data-reveal class="benefit">
@@ -86,7 +92,7 @@ const jsonLd = buildJsonLd(Astro.site);
           <div class="meter" aria-hidden="true"><small>Ganado hoy</small><b>S/ <span data-count="42" data-dec="2">42.00</span></b></div>
         </div>
         <div>
-          <p class="eyebrow dark" data-reveal>Tu trabajo, a tu manera</p>
+          <p class="eyebrow dark" data-reveal>Para conductores</p>
           <h2 id="h-drv" data-reveal>Maneja con Woki y gana más</h2>
           <p class="lead" data-reveal>Elige tus viajes, conoce la tarifa antes de aceptar y lleva el control de tus ganancias desde la app.</p>
           <p class="driver-benefits-label" data-reveal>Más control en cada recorrido</p>
@@ -130,7 +136,14 @@ const jsonLd = buildJsonLd(Astro.site);
 
 <style>
   .home-how{padding:clamp(3rem,7vw,5rem) 0}
-  .home-how h2,.home-how>.wrap>.lead{text-align:center}
+  .home-how-heading{max-width:760px;margin:0 auto clamp(1.5rem,3vw,2.2rem);text-align:center}
+  .home-how-heading .eyebrow{justify-content:center;margin-bottom:.6rem}
+  .home-how-heading h2{margin:0 0 .4rem}
+  .home-how-heading .lead{margin:0}
+  .home-section-heading{max-width:760px;margin:0 auto 2rem;text-align:center}
+  .home-section-heading .eyebrow{justify-content:center;margin-bottom:.6rem}
+  .home-section-heading h2{margin:0 0 .5rem}
+  .home-section-heading .lead{margin:0}
   .home-how .journey-role-group{display:block;width:100%;min-width:0;margin:0;padding:0;border:0}
   .home-how .journey-role-group>.tablist{display:flex;width:max-content;max-width:100%;margin:1.5rem auto 2rem;padding:.35rem;gap:.2rem;border:1px solid #cfe5e7;border-radius:999px;background:#eaf5f5;box-shadow:0 8px 24px #00303712}
   .home-how .journey-role-group>.tablist label{display:flex;flex:1 1 0;align-items:center;justify-content:center;gap:.55rem;min-width:160px;min-height:48px;padding:.65rem 1.25rem;border-radius:999px;color:#315a60;font-size:.95rem;font-weight:750;line-height:1;white-space:nowrap}
