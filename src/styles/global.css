@@ -228,12 +228,15 @@ footer{position:relative;margin-top:90px;background:linear-gradient(180deg,var(-
 
 .grid4{position:relative}
 .grid4::before{content:"";position:absolute;left:32px;right:0;top:32px;height:3px;background:repeating-linear-gradient(90deg,var(--aqua) 0 12px,transparent 12px 24px);animation:routeflow 1s linear infinite}
+.benefits .grid4>.taxi{left:auto;right:-12px;top:14px;bottom:auto;z-index:2;width:68px;transform-origin:50% 78%;animation:benefit-taxi-idle 1.4s ease-in-out infinite;filter:drop-shadow(0 0 2px var(--deep)) drop-shadow(0 4px 4px #00303724)}
+@keyframes benefit-taxi-idle{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-1.5px) rotate(-.45deg)}70%{transform:translateY(.5px) rotate(.35deg)}}
 .benefit{display:grid;gap:.5rem;justify-items:start}
 .sign{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--cian);box-shadow:0 0 0 6px #e3f3f4;display:grid;place-items:center;position:relative;z-index:1;margin-bottom:.8rem;transition:transform .3s}
 .benefit:hover .sign{transform:rotate(-10deg) scale(1.1)}
 html.js .benefit path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s .4s ease}
 html.js .benefit.in path{stroke-dashoffset:0}
-@media(max-width:900px){.grid4::before{display:none}}
+@media(max-width:900px){.grid4::before{display:none}.benefits .grid4>.taxi{display:none}}
+@media(prefers-reduced-motion:reduce){.benefits .grid4>.taxi{animation:none}}
 
 
 .steps{position:relative;margin-top:1rem}

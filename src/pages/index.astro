@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import Cta from '../components/Cta.astro';
 import Footer from '../components/Footer.astro';
 import StoreButtons from '../components/StoreButtons.astro';
+import Taxi from '../components/Taxi.astro';
 import Features from '../components/Features.astro';
 import JourneyPanel from '../components/JourneyPanel.astro';
 import { benefits, passengerSteps, driverSteps, driverBenefits, driverReasons, faqs, buildJsonLd } from '../data/content';
@@ -70,6 +71,7 @@ const jsonLd = buildJsonLd(Astro.site);
               <p>{benefit.description}</p>
             </article>
           ))}
+          <Taxi />
         </div>
       </div>
     </section>
