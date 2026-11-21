@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import OrbitBadges from '../components/OrbitBadges.astro';
 import TopographicBackdrop from '../components/TopographicBackdrop.astro';
+import Taxi from '../components/Taxi.astro';
 import { benefits, buildSectionJsonLd } from '../data/content';
 import { assets, brand } from '../data/site';
 
@@ -29,7 +30,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
       <TopographicBackdrop />
       <div class="wrap">
         <header class="about-centered-heading" data-reveal><p class="eyebrow dark">Durante el viaje</p><h2 id="safety-flow-title">Qué puedes revisar en la app</h2></header>
-        <div class="safety-time-rail" aria-hidden="true"><span></span></div>
+        <div class="safety-time-rail" aria-hidden="true"><span></span><Taxi /></div>
         <div class="detail-cards">
           <article data-reveal><span>01</span><small>Antes de abordar</small><h3>Identifica el servicio</h3><p>Revisa la información del conductor, el vehículo y la placa antes de abordar.</p></article>
           <article data-reveal><span>02</span><small>Antes de iniciar</small><h3>Confirma el inicio</h3><p>Comparte el PIN del viaje con el conductor para confirmar que corresponde a tu solicitud.</p></article>
@@ -81,6 +82,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/seguridad', 'Seguridad e
   .safety-flow>.wrap{position:relative;z-index:1}
   .safety-time-rail{position:relative;width:100%;height:3px;margin:2.5rem 0 -1.5rem;border-radius:3px;background:color-mix(in srgb,var(--aqua) 28%,white)}
   .safety-time-rail span{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cian),var(--aqua),var(--pin));transform-origin:left}
+  .safety-time-rail :global(.taxi){left:auto;right:-24px;bottom:-14px;width:70px;animation:none;filter:drop-shadow(0 5px 5px #00303730)}
   .safety-flow .detail-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
   .safety-flow .detail-cards article{position:relative;min-height:245px;padding:1.25rem;border-color:color-mix(in srgb,var(--cian) 20%,white);border-radius:var(--r-lg);background:linear-gradient(155deg,#fff,var(--paper));box-shadow:0 15px 35px color-mix(in srgb,var(--deep) 9%,transparent)}
   .safety-flow .detail-cards article>span{width:48px;height:48px;margin-bottom:.8rem;border:5px solid white;border-radius:50%;background:var(--deep);color:white;box-shadow:0 0 0 2px color-mix(in srgb,var(--cian) 40%,white)}

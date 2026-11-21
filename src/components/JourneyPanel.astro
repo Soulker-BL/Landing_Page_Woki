@@ -6,20 +6,21 @@ import type { JourneyStep } from '../data/content';
 interface Props {
   role: 'pasajero' | 'conductor';
   steps: JourneyStep[];
+  autoplay?: boolean;
 }
 
-const { role, steps } = Astro.props;
+const { role, steps, autoplay = false } = Astro.props;
 const isPassenger = role === 'pasajero';
 const stepImages = isPassenger ? images.passengerSteps : images.driverSteps;
 const journeyTitle = isPassenger ? 'Tu viaje, en cuatro momentos' : 'Tu jornada, en cuatro momentos';
 ---
-<div class:list={['journey', 'panel', isPassenger ? 'p-pas' : 'p-con']} data-journey data-role={role} aria-label={`Recorrido interactivo del ${role}`}>
-  <div class="journey-top"><span class="journey-live">{journeyTitle}</span></div>
+<div class:list={['journey', 'panel', isPassenger ? 'p-pas' : 'p-con']} data-journey data-role={role} data-autoplay={autoplay ? '' : undefined} aria-label={`Recorrido interactivo del ${role}`}>
+  <div class="journey-top"><span class="journey-live">{journeyTitle}</span>{autoplay && <button class="journey-autoplay-toggle" type="button" data-journey-toggle aria-pressed="false">Pausar recorrido</button>}</div>
   <div class:list={['journey-layout', isPassenger ? 'passenger-layout' : 'driver-layout']}>
     <ol class="steps">
       {steps.map(({ title, description }, index) => {
         const number = index + 1;
-        return <li><button class="journey-step" type="button" data-step-button data-step={index} data-title={title} data-description={description} aria-pressed={index === 0 ? 'true' : 'false'}><span class="step-number">{String(number).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {number}</small><b>{title}</b><span>{description}</span></span></button></li>;
+        return <li><button class="journey-step" type="button" data-step-button data-step={index} data-title={title} data-description={description} aria-pressed={index === 0 ? 'true' : 'false'}><span class="step-number">{String(number).padStart(2, '0')}</span><span class="step-copy"><small>ETAPA {number}</small><b>{title}</b><span>{description}</span></span>{autoplay && <span class="step-progress" aria-hidden="true"><span></span></span>}</button></li>;
       })}
     </ol>
     <figure class:list={['ride-scene', !isPassenger && 'driver-scene']} data-ride-scene data-step="0" aria-label={`Imagen de etapa para ${role}`}>

@@ -41,7 +41,7 @@ const jsonLd = buildJsonLd(Astro.site);
       <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30C240 70 480 0 720 25s480 40 720 5V60H0z"/></svg>
     </section>
 
-    <div class="how-scroll-track" id="como-funciona" data-scroll-journey>
+    <div class="how-scroll-track" id="como-funciona" data-scroll-journey data-autoplay-journey>
       <section class="how" aria-labelledby="h-how">
        <div class="wrap tabs">
         <h2 id="h-how" data-reveal>Cómo funciona Woki</h2>
@@ -52,8 +52,8 @@ const jsonLd = buildJsonLd(Astro.site);
           <label for="t-pas"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5.5 20v-1.8a6.5 6.5 0 0113 0V20z"/></svg><span>Pasajero</span></label>
           <label for="t-con"><svg class="role-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l1.5-5h13L20 15v4h-2v-2H6v2H4zM6 10l1.3-3h9.4l1.3 3"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg><span>Conductor</span></label>
         </div>
-        <JourneyPanel role="pasajero" steps={passengerSteps} />
-        <JourneyPanel role="conductor" steps={driverSteps} />
+        <JourneyPanel role="pasajero" steps={passengerSteps} autoplay />
+        <JourneyPanel role="conductor" steps={driverSteps} autoplay />
        </div>
       </section>
     </div>
