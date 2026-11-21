@@ -6,7 +6,7 @@ const siteConfig = getSiteConfig({ ...import.meta.env, ...runtimeEnv });
 
 export const brand = {
   name: 'Woki',
-  legalName: 'Woki Mobility S.A.C.',
+  projectName: 'Woki App',
   city: 'Cerro de Pasco',
   region: 'Pasco',
   country: 'Perú',
@@ -76,6 +76,7 @@ export const legalNavigation = [
 ] as const;
 
 export const legalDocuments = [
+  { href: routes.legalNotice, label: 'Información del sitio' },
   { href: routes.terms, label: 'T&C Pasajero' },
   { href: routes.driverTerms, label: 'T&C Conductor' },
   { href: routes.privacy, label: 'Privacidad' },

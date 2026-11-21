@@ -14,10 +14,10 @@ const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList'
   <Header solid />
   <main id="main-content" class:list={['legal-page', 'wrap', legalSection && 'legal-hub']}>
     {legalSection ? <>
-      <header class="legal-hub-heading"><p class="eyebrow dark">Woki · documentos y políticas</p><h1>Información legal</h1><p>Consulta las condiciones y políticas de Woki. Selecciona un documento para leerlo completo.</p></header>
+      <header class="legal-hub-heading"><p class="eyebrow dark">Woki · documentos y políticas</p><h1>Información legal</h1><p>Consulta información del sitio, condiciones de uso y políticas de Woki. Selecciona una opción para leer su contenido.</p></header>
       <div class="legal-hub-layout">
         <nav class="legal-selector" aria-label="Documentos legales">
-          <h2>Documentos</h2>
+          <h2>Información legal</h2>
           {legalDocuments.map(({ href, label }) => <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
         </nav>
         <article class="legal-document" aria-labelledby="legal-document-title">

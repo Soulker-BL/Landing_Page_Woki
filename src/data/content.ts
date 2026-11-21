@@ -79,8 +79,7 @@ export function buildJsonLd(_site?: URL, page: StructuredPage = 'home') {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'LocalBusiness', 'TaxiService'],
     '@id': organizationId,
-    name: brand.name,
-    legalName: brand.legalName,
+    name: brand.projectName,
     url: base.href,
     logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', base).href, caption: `${brand.name} logo` },
     areaServed: [
@@ -95,11 +94,11 @@ export function buildJsonLd(_site?: URL, page: StructuredPage = 'home') {
 
   const structuredData: Record<string, unknown>[] = [
     organization,
-    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': websiteId, name: brand.name, url: base.href, inLanguage: 'es-PE', publisher: { '@id': organizationId } },
+    { '@context': 'https://schema.org', '@type': 'WebSite', '@id': websiteId, name: brand.projectName, url: base.href, inLanguage: 'es-PE', publisher: { '@id': organizationId } },
   ];
 
   const playUrl = import.meta.env.PUBLIC_GOOGLE_PLAY_URL?.trim();
-  if (playUrl) structuredData.push({ '@context': 'https://schema.org', '@type': 'MobileApplication', name: brand.name, operatingSystem: 'Android', applicationCategory: 'TravelApplication', url: playUrl, downloadUrl: playUrl, isPartOf: { '@id': websiteId } });
+  if (playUrl) structuredData.push({ '@context': 'https://schema.org', '@type': 'MobileApplication', name: brand.projectName, operatingSystem: 'Android', applicationCategory: 'TravelApplication', url: playUrl, downloadUrl: playUrl, isPartOf: { '@id': websiteId } });
 
   if (page === 'home') {
     structuredData.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) });

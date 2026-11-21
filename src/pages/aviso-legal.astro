@@ -2,17 +2,35 @@
 import Legal from '../layouts/Legal.astro';
 import { brand } from '../data/site';
 ---
-<Legal title="Aviso legal" imageAlt="Información legal del sitio web de Woki" description={`Consulta la información legal de Woki: titularidad, contenidos, propiedad intelectual y enlaces de terceros. Revisa las condiciones del sitio.`}>
-  <h2>Responsable del sitio</h2>
-  <p>Este sitio web es titularidad de {brand.legalName}, con domicilio en {brand.city}, región de {brand.region}, {brand.country}.</p>
-  <h2>Contacto</h2>
-  <p>Para consultas relacionadas con el sitio o sus contenidos, puedes escribir a {brand.email}.</p>
-  <h2>Finalidad del sitio</h2>
-  <p>Este sitio presenta información sobre los servicios de movilidad de {brand.name}, sus funciones y los canales disponibles para pasajeros y conductores.</p>
-  <h2>Propiedad intelectual</h2>
-  <p>Los textos, elementos gráficos, logotipos y demás contenidos de este sitio pertenecen a {brand.legalName} o se utilizan con autorización. No está permitida su reproducción sin consentimiento, salvo los usos permitidos por la normativa aplicable.</p>
-  <h2>Enlaces externos</h2>
-  <p>Los enlaces a sitios de terceros se ofrecen como referencia. {brand.legalName} no controla sus contenidos ni sus políticas.</p>
-  <h2>Normativa y jurisdicción</h2>
-  <p>El acceso y uso de este sitio se rige por las leyes de la República del Perú, sin perjuicio de las normas de protección al consumidor y de datos personales que resulten aplicables.</p>
+<Legal title="Información del sitio" legalSection imageAlt="Información del sitio web y servicios de Woki" description={`Consulta quién opera el sitio de Woki, su propósito, alcance informativo, canales oficiales, propiedad intelectual, enlaces externos y políticas relacionadas.`}>
+  <p>Esta página reúne información sobre el sitio web y el proyecto Woki App, actualmente en etapa inicial. Aquí puedes conocer el propósito de la landing, cómo contactar al equipo del proyecto y dónde consultar las condiciones y políticas disponibles.</p>
+
+  <h2>1. Titular y operador</h2>
+  <p>Woki App es el nombre del proyecto de movilidad digital que se encuentra en etapa inicial; no es una razón social ni una persona jurídica constituida. El proyecto está pensado para {brand.city}, región de {brand.region}, {brand.country}. Para consultas sobre el sitio, puedes escribir a <a href="mailto:soporte@woki.pe">soporte@woki.pe</a>; para comunicaciones sobre documentos legales, utiliza <a href="mailto:legal@woki.pe">legal@woki.pe</a>.</p>
+
+  <h2>2. Propósito y alcance del sitio</h2>
+  <p>Esta landing presenta información sobre Woki, una plataforma tecnológica orientada a conectar a pasajeros con conductores de taxi urbano. Describe el funcionamiento previsto del servicio, sus herramientas y las opciones disponibles para pasajeros y conductores en {brand.city}.</p>
+  <p>La información del sitio tiene carácter general. La disponibilidad del servicio, las funciones de la aplicación y las condiciones de cada viaje pueden depender de la versión de la app, la ubicación y las opciones que se muestren al usuario. Antes de usar la plataforma, consulta las condiciones específicas de tu perfil y del viaje.</p>
+
+  <h2>3. Información y actualizaciones</h2>
+  <p>Procuramos mantener el contenido claro y actualizado. Las pantallas, imágenes, ejemplos de recorrido, tarifas ilustrativas u otros recursos gráficos que aparezcan en la landing sirven para explicar la experiencia de Woki y pueden no representar una solicitud o viaje real. Las funciones disponibles pueden cambiar conforme evolucione el servicio.</p>
+  <p>Podemos corregir, reorganizar o actualizar el contenido del sitio cuando sea necesario. La publicación de información en esta landing no sustituye los términos aplicables a pasajeros y conductores ni constituye una confirmación de que una función esté disponible en todas las zonas.</p>
+
+  <h2>4. Canales de contacto</h2>
+  <p>Para asistencia o consultas sobre el sitio y el servicio, puedes escribir a <a href="mailto:soporte@woki.pe">soporte@woki.pe</a>. Para comunicaciones relacionadas con asuntos legales, escribe a <a href="mailto:legal@woki.pe">legal@woki.pe</a>. También puedes usar la página de <a href="/contacto">Contáctanos</a>. Incluye información suficiente para que podamos entender tu consulta y responderte.</p>
+
+  <h2>5. Propiedad intelectual</h2>
+  <p>Los nombres, logotipos, diseños, textos y demás elementos que aparecen en el sitio pueden formar parte del proyecto Woki App o utilizarse con autorización de sus respectivos titulares. No debes reproducirlos, modificarlos, distribuirlos ni usarlos como si fueran propios sin autorización, salvo los usos permitidos por la normativa vigente.</p>
+
+  <h2>6. Enlaces y servicios de terceros</h2>
+  <p>El sitio puede incluir enlaces a plataformas externas, como tiendas de aplicaciones o servicios de terceros. Estos enlaces facilitan el acceso a recursos ajenos a Woki. Cada tercero administra su propio contenido, disponibilidad y política de privacidad; revisa sus condiciones antes de utilizar sus servicios.</p>
+
+  <h2>7. Uso adecuado del sitio</h2>
+  <p>Al navegar por esta página, debes respetar la normativa aplicable y evitar acciones que afecten su disponibilidad, seguridad o funcionamiento, o que vulneren derechos de otras personas. Si detectas un enlace roto, un error en el contenido o un problema de seguridad, puedes comunicarlo a soporte@woki.pe.</p>
+
+  <h2>8. Documentos y políticas relacionadas</h2>
+  <p>La información sobre el uso de la plataforma se desarrolla en los <a href="/terminos">Términos y condiciones del Pasajero</a> y los <a href="/terminos-conductor">Términos y condiciones del Conductor</a>. El tratamiento de datos personales se explica en la <a href="/privacidad">Política de privacidad</a>; el uso de cookies y analítica, en la <a href="/cookies">Política de cookies</a>. Para conocer cómo solicitar la eliminación de una cuenta, visita la <a href="/eliminar-cuenta">Guía para eliminar cuenta</a>.</p>
+
+  <h2>9. Normativa aplicable</h2>
+  <p>El acceso y uso del sitio se sujetan a la normativa aplicable en la República del Perú. Este aviso describe el sitio y complementa los documentos específicos de Woki; no reemplaza los derechos que correspondan a los usuarios conforme a la ley.</p>
 </Legal>
