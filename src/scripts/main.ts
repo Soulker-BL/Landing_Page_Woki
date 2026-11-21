@@ -169,7 +169,7 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
         showStage(next);
       }
       startAutoplay();
-    }, 3000);
+    }, 4000);
   };
   if (journey.hasAttribute('data-autoplay')) {
     if ('IntersectionObserver' in window) {
@@ -202,32 +202,6 @@ all<HTMLElement>('[data-journey]').forEach((journey) => {
     });
   });
 });
-
-// En escritorio, cada tramo de scroll dentro de Cómo funciona avanza una etapa.
-const journeyTrack = document.querySelector<HTMLElement>('[data-scroll-journey]');
-const pinnedJourneyEnabled = window.matchMedia('(min-width: 801px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)');
-if (journeyTrack && !journeyTrack.hasAttribute('data-autoplay-journey')) {
-  let journeyFrame = 0;
-  const syncJourneyStage = () => {
-    if (!pinnedJourneyEnabled.matches || journeyFrame) return;
-    journeyFrame = requestAnimationFrame(() => {
-      journeyFrame = 0;
-      const travel = journeyTrack.offsetHeight - window.innerHeight;
-      if (travel <= 0) return;
-      const progress = Math.min(Math.max(-journeyTrack.getBoundingClientRect().top / travel, 0), 0.999999);
-      const step = Math.min(Math.floor(progress * 4), 3);
-      const activeJourney = all<HTMLElement>('[data-journey]').find((journey) => journey.getClientRects().length > 0);
-      const buttons = activeJourney ? all<HTMLButtonElement>('[data-step-button]').filter((button) => button.closest('[data-journey]') === activeJourney) : [];
-      const current = buttons.find((button) => button.getAttribute('aria-pressed') === 'true');
-      const next = buttons[step];
-      if (next && current !== next) next.click();
-    });
-  };
-  window.addEventListener('scroll', syncJourneyStage, { passive: true });
-  window.addEventListener('resize', syncJourneyStage);
-  all<HTMLInputElement>('[name="rol"]').forEach((input) => input.addEventListener('change', syncJourneyStage));
-  syncJourneyStage();
-}
 
 // El formulario solo se activa con un endpoint configurado.
 const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');

@@ -16,7 +16,7 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   <Header solid />
   <main id="main-content">
     <section class="subpage-hero detail-hero journey-hero"><TopographicBackdrop city /><div class="wrap"><p class="eyebrow">Tu recorrido, paso a paso</p><h1>¿Cómo funciona Woki?</h1><p class="lead">Una experiencia para pasajeros y conductores, con información del viaje disponible en cada etapa.</p></div></section>
-    <section class="detail-section detail-journey journey-experience how-scroll-track" data-scroll-journey aria-labelledby="journey-detail-title">
+    <section class="detail-section detail-journey journey-experience" aria-labelledby="journey-detail-title">
       <div class="how">
         <TopographicBackdrop />
         <div class="wrap tabs">
@@ -28,8 +28,8 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
               <label for="t-pas"><span>Pasajero</span></label>
               <label for="t-con"><span>Conductor</span></label>
             </div>
-            <PhoneJourneyPanel role="pasajero" steps={passengerSteps} />
-            <PhoneJourneyPanel role="conductor" steps={driverSteps} />
+            <PhoneJourneyPanel role="pasajero" steps={passengerSteps} autoplay />
+            <PhoneJourneyPanel role="conductor" steps={driverSteps} autoplay />
           </fieldset>
         </div>
       </div>
@@ -88,40 +88,23 @@ const structuredData = buildSectionJsonLd(Astro.site, '/como-funciona', 'Cómo f
   .journey-explainer .detail-two-col p{line-height:1.7}
   .journey-explainer>.wrap>.lead{margin-top:2rem}
   .journey-explainer a{color:var(--deep);font-weight:750;text-decoration-thickness:1px;text-underline-offset:3px}
-  @media(min-width:801px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
-    .journey-experience.how-scroll-track{height:240svh}
-    .journey-experience.how-scroll-track>.how{position:sticky;top:0;height:100svh;min-height:100svh;overflow:hidden;display:flex;align-items:center;padding:1svh 0}
-    .journey-experience>.how{min-height:100svh}
+  @media(min-width:801px){
     .journey-experience .journey-role-group{width:100%}
     .journey-experience .journey-role-group>.tablist{margin:.6rem auto .8rem}
-    .journey-experience :global(.phone-journey){max-height:min(75svh,730px);padding:clamp(.8rem,1.5svh,1.25rem)}
+    .journey-experience :global(.phone-journey){padding:clamp(.8rem,1.5svh,1.25rem)}
     .journey-experience :global(.phone-journey-layout){gap:clamp(1rem,4vw,3rem)}
-    .journey-experience :global(.phone-scene){top:calc(50svh - 260px)}
     .journey-experience :global(.phone-shell){width:min(100%,260px)}
     .journey-experience :global(.phone-step-list){gap:.65rem}
-    .journey-experience :global(.phone-step){min-height:82px;padding:.7rem}
+    .journey-experience :global(.phone-step){min-height:82px;padding:.7rem .7rem 1.15rem}
     .journey-experience :global(.phone-step-copy>span){font-size:.86rem}
   }
-  @media(min-width:2000px) and (min-height:700px) and (prefers-reduced-motion:no-preference){
-    .journey-experience.how-scroll-track{height:180svh}
-    .journey-experience :global(.phone-journey){max-height:80svh}
+  @media(min-width:2000px){
     .journey-experience :global(.phone-shell){width:min(100%,clamp(320px,14vw,520px))}
-    .journey-experience :global(.phone-step){min-height:clamp(110px,9svh,220px);padding:clamp(.75rem,1.2vw,1.5rem)}
+    .journey-experience :global(.phone-step){min-height:clamp(110px,9svh,220px);padding:clamp(.75rem,1.2vw,1.5rem) clamp(.75rem,1.2vw,1.5rem) clamp(1.1rem,1.7vw,2rem)}
     .journey-experience :global(.phone-step-number){width:clamp(42px,4svh,64px);height:clamp(42px,4svh,64px)}
     .journey-experience :global(.phone-step-copy>span){font-size:clamp(.95rem,1.05svh,1.25rem)}
   }
-  @supports (animation-timeline:view()){
-    .journey-experience{view-timeline-name:--woki-journey;view-timeline-axis:block}
-    .journey-experience :global(.phone-route-progress){stroke-dashoffset:364;animation:draw-journey-route 1s linear both;animation-timeline:--woki-journey;animation-range:entry 0% exit 100%}
-  }
-  @keyframes draw-journey-route{to{stroke-dashoffset:0}}
-  @supports not (animation-timeline:view()){
-    .how-scroll-track{height:auto!important}
-    .journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}
-    .journey-experience :global(.phone-scene){display:none}
-    .journey-experience :global(.phone-journey){max-height:none;overflow:visible}
-    .journey-experience :global(.phone-mobile-image){display:block}
-  }
+  .journey-experience>.how{min-height:0}
   @media(max-width:800px){.journey-experience>.how{min-height:0;padding:0}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}}
-  @media(prefers-reduced-motion:reduce){.journey-experience,.journey-experience :global(.phone-route-progress){animation:none!important;view-timeline-name:none}.journey-experience>.how{position:relative!important;top:auto!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-block:0!important}.journey-experience :global(.phone-scene){display:none}.journey-experience :global(.phone-journey){max-height:none;overflow:visible}.journey-experience :global(.phone-mobile-image){display:block}.journey-role-group>.tablist::before{transition:none}}
+  @media(prefers-reduced-motion:reduce){.journey-experience :global(.phone-scene){display:none}.journey-experience :global(.phone-mobile-image){display:block}.journey-role-group>.tablist::before{transition:none}}
 </style>
