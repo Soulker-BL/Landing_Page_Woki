@@ -8,7 +8,16 @@ const { solid = false } = Astro.props;
   <div class="bar">
     <a href={routes.home} aria-label="Woki, inicio"><Logo /></a>
     <nav id="menu" aria-label="Navegación principal">
-      {navigation.map(({ href, label }) => <a href={href} aria-current={Astro.url.pathname !== '/' && Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
+      {navigation.map((item) => item.children ? (
+        <div class="nav-dropdown" data-nav-dropdown>
+          <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-controls="how-menu" data-nav-trigger>
+            {item.label}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>
+          </button>
+          <div class="nav-submenu" id="how-menu" data-nav-submenu>
+            {item.children.map(({ href, label }) => <a href={href} aria-current={Astro.url.pathname !== '/' && Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
+          </div>
+        </div>
+      ) : <a href={item.href} aria-current={Astro.url.pathname !== '/' && Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
     </nav>
     <a class="pide" href={routes.download}>
       Viaja ya
