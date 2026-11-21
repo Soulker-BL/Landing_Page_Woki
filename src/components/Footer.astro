@@ -36,10 +36,9 @@ import { brand, footerNavigation, legalNavigation, routes } from '../data/site';
     </div>
     <div class="checker foot-checker" aria-hidden="true"></div>
     <div class="wrap legal">
-      <span>© 2026 Woki Taxi App. Todos los derechos reservados.</span>
-      <span>{legalNavigation.map(({ href, label }, index) => <>{index > 0 && ' · '}<a href={href}>{label}</a></>)}</span>
+      <span>© 2026 Woki App. Todos los derechos reservados.</span>
+      <span class="legal-links"><a href={routes.legalNotice}>Información del sitio</a><span aria-hidden="true"> · </span><a href={routes.terms}>Información legal</a><span aria-hidden="true"> · </span><a href={routes.accountDeletion}>Eliminar cuenta</a></span>
       <button class="cookie-settings" type="button" data-open-analytics-consent aria-controls="analytics-consent" aria-expanded="false">Preferencias de analítica</button>
-      <a class="up" href="#top">Volver arriba <svg viewBox="0 0 16 16"><path d="M3 10l5-5 5 5"/></svg></a>
     </div>
     <div class="mark" aria-hidden="true">Woki</div>
   </footer>
