@@ -1,0 +1,32 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { brand } from '../data/site';
+---
+<Legal title="Términos y condiciones del Conductor" legalSection imageAlt="Términos y condiciones para conductores de Woki" description={`Revisa las condiciones para registrarte y recibir solicitudes como conductor en Woki, incluidos documentos, viajes, tarifas y uso de la plataforma.`}>
+  <p>Estas condiciones describen el uso de Woki por quienes conducen y atienden solicitudes de taxi. Se complementan con los <a href="/terminos">Términos y condiciones del Pasajero</a>, la <a href="/privacidad">Política de privacidad</a> y la <a href="/cookies">Política de cookies</a>.</p>
+  <h2>1. La plataforma Woki</h2>
+  <p>{brand.name}, operada por {brand.legalName}, es una plataforma tecnológica que conecta a pasajeros con conductores de taxi urbano en {brand.city}. La solicitud y el viaje se coordinan entre el pasajero y el conductor a través de las herramientas disponibles en la app.</p>
+  <h2>2. Cuenta y datos del conductor</h2>
+  <ul>
+    <li>Debes ser mayor de 18 años y proporcionar información veraz y actualizada.</li>
+    <li>Eres responsable de mantener la confidencialidad de tus credenciales y del uso de tu cuenta.</li>
+    <li>La cuenta es personal. No debes permitir que otra persona conduzca usando tu perfil ni suplantar a otra persona.</li>
+  </ul>
+  <h2>3. Licencia, vehículo y documentos</h2>
+  <p>Para ofrecer viajes, debes presentar y mantener vigentes la licencia de conducir, el SOAT y los datos y documentos del vehículo que Woki solicite para el perfil. La información debe corresponder a la persona y al vehículo que efectivamente prestan el servicio. Woki puede suspender cuentas que incumplan estos requisitos.</p>
+  <h2>4. Solicitudes, tarifas y pagos</h2>
+  <p>Antes de aceptar una solicitud, revisa la información del recorrido, la tarifa y la forma de pago que muestre la app. La tarifa se muestra o se acuerda antes de iniciar el viaje. El pasajero paga en efectivo o con Yape directamente al conductor, según lo elegido. Si la app ofrece una opción para proponer o ajustar una tarifa, úsala de acuerdo con las condiciones que se muestran para esa solicitud.</p>
+  <h2>5. Confirmación del viaje y PIN</h2>
+  <p>Comprueba que el pasajero, el punto de recojo y los datos de la solicitud correspondan al servicio aceptado. El PIN confirma el inicio del viaje: solicítalo al pasajero y compáralo en la app antes de comenzar. No inicies un viaje con un PIN que no coincida con la solicitud.</p>
+  <h2>6. Trato y conducta durante el servicio</h2>
+  <ul>
+    <li>Trata al pasajero con respeto y mantén una comunicación apropiada.</li>
+    <li>No uses la plataforma para fines ilegales, no suplantes identidades ni registres información falsa.</li>
+    <li>Si no puedes atender una solicitud aceptada, informa la cancelación con anticipación mediante las opciones de la app.</li>
+    <li>Usa chat y llamadas de la app para coordinar el servicio cuando sea necesario.</li>
+  </ul>
+  <h2>7. Disponibilidad y cambios</h2>
+  <p>La disponibilidad de solicitudes y de la plataforma puede variar. Woki trabaja para mantener el servicio operativo, pero no garantiza que esté libre de interrupciones. Estos términos pueden actualizarse; la versión vigente y su fecha se publicarán en esta página.</p>
+  <h2>8. Contacto y normativa</h2>
+  <p>Estos términos se rigen por las leyes de la República del Perú. Para consultas relacionadas con la cuenta o el uso de Woki, escribe a {brand.email}.</p>
+</Legal>

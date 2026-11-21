@@ -2,9 +2,9 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { assets, brand } from '../data/site';
-interface Props { title: string; description: string; updated?: string; imageAlt?: string }
-const { title, description, updated = brand.legalUpdated } = Astro.props;
+import { assets, brand, legalDocuments } from '../data/site';
+interface Props { title: string; description: string; updated?: string; imageAlt?: string; legalSection?: boolean }
+const { title, description, updated = brand.legalUpdated, legalSection = false } = Astro.props;
 const base = Astro.site ?? new URL(brand.siteUrl);
 const pagePath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
 const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: base.href }, { '@type': 'ListItem', position: 2, name: title, item: new URL(pagePath, base).href }] };
@@ -12,10 +12,25 @@ const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList'
 <Layout title={`${title} | ${brand.name}`} description={description} image={assets.socialImage} imageAlt={Astro.props.imageAlt ?? `Información sobre ${title.toLowerCase()} de Woki`}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} slot="head" />
   <Header solid />
-  <main id="main-content" class="legal-page wrap">
-    <h1>{title}</h1>
-    <p class="updated">Última actualización: {updated}</p>
-    <slot />
+  <main id="main-content" class:list={['legal-page', 'wrap', legalSection && 'legal-hub']}>
+    {legalSection ? <>
+      <header class="legal-hub-heading"><p class="eyebrow dark">Woki · documentos y políticas</p><h1>Información legal</h1><p>Consulta las condiciones y políticas de Woki. Selecciona un documento para leerlo completo.</p></header>
+      <div class="legal-hub-layout">
+        <nav class="legal-selector" aria-label="Documentos legales">
+          <h2>Documentos</h2>
+          {legalDocuments.map(({ href, label }) => <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
+        </nav>
+        <article class="legal-document" aria-labelledby="legal-document-title">
+          <h2 id="legal-document-title">{title}</h2>
+          <p class="updated">Última actualización: {updated}</p>
+          <slot />
+        </article>
+      </div>
+    </> : <>
+      <h1>{title}</h1>
+      <p class="updated">Última actualización: {updated}</p>
+      <slot />
+    </>}
   </main>
   <Footer />
   <script>import '../scripts/main.ts';</script>

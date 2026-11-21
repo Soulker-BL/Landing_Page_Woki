@@ -117,7 +117,7 @@ for (const file of htmlFiles) {
 assert(new Set(pages.map((page) => page.html.match(/<title>(.*?)<\/title>/is)?.[1]?.replace(/\s+/g, ' ').trim() ?? '')).size === pages.length, 'Los titles deben ser únicos entre páginas.');
 assert(new Set(pages.map((page) => metaContent(page.html, /<meta\s+name="description"\s+content="([^"]*)"/i))).size === pages.length, 'Las meta descriptions deben ser únicas entre páginas.');
 
-const expectedPagePaths = ['/', '/como-funciona', '/seguridad', '/conductores', '/nosotros', '/contacto', '/aviso-legal', '/privacidad', '/terminos'];
+const expectedPagePaths = ['/', '/como-funciona', '/seguridad', '/conductores', '/nosotros', '/contacto', '/aviso-legal', '/privacidad', '/terminos', '/terminos-conductor', '/cookies'];
 if (!siteConfig.isNoIndex) {
   const sitemapPath = path.join(dist, 'sitemap.xml');
   let sitemap = '';

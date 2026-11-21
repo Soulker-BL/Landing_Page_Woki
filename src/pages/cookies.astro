@@ -1,0 +1,23 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { brand } from '../data/site';
+---
+<Legal title="Política de cookies" legalSection imageAlt="Política de cookies y analítica de Woki" description={`Consulta cómo Woki usa cookies y almacenamiento del navegador, qué analítica opcional emplea la landing y cómo cambiar tu consentimiento.`}>
+  <p>Esta política explica el uso de cookies y tecnologías similares en la página web de {brand.name}. Para información sobre otros datos personales, consulta la <a href="/privacidad">Política de privacidad</a>.</p>
+  <h2>1. Qué son las cookies</h2>
+  <p>Las cookies son pequeños archivos que un sitio web puede guardar en el navegador. Algunas funciones también usan almacenamiento local o de sesión del navegador, que permite recordar una preferencia sin crear necesariamente una cookie.</p>
+  <h2>2. Tecnologías utilizadas en esta landing</h2>
+  <ul>
+    <li><strong>Preferencia de analítica:</strong> la decisión de aceptar o rechazar analítica se guarda en el almacenamiento local del navegador para respetarla en futuras visitas.</li>
+    <li><strong>Marca de sesión:</strong> una marca temporal en el almacenamiento de sesión evita repetir la pantalla de bienvenida durante la misma sesión. Se elimina al cerrar la sesión del navegador.</li>
+    <li><strong>Analítica opcional:</strong> si aceptas, se carga Google Tag Manager (GTM-P487G36D) y la etiqueta de Google Analytics 4 (G-NP39SH73XH). Estas herramientas pueden utilizar cookies o identificadores del navegador para medir el uso de la página.</li>
+  </ul>
+  <h2>3. Consentimiento y elección</h2>
+  <p>Google Tag Manager y Google Analytics no se cargan desde esta landing hasta que selecciones “Sí, acepto ayudar”. Si eliges “Quizás más tarde”, no se activa la analítica. Puedes cambiar tu elección en cualquier momento mediante “Preferencias de analítica” al pie de la página.</p>
+  <h2>4. Qué información puede medir la analítica</h2>
+  <p>Si aceptas, Google Analytics puede recibir datos de navegación y técnicos, como páginas visitadas, interacciones, dirección de referencia, navegador y dispositivo. La analítica se utiliza para entender el uso de la landing y mejorarla; Woki no configura esta herramienta para publicidad en la página. Google trata esos datos conforme a sus propias políticas. Puedes leer la <a href="https://policies.google.com/privacy" rel="external">Política de Privacidad de Google</a>.</p>
+  <h2>5. Cómo borrar o bloquear cookies</h2>
+  <p>Puedes borrar cookies y almacenamiento del sitio desde los ajustes del navegador o bloquearlos por completo. Si lo haces, es posible que la página no recuerde tu preferencia de analítica y vuelva a preguntarte. También puedes rechazar la medición con el control de preferencias de Woki.</p>
+  <h2>6. Actualizaciones y contacto</h2>
+  <p>Podemos actualizar esta política cuando cambien las tecnologías de la landing. Publicaremos aquí la versión vigente y su fecha de actualización. Para consultas sobre privacidad o cookies, escríbenos a {brand.email}.</p>
+</Legal>
